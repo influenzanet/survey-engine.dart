@@ -19,7 +19,6 @@ class ExpressionEvaluation {
       throw ArgumentCountException();
     }
     switch (expression.name) {
-      // logical operators -->
       case 'lt':
         return lt(expression);
         break;
@@ -39,12 +38,13 @@ class ExpressionEvaluation {
     return false;
   }
 
-// Logical operations
   bool lt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     switch (arguments[0].dType.dType) {
       case 'number':
         return arguments[0].number < arguments[1].number;
+        break;
+
       case 'str':
         return (arguments[0].str.compareTo(arguments[1].str)) == -1;
         break;
@@ -57,6 +57,8 @@ class ExpressionEvaluation {
     switch (arguments[0].dType.dType) {
       case 'number':
         return arguments[0].number > arguments[1].number;
+        break;
+
       case 'str':
         return (arguments[0].str.compareTo(arguments[1].str)) == 1;
         break;
@@ -66,7 +68,8 @@ class ExpressionEvaluation {
 
   bool eq(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    return arguments[0] == arguments[1];
+    var identicalCheckArg = arguments[0];
+    return arguments.every((arg) => arg == identicalCheckArg);
   }
 
   bool gte(Expression expression) {
@@ -74,6 +77,8 @@ class ExpressionEvaluation {
     switch (arguments[0].dType.dType) {
       case 'number':
         return arguments[0].number >= arguments[1].number;
+        break;
+
       case 'str':
         return (arguments[0].str.compareTo(arguments[1].str)) >= 0;
         break;
@@ -86,9 +91,38 @@ class ExpressionEvaluation {
     switch (arguments[0].dType.dType) {
       case 'number':
         return arguments[0].number <= arguments[1].number;
+        break;
       case 'str':
         return (arguments[0].str.compareTo(arguments[1].str)) <= 0;
         break;
+    }
+    return false;
+  }
+
+  bool or(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    switch (arguments[0].dType.dType) {
+      case 'number':
+        var trueData =
+            arguments.firstWhere((arg) => arg.number > 0, orElse: () => null);
+        return trueData == null ? false : true;
+        break;
+      //Need to check
+      case 'exp':
+        return evalExpression(arguments[0].exp);
+    }
+    return false;
+  }
+
+  bool and(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    switch (arguments[0].dType.dType) {
+      case 'number':
+        return arguments.every((arg) => arg.number > 0);
+        break;
+      //Need to check
+      case 'exp':
+        return evalExpression(arguments[0].exp);
     }
     return false;
   }

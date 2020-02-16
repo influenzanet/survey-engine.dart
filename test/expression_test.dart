@@ -5,7 +5,7 @@ import 'package:survey_engine.dart/src/models/expression/expression_return_type.
 import 'package:test/test.dart';
 
 void main() {
-  group('Init tests', () {
+  group('Init tests:\n', () {
     ExpressionArgDType argDType;
     ExpressionArg exprArg;
     ReturnType ret;
@@ -42,7 +42,7 @@ void main() {
       Expression expr =
           Expression(name: 'or', returnType: ret, data: testExprArgArray);
       Expression actualExpression = Expression.fromMap(testExpr);
-      expect(actualExpression.toJson(), expr.toJson());
+      expect(actualExpression, expr);
     });
   });
 }

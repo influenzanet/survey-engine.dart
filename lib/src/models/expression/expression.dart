@@ -42,10 +42,7 @@ class Expression {
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Expression &&
-        o.name == name &&
-        o.returnType == returnType &&
-        o.data == data;
+    return o is Expression && o.toJson() == this.toJson();
   }
 
   @override
