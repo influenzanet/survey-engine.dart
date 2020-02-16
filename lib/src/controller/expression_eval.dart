@@ -4,12 +4,6 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
 class ExpressionEvaluation {
-  Expression expr;
-
-  ExpressionEvaluation({
-    this.expr,
-  });
-
 // Should be changed to ReturnType function instead of bool
 
   bool evalExpression(Expression expression) {
@@ -21,7 +15,7 @@ class ExpressionEvaluation {
     } catch (e) {
       throw InvalidArgumentsException();
     }
-    if ((checkValidMap['arguments'] > this.expr.data.length)) {
+    if ((checkValidMap['arguments'] > expression.data.length)) {
       throw ArgumentCountException();
     }
     switch (expression.name) {

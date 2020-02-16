@@ -12,7 +12,7 @@ int main() {
   };
   Expression expression = Expression.fromMap(testMap);
   print(expression.toString());
-  ExpressionEvaluation eval = ExpressionEvaluation(expr: expression);
+  ExpressionEvaluation eval = ExpressionEvaluation();
   bool m = eval.evalExpression(expression);
   print(m);
   return 0;
