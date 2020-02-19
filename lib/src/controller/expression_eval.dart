@@ -34,10 +34,17 @@ class ExpressionEvaluation {
       case 'eq':
         return eq(expression);
         break;
+      case 'or':
+        return or(expression);
+        break;
+      case 'and':
+        return and(expression);
+        break;
     }
     return false;
   }
 
+// Relational operations
   bool lt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     switch (arguments[0].dType.dType) {
@@ -99,12 +106,18 @@ class ExpressionEvaluation {
     return false;
   }
 
+// Logical operations
   bool or(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     switch (arguments[0].dType.dType) {
       case 'number':
         var trueData =
             arguments.firstWhere((arg) => arg.number > 0, orElse: () => null);
+        return trueData == null ? false : true;
+        break;
+      case 'str':
+        var trueData = arguments.firstWhere((arg) => arg.str.length > 0,
+            orElse: () => null);
         return trueData == null ? false : true;
         break;
       //Need to check
@@ -119,6 +132,9 @@ class ExpressionEvaluation {
     switch (arguments[0].dType.dType) {
       case 'number':
         return arguments.every((arg) => arg.number > 0);
+        break;
+      case 'str':
+        return arguments.every((arg) => arg.str.length > 0);
         break;
       //Need to check
       case 'exp':
