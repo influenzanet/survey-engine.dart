@@ -11,7 +11,7 @@ void main() {
     setUp(() {
       eval = ExpressionEvaluation();
     });
-    test('Check isFalse for numbers (2)', () {
+    test('Check isFalse for numbers !(2)', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
@@ -23,7 +23,7 @@ void main() {
       expect(eval.evalExpression(expr), isFalse);
     });
 
-    test('Check isTrue for numbers (0)', () {
+    test('Check isTrue for numbers !(0)', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
@@ -35,7 +35,7 @@ void main() {
       expect(eval.evalExpression(expr), isTrue);
     });
 
-    test('Check for strings isFalse (ab)', () {
+    test('Check for strings isFalse !(ab)', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
@@ -46,7 +46,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check for strings isTrue for (\'\')', () {
+    test('Check for strings isTrue for !(\'\')', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',

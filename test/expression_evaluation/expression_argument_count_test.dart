@@ -26,6 +26,90 @@ void main() {
       expect(() => eval.evalExpression(expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
+    test(
+        'Single argument provided for binary operator lt catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'lt',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
+
+    test(
+        'Single argument provided for binary operator lte catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'lte',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
+    test(
+        'Single argument provided for binary operator gte catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'gte',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
+    test(
+        'Single argument provided for binary operator and catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'and',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
+    test(
+        'Single argument provided for binary operator or catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'or',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
+    test('Two arguments for unary operator not catches invalid exception', () {
+      testExpr = {
+        'name': 'not',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2},
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
 
     test('Invalid operation', () {
       testExpr = {
