@@ -59,7 +59,7 @@ class ExpressionEvaluation {
     }
   }
 
-  List<dynamic> evaluateBinaryOperator(ExpressionArg arg1, ExpressionArg arg2) {
+  List<dynamic> evaluateBinaryOperands(ExpressionArg arg1, ExpressionArg arg2) {
     var argument1 = getData(arg1);
     var argument2 = getData(arg2);
 
@@ -71,7 +71,7 @@ class ExpressionEvaluation {
 // Relational operations
   bool lt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
     return result[0] is String
         ? (result[0].compareTo(result[1]) == -1)
         : result[0] < result[1];
@@ -79,7 +79,7 @@ class ExpressionEvaluation {
 
   bool gt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
     return result[0] is String
         ? (result[0].compareTo(result[1]) == 1)
         : result[0] > result[1];
@@ -93,7 +93,7 @@ class ExpressionEvaluation {
 
   bool gte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
     return result[0] is String
         ? (result[0].compareTo(result[1]) >= 0)
         : result[0] >= result[1];
@@ -101,7 +101,7 @@ class ExpressionEvaluation {
 
   bool lte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
     return result[0] is String
         ? (result[0].compareTo(result[1]) <= 0)
         : result[0] <= result[1];
