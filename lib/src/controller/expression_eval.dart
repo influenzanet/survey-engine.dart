@@ -43,6 +43,9 @@ class ExpressionEvaluation {
       case 'not':
         return not(expression);
         break;
+      case 'isDefined':
+        return isDefined(expression);
+        break;
     }
     return false;
   }
@@ -71,40 +74,48 @@ class ExpressionEvaluation {
 // Relational operations
   bool lt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
-    return result[0] is String
-        ? (result[0].compareTo(result[1]) == -1)
-        : result[0] < result[1];
+    var result = evaluateBinaryOperands(
+        arguments[firstArgument], arguments[secondArgument]);
+    return result[firstExpression] is String
+        ? (result[firstExpression].compareTo(result[secondExpression]) <
+            stringEqualityValue)
+        : result[firstExpression] < result[secondExpression];
   }
 
   bool gt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
-    return result[0] is String
-        ? (result[0].compareTo(result[1]) == 1)
-        : result[0] > result[1];
+    var result = evaluateBinaryOperands(
+        arguments[firstArgument], arguments[secondArgument]);
+    return result[firstExpression] is String
+        ? (result[firstExpression].compareTo(result[secondExpression]) >
+            stringEqualityValue)
+        : result[firstExpression] > result[secondExpression];
   }
 
   bool eq(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var identicalCheckArg = arguments[0];
+    var identicalCheckArg = arguments[firstArgument];
     return arguments.every((arg) => arg == identicalCheckArg);
   }
 
   bool gte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
-    return result[0] is String
-        ? (result[0].compareTo(result[1]) >= 0)
-        : result[0] >= result[1];
+    var result = evaluateBinaryOperands(
+        arguments[firstArgument], arguments[secondArgument]);
+    return result[firstExpression] is String
+        ? (result[firstExpression].compareTo(result[secondExpression]) >=
+            stringEqualityValue)
+        : result[firstExpression] >= result[secondExpression];
   }
 
   bool lte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    var result = evaluateBinaryOperands(arguments[0], arguments[1]);
-    return result[0] is String
-        ? (result[0].compareTo(result[1]) <= 0)
-        : result[0] <= result[1];
+    var result = evaluateBinaryOperands(
+        arguments[firstArgument], arguments[secondArgument]);
+    return result[firstExpression] is String
+        ? (result[firstExpression].compareTo(result[secondExpression]) <=
+            stringEqualityValue)
+        : result[firstExpression] <= result[secondExpression];
   }
 
 // Logical operations
@@ -129,6 +140,7 @@ class ExpressionEvaluation {
     bool result = false;
     for (final arg in arguments) {
       result = getLogicalEvaluation(arg);
+      // `or` evaluates to true even if single expression returns true
       if (result == true) {
         break;
       }
@@ -141,6 +153,7 @@ class ExpressionEvaluation {
     bool result = true;
     for (final arg in arguments) {
       result = getLogicalEvaluation(arg);
+      // `and` evaluates to false even if single expression returns false
       if (result == false) {
         break;
       }
@@ -150,9 +163,21 @@ class ExpressionEvaluation {
 
   bool not(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    if (arguments.length > 1) {
+    if (arguments.length > maxUnaryOperands) {
       throw ArgumentCountException();
     }
-    return !getLogicalEvaluation(arguments[0]);
+    return !getLogicalEvaluation(arguments[firstArgument]);
+  }
+
+  bool isDefined(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    if (arguments.length > maxUnaryOperands) {
+      throw ArgumentCountException();
+    }
+    var argument = getData(arguments[firstArgument]);
+    var result = arguments[firstArgument].exp != null
+        ? evalExpression(argument)
+        : argument;
+    return (result != null);
   }
 }

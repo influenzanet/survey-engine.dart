@@ -20,3 +20,9 @@ const List<Map<String, Object>> expressionArguments = [
   {'name': 'getResponseItem', 'arguments': 1},
   {'name': 'getSurveyItemValidation', 'arguments': 1},
 ];
+const int firstArgument = 0,
+    secondArgument = 1,
+    firstExpression = 0,
+    secondExpression = 1,
+    stringEqualityValue = 0,
+    maxUnaryOperands = 1;
