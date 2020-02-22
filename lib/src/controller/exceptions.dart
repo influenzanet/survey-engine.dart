@@ -1,5 +1,5 @@
 class InvalidArgumentsException implements Exception {
-  String errMsg() => 'Not a valid argument name';
+  String errMsg({String message = ''}) => message + 'Not a valid argument name';
 }
 
 class ArgumentCountException implements Exception {

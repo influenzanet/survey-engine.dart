@@ -40,6 +40,9 @@ class ExpressionEvaluation {
       case 'and':
         return and(expression);
         break;
+      case 'not':
+        return not(expression);
+        break;
     }
     return false;
   }
@@ -141,5 +144,9 @@ class ExpressionEvaluation {
         return evalExpression(arguments[0].exp);
     }
     return false;
+  }
+
+  bool not(Expression expression) {
+    return !evalExpression(expression);
   }
 }

@@ -12,3 +12,7 @@ doc/api/
 .vscode/launch.json
 CHANGELOG.md
 analysis_options.yaml
+test/.test_coverage.dart
+coverage/lcov.info
+coverage_badge.svg
+.vscode/settings.json
