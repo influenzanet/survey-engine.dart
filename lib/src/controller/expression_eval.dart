@@ -47,33 +47,42 @@ class ExpressionEvaluation {
     return false;
   }
 
+  dynamic getData(ExpressionArg arg) {
+    switch (arg.dType.dType) {
+      case 'number':
+        return arg.number;
+        break;
+      case 'str':
+        return arg.str;
+      case 'exp':
+        return arg.exp;
+    }
+  }
+
+  List<dynamic> evaluateBinaryOperator(ExpressionArg arg1, ExpressionArg arg2) {
+    var argument1 = getData(arg1);
+    var argument2 = getData(arg2);
+
+    var res1 = arg1.exp != null ? evalExpression(argument1) : argument1;
+    var res2 = arg2.exp != null ? evalExpression(argument2) : argument2;
+    return [res1, res2];
+  }
+
 // Relational operations
   bool lt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
-      case 'number':
-        return arguments[0].number < arguments[1].number;
-        break;
-
-      case 'str':
-        return (arguments[0].str.compareTo(arguments[1].str)) == -1;
-        break;
-    }
-    return false;
+    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    return result[0] is String
+        ? (result[0].compareTo(result[1]) == -1)
+        : result[0] < result[1];
   }
 
   bool gt(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
-      case 'number':
-        return arguments[0].number > arguments[1].number;
-        break;
-
-      case 'str':
-        return (arguments[0].str.compareTo(arguments[1].str)) == 1;
-        break;
-    }
-    return false;
+    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    return result[0] is String
+        ? (result[0].compareTo(result[1]) == 1)
+        : result[0] > result[1];
   }
 
   bool eq(Expression expression) {
@@ -84,69 +93,66 @@ class ExpressionEvaluation {
 
   bool gte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
-      case 'number':
-        return arguments[0].number >= arguments[1].number;
-        break;
-
-      case 'str':
-        return (arguments[0].str.compareTo(arguments[1].str)) >= 0;
-        break;
-    }
-    return false;
+    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    return result[0] is String
+        ? (result[0].compareTo(result[1]) >= 0)
+        : result[0] >= result[1];
   }
 
   bool lte(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
-      case 'number':
-        return arguments[0].number <= arguments[1].number;
-        break;
-      case 'str':
-        return (arguments[0].str.compareTo(arguments[1].str)) <= 0;
-        break;
-    }
-    return false;
+    var result = evaluateBinaryOperator(arguments[0], arguments[1]);
+    return result[0] is String
+        ? (result[0].compareTo(result[1]) <= 0)
+        : result[0] <= result[1];
   }
 
 // Logical operations
-  bool or(Expression expression) {
-    List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
+  bool getLogicalEvaluation(ExpressionArg arg) {
+    switch (arg.dType.dType) {
       case 'number':
-        var trueData =
-            arguments.firstWhere((arg) => arg.number > 0, orElse: () => null);
-        return trueData == null ? false : true;
+        return (arg.number > 0);
         break;
       case 'str':
-        var trueData = arguments.firstWhere((arg) => arg.str.length > 0,
-            orElse: () => null);
-        return trueData == null ? false : true;
+        return (arg.str.length > 0);
         break;
-      //Need to check
       case 'exp':
-        return evalExpression(arguments[0].exp);
+        return (evalExpression(arg.exp));
+        break;
+      default:
+        return false;
     }
-    return false;
+  }
+
+  bool or(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    bool result = false;
+    for (final arg in arguments) {
+      result = getLogicalEvaluation(arg);
+      if (result == true) {
+        break;
+      }
+    }
+    return result;
   }
 
   bool and(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    switch (arguments[0].dType.dType) {
-      case 'number':
-        return arguments.every((arg) => arg.number > 0);
+    bool result = true;
+    for (final arg in arguments) {
+      result = getLogicalEvaluation(arg);
+      if (result == false) {
         break;
-      case 'str':
-        return arguments.every((arg) => arg.str.length > 0);
-        break;
-      //Need to check
-      case 'exp':
-        return evalExpression(arguments[0].exp);
+      }
     }
-    return false;
+    return result;
   }
 
   bool not(Expression expression) {
-    return !evalExpression(expression);
+    List<ExpressionArg> arguments = expression.data;
+    if (arguments.length > 1) {
+      throw ArgumentCountException();
+    }
+    return !getLogicalEvaluation(arguments[0]);
   }
 }
