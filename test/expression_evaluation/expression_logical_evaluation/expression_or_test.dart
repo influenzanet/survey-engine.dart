@@ -12,7 +12,7 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isTrue for numbers 2 || 1', () {
+    test('Check isTrue for numbers (2||1)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
@@ -24,7 +24,19 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check isTrue for numbers 1 || 0', () {
+    test('Check isFalse for numbers (0||0)', () {
+      testExpr = {
+        'name': 'or',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 0},
+          {'dType': 'number', 'number': 0}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expr), isFalse);
+    });
+    test('Check isTrue for numbers (1||0)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
@@ -37,19 +49,19 @@ void main() {
       expect(eval.evalExpression(expr), isTrue);
     });
 
-    test('Check isFalse for numbers 0 || 0', () {
+    test('Check for strings isFalse for (\'\'||\'\')', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 0},
-          {'dType': 'number', 'number': 0}
+          {'dType': 'str', 'str': ''},
+          {'dType': 'str', 'str': ''}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check for strings isTrue \'ab\' || \'bc\'', () {
+    test('Check for strings isTrue (ab||bc)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
@@ -61,17 +73,17 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check for strings isFalse for \'\' || \'\'', () {
+    test('Check for strings isTrue (ab||\'\')', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'str', 'str': ''},
+          {'dType': 'str', 'str': 'ab'},
           {'dType': 'str', 'str': ''}
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expr), isTrue);
     });
   });
 }

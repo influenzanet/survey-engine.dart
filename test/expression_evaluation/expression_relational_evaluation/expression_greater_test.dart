@@ -11,19 +11,7 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isTrue for numbers', () {
-      testExpr = {
-        'name': 'gt',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'number', 'number': 2},
-          {'dType': 'number', 'number': 1}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check for numbers isFalse', () {
+    test('Check for numbers isFalse (1>=2)', () {
       testExpr = {
         'name': 'gt',
         'returnType': 'boolean',
@@ -35,42 +23,9 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check for strings isTrue', () {
+    test('Check isTrue for numbers (2>=1)', () {
       testExpr = {
         'name': 'gt',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'str', 'str': 'bc'},
-          {'dType': 'str', 'str': 'ab'}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check for strings isFalse', () {
-      testExpr = {
-        'name': 'gt',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'bc'}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
-    });
-  });
-  group('Greater or Equal to comparisons:\n', () {
-    Expression expr;
-    ExpressionEvaluation eval;
-    Map<String, Object> testExpr;
-    setUp(() {
-      eval = ExpressionEvaluation();
-    });
-
-    test('Check greater for numbers isTrue', () {
-      testExpr = {
-        'name': 'gte',
         'returnType': 'boolean',
         'data': [
           {'dType': 'number', 'number': 2},
@@ -80,7 +35,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check equality for numbers isTrue', () {
+    test('Check equality for numbers isTrue (1>=1)', () {
       testExpr = {
         'name': 'gte',
         'returnType': 'boolean',
@@ -92,33 +47,22 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check lesser for numbers isFalse', () {
+
+    test('Check for strings isFalse (ab>=bc)', () {
       testExpr = {
-        'name': 'gte',
+        'name': 'gt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 2}
+          {'dType': 'str', 'str': 'ab'},
+          {'dType': 'str', 'str': 'bc'}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check equality for strings isTrue', () {
+    test('Check for strings isTrue (bc>=ab)', () {
       testExpr = {
-        'name': 'gte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'ab'}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check greater for strings isTrue', () {
-      testExpr = {
-        'name': 'gte',
+        'name': 'gt',
         'returnType': 'boolean',
         'data': [
           {'dType': 'str', 'str': 'bc'},
@@ -129,17 +73,17 @@ void main() {
       expect(eval.evalExpression(expr), isTrue);
     });
 
-    test('Check lesser for strings isFalse', () {
+    test('Check equality for strings isTrue (ab==ab)', () {
       testExpr = {
         'name': 'gte',
         'returnType': 'boolean',
         'data': [
           {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'bc'}
+          {'dType': 'str', 'str': 'ab'}
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expr), isTrue);
     });
   });
 }

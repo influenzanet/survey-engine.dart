@@ -11,7 +11,7 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isFalse for numbers', () {
+    test('Check isFalse for numbers (1<=1)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
@@ -25,7 +25,7 @@ void main() {
       expr.name = 'lte';
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check for numbers isTrue', () {
+    test('Check for numbers isTrue (1<=2)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
@@ -37,7 +37,19 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check for strings isFalse', () {
+    test('Check equal for numbers isTrue (1<=1)', () {
+      testExpr = {
+        'name': 'lte',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 1},
+          {'dType': 'number', 'number': 1}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expr), isTrue);
+    });
+    test('Check for strings isFalse (bc<=ab)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
@@ -49,7 +61,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check for strings isTrue', () {
+    test('Check for strings isTrue (ab<=bc)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
@@ -61,53 +73,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-  });
-
-  group('Lesser or Equal to comparisons:\n', () {
-    Expression expr;
-    ExpressionEvaluation eval;
-    Map<String, Object> testExpr;
-    setUp(() {
-      eval = ExpressionEvaluation();
-    });
-
-    test('Check lesser for numbers isTrue', () {
-      testExpr = {
-        'name': 'lte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 2}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check equal for numbers isTrue', () {
-      testExpr = {
-        'name': 'lte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 1}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check greater for numbers isFalse', () {
-      testExpr = {
-        'name': 'lte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'number', 'number': 2},
-          {'dType': 'number', 'number': 1}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
-    });
-    test('Check equality for strings isTrue', () {
+    test('Check equality for strings isTrue (ab<=ab)', () {
       testExpr = {
         'name': 'lte',
         'returnType': 'boolean',
@@ -118,31 +84,6 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
-    });
-    test('Check lesser for strings isTrue', () {
-      testExpr = {
-        'name': 'lte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'bc'}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
-    });
-
-    test('Check greater for strings isFalse', () {
-      testExpr = {
-        'name': 'lte',
-        'returnType': 'boolean',
-        'data': [
-          {'dType': 'str', 'str': 'db'},
-          {'dType': 'str', 'str': 'bc'}
-        ]
-      };
-      expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
     });
   });
 }

@@ -11,7 +11,7 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isTrue for numbers 1 && 1', () {
+    test('Check isTrue for numbers (1&&1)', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
@@ -23,7 +23,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check isTrue for numbers 1 && 2', () {
+    test('Check isTrue for numbers (1&&2)', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
@@ -36,7 +36,7 @@ void main() {
       expect(eval.evalExpression(expr), isTrue);
     });
 
-    test('Check isFalse for numbers 1 && 0', () {
+    test('Check isFalse for numbers (1&&0)', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
@@ -48,7 +48,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check for strings isTrue \'ab\' && \'bc\'', () {
+    test('Check for strings isTrue (ab&&bc))', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
@@ -60,7 +60,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check for strings isFalse for \'ab\' && \'\'', () {
+    test('Check for strings isFalse for (ab&&\'\'))', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
