@@ -111,6 +111,20 @@ void main() {
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
 
+    test('Two arguments for unary operator isDefined catches invalid exception',
+        () {
+      testExpr = {
+        'name': 'isDefined',
+        'returnType': 'boolean',
+        'data': [
+          {'dType': 'number', 'number': 2},
+          {'dType': 'number', 'number': 2}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(() => eval.evalExpression(expr),
+          throwsA(TypeMatcher<ArgumentCountException>()));
+    });
     test('Invalid operation', () {
       testExpr = {
         'name': 'dummy',

@@ -4,8 +4,6 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
 class ExpressionEvaluation {
-// Should be changed to ReturnType function instead of bool
-
   dynamic evalExpression(Expression expression) {
     var checkValidMap;
     var exprMap = expression.toMap();
