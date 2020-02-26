@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('Localised object creation init tests:\n', () {
     List<ExpressionArg> testExprArgArray;
-    var testObjectMap;
+    Map<String, dynamic> testObjectMap;
     ExpressionArg exprArg;
 
     setUp(() {
@@ -27,8 +27,9 @@ void main() {
           str:
               'Fachkraft (z.B. Manager, Arzt, Lehrer, Krankenschwester, Ingenieur)');
       testExprArgArray = [exprArg];
-      var expected = LocalizedObject.fromMap(testObjectMap);
-      var actual = LocalizedObject(code: 'de', parts: testExprArgArray);
+      LocalizedObject expected = LocalizedObject.fromMap(testObjectMap);
+      LocalizedObject actual =
+          LocalizedObject(code: 'de', parts: testExprArgArray);
       expect(actual.toJson(), expected.toJson());
     });
   });

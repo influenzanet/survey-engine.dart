@@ -5,3 +5,13 @@ class InvalidArgumentsException implements Exception {
 class ArgumentCountException implements Exception {
   String errMsg() => 'The expression has an invalid number of arguments';
 }
+
+class InvalidRoleException {
+  String message;
+  InvalidRoleException({
+    this.message,
+  });
+
+  @override
+  String toString() => 'The role has an invalid value $message';
+}
