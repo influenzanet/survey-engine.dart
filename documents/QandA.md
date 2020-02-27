@@ -1,5 +1,22 @@
 # Queries
 
+## LocalisedObject
+
+1. **parts**: returns the actual string/object to be displayed in the content.
+   1. Why is it an array of strings though only it has one `str` element
+   + Ans:
+   2. In case of `exp`, should the `name` of `exp` be evaluated to an `str` value and returned?
+   + Ans:
+
+## Display Component
+
+1. **disabled**: Can DisplayComponent be disabled?
+   + Ans:
+2. **displayCondtion**: Should condition be evaluated first? If true then can `content` be disabled?
+   + Ans:
+3. **style**: Can `styles` be focussed after completing the backend engine?
+   + Ans:
+
 ## Item Component
 
 1. **role**: defines the basic element type of a HTML Tag. I am assuming a `root` role is used as a root element of react app. How does role=`hint` work?
