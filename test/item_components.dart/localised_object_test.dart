@@ -1,3 +1,4 @@
+import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
@@ -31,6 +32,28 @@ void main() {
       LocalizedObject actual =
           LocalizedObject(code: 'de', parts: testExprArgArray);
       expect(actual.toJson(), expected.toJson());
+    });
+
+    test('An `exp` of return type other than string should typeCast as string',
+        () {
+      testObjectMap = {
+        'code': 'de',
+        'parts': [
+          {
+            'dType': 'exp',
+            'exp': {
+              'name': 'or',
+              'returnType': 'boolean',
+              'data': [
+                {'dType': 'number', 'number': 2},
+                {'dType': 'number', 'number': 1}
+              ]
+            }
+          },
+        ]
+      };
+      LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
+      expect(localizedObject.parts[firstArgument].str, 'true');
     });
   });
 }
