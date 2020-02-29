@@ -27,4 +27,4 @@ const int firstArgument = 0,
     stringEqualityValue = 0,
     maxUnaryOperands = 1;
 
-const displayItemComponentRoles = ['title', 'text', 'warning', 'error'];
+const DisplayItemComponentRoles = ['title', 'text', 'warning', 'error'];

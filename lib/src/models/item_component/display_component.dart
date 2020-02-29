@@ -3,45 +3,28 @@ import 'dart:convert';
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
-class DisplayItemComponent {
+class DisplayComponent extends ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
   Expression disabled;
   Map<String, String> style;
   String key;
-  DisplayItemComponent({
-    this.role,
-    this.displayCondition,
-    this.content,
-    this.disabled,
-    this.style,
-    this.key,
-  }) {
-    if (!(displayItemComponentRoles.contains(role))) {
+  DisplayComponent(
+      {this.role,
+      this.displayCondition,
+      this.content,
+      this.disabled,
+      this.style,
+      this.key})
+      : super(role, displayCondition, content, disabled, style, key) {
+    if (!(DisplayItemComponentRoles.contains(role))) {
       throw InvalidRoleException(
-          message: 'Expected roles in the list $displayItemComponentRoles');
+          message: 'Expected roles in the list $DisplayItemComponentRoles');
     }
-  }
-
-  DisplayItemComponent copyWith({
-    String role,
-    Expression displayCondition,
-    List<LocalizedObject> content,
-    Expression disabled,
-    Map<String, String> style,
-    String key,
-  }) {
-    return DisplayItemComponent(
-      role: role ?? this.role,
-      displayCondition: displayCondition ?? this.displayCondition,
-      content: content ?? this.content,
-      disabled: disabled ?? this.disabled,
-      style: style ?? this.style,
-      key: key ?? this.key,
-    );
   }
 
   Map<String, dynamic> toMap() {
@@ -55,10 +38,10 @@ class DisplayItemComponent {
     };
   }
 
-  static DisplayItemComponent fromMap(Map<String, dynamic> map) {
+  static DisplayComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return DisplayItemComponent(
+    return DisplayComponent(
       role: map['role'],
       displayCondition: Expression.fromMap(map['displayCondition']),
       content: List<LocalizedObject>.from(
@@ -71,19 +54,19 @@ class DisplayItemComponent {
 
   String toJson() => json.encode(toMap());
 
-  static DisplayItemComponent fromJson(String source) =>
+  static DisplayComponent fromJson(String source) =>
       fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'DisplayItemComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key';
+    return 'DisplayComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is DisplayItemComponent &&
+    return o is DisplayComponent &&
         o.role == role &&
         o.displayCondition == displayCondition &&
         o.content == content &&

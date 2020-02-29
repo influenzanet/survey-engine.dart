@@ -31,10 +31,10 @@ void main() {
       };
       LocalizedObject localisedObject =
           LocalizedObject.fromMap(testLocalisedObjectMap);
-      DisplayItemComponent expected =
-          DisplayItemComponent(role: 'title', content: [localisedObject]);
-      DisplayItemComponent actual =
-          DisplayItemComponent.fromMap(testDisplayItemComponentMap);
+      DisplayComponent expected =
+          DisplayComponent(role: 'title', content: [localisedObject]);
+      DisplayComponent actual =
+          DisplayComponent.fromMap(testDisplayItemComponentMap);
       expect(actual.toJson(), expected.toJson());
     });
 
@@ -52,7 +52,7 @@ void main() {
           },
         ],
       };
-      expect(() => DisplayItemComponent.fromMap(testDisplayItemComponentMap),
+      expect(() => DisplayComponent.fromMap(testDisplayItemComponentMap),
           throwsA(TypeMatcher<InvalidRoleException>()));
     });
   });
