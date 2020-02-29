@@ -1,3 +1,4 @@
+import 'package:survey_engine.dart/src/controller/localised_strings.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
@@ -54,6 +55,25 @@ void main() {
       };
       LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
       expect(localizedObject.parts[firstArgument].str, 'true');
+    });
+  });
+
+  group('Localised string evaluation tests:\n', () {
+    Map<String, dynamic> testObjectMap;
+
+    setUp(() {
+      testObjectMap = {
+        'code': 'de',
+        'parts': [
+          {'str': 'Hello'},
+          {'str': 'World'},
+        ]
+      };
+    });
+
+    test('Evaluate parts containing a list of strings to one string', () {
+      LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
+      expect(LocalisedString.getLocalisedString(localizedObject), 'HelloWorld');
     });
   });
 }
