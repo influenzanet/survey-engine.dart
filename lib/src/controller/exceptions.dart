@@ -15,3 +15,13 @@ class InvalidRoleException {
   @override
   String toString() => 'The role has an invalid value $message';
 }
+
+class InvalidResponseException {
+  String message;
+  InvalidResponseException({
+    this.message,
+  });
+
+  @override
+  String toString() => 'The role has an invalid value $message';
+}

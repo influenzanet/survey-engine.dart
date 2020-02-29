@@ -27,4 +27,12 @@ const int firstArgument = 0,
     stringEqualityValue = 0,
     maxUnaryOperands = 1;
 
-const DisplayItemComponentRoles = ['title', 'text', 'warning', 'error'];
+const displayItemComponentRoles = ['title', 'text', 'warning', 'error'];
+const responseComponentRoles = [
+  'option',
+  'input',
+  'multilineTextInput',
+  'numberInput',
+  'dateinput'
+];
+const responseDataType = ['string', 'number', 'date'];

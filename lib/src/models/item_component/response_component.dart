@@ -4,44 +4,56 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
-class DisplayComponent extends ItemComponent {
+class ResponseComponent extends ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
   Expression disabled;
   Map<String, String> style;
   String key;
-  DisplayComponent(
+  String dType;
+  Properties properties;
+  ResponseComponent(
       {this.role,
       this.displayCondition,
       this.content,
       this.disabled,
       this.style,
-      this.key})
+      this.key,
+      this.dType,
+      this.properties})
       : super(role, displayCondition, content, disabled, style, key) {
-    if (!(displayItemComponentRoles.contains(role))) {
-      throw InvalidRoleException(
-          message: 'Expected roles in the list $displayItemComponentRoles');
+    if (!responseDataType.contains(this.dType)) {
+      throw InvalidResponseException(
+          message:
+              'Expected response data types in the list $responseDataType');
+    }
+    if (!responseComponentRoles.contains(role)) {
+      throw InvalidResponseException(
+          message: 'Expected roles in the list $responseComponentRoles');
     }
   }
 
   Map<String, dynamic> toMap() {
     return {
       'role': role,
-      'displayCondition': displayCondition?.toMap(),
-      'content': List<dynamic>.from(content.map((x) => x?.toMap())),
-      'disabled': disabled?.toMap(),
+      'displayCondition': displayCondition.toMap(),
+      'content': List<dynamic>.from(content.map((x) => x.toMap())),
+      'disabled': disabled.toMap(),
       'style': style,
       'key': key,
+      'dType': dType,
+      'properties': properties.toMap(),
     };
   }
 
-  static DisplayComponent fromMap(Map<String, dynamic> map) {
+  static ResponseComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return DisplayComponent(
+    return ResponseComponent(
       role: map['role'],
       displayCondition: Expression.fromMap(map['displayCondition']),
       content: List<LocalizedObject>.from(
@@ -49,30 +61,34 @@ class DisplayComponent extends ItemComponent {
       disabled: Expression.fromMap(map['disabled']),
       style: map['style'],
       key: map['key'],
+      dType: map['dType'],
+      properties: Properties.fromMap(map['properties']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  static DisplayComponent fromJson(String source) =>
+  static ResponseComponent fromJson(String source) =>
       fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'DisplayComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key';
+    return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dType: $dType, properties: $properties';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is DisplayComponent &&
+    return o is ResponseComponent &&
         o.role == role &&
         o.displayCondition == displayCondition &&
         o.content == content &&
         o.disabled == disabled &&
         o.style == style &&
-        o.key == key;
+        o.key == key &&
+        o.dType == dType &&
+        o.properties == properties;
   }
 
   @override
@@ -82,6 +98,8 @@ class DisplayComponent extends ItemComponent {
         content.hashCode ^
         disabled.hashCode ^
         style.hashCode ^
-        key.hashCode;
+        key.hashCode ^
+        dType.hashCode ^
+        properties.hashCode;
   }
 }
