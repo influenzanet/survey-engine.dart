@@ -1,16 +1,16 @@
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Display Item Component object creation init tests:\n', () {
+  group('Response Item Component object creation init tests:\n', () {
     Map<String, dynamic> testLocalisedObjectMap;
-    Map<String, Object> testDisplayItemComponentMap;
+    Map<String, Object> testResponseComponentMap;
 
     setUp(() {
-      testDisplayItemComponentMap = {
-        'role': 'title',
+      testResponseComponentMap = {
+        'role': 'input',
         'content': [
           {
             'code': 'en',
@@ -22,7 +22,7 @@ void main() {
       };
     });
 
-    test('Test role title creation with LocalisedObject', () {
+    test('Test role input creation with LocalisedObject', () {
       testLocalisedObjectMap = {
         'code': 'en',
         'parts': [
@@ -31,17 +31,17 @@ void main() {
       };
       LocalizedObject localisedObject =
           LocalizedObject.fromMap(testLocalisedObjectMap);
-      DisplayComponent expected =
-          DisplayComponent(role: 'title', content: [localisedObject]);
-      DisplayComponent actual =
-          DisplayComponent.fromMap(testDisplayItemComponentMap);
+      ResponseComponent expected =
+          ResponseComponent(role: 'input', content: [localisedObject]);
+      ResponseComponent actual =
+          ResponseComponent.fromMap(testResponseComponentMap);
       expect(actual.toJson(), expected.toJson());
     });
 
     test(
-        'Test invalid role :`bubble` in DisplayComponent creation throws exception ',
+        'Test invalid role :`bubble` in ResponseComponent creation throws exception ',
         () {
-      testDisplayItemComponentMap = {
+      testResponseComponentMap = {
         'role': 'bumble',
         'content': [
           {
@@ -52,7 +52,7 @@ void main() {
           },
         ],
       };
-      expect(() => DisplayComponent.fromMap(testDisplayItemComponentMap),
+      expect(() => ResponseComponent.fromMap(testResponseComponentMap),
           throwsA(TypeMatcher<InvalidRoleException>()));
     });
   });

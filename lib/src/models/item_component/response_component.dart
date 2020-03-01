@@ -23,7 +23,7 @@ class ResponseComponent extends ItemComponent {
       this.disabled,
       this.style,
       this.key,
-      this.dType,
+      this.dType = 'string',
       this.properties})
       : super(role, displayCondition, content, disabled, style, key) {
     if (!responseDataType.contains(this.dType)) {
@@ -32,7 +32,7 @@ class ResponseComponent extends ItemComponent {
               'Expected response data types in the list $responseDataType');
     }
     if (!responseComponentRoles.contains(role)) {
-      throw InvalidResponseException(
+      throw InvalidRoleException(
           message: 'Expected roles in the list $responseComponentRoles');
     }
   }
@@ -40,13 +40,13 @@ class ResponseComponent extends ItemComponent {
   Map<String, dynamic> toMap() {
     return {
       'role': role,
-      'displayCondition': displayCondition.toMap(),
-      'content': List<dynamic>.from(content.map((x) => x.toMap())),
-      'disabled': disabled.toMap(),
+      'displayCondition': displayCondition?.toMap(),
+      'content': List<dynamic>.from(content.map((x) => x?.toMap())),
+      'disabled': disabled?.toMap(),
       'style': style,
       'key': key,
       'dType': dType,
-      'properties': properties.toMap(),
+      'properties': properties?.toMap(),
     };
   }
 
@@ -61,7 +61,7 @@ class ResponseComponent extends ItemComponent {
       disabled: Expression.fromMap(map['disabled']),
       style: map['style'],
       key: map['key'],
-      dType: map['dType'],
+      dType: map['dType'] ?? 'string',
       properties: Properties.fromMap(map['properties']),
     );
   }

@@ -15,6 +15,9 @@
 3. **style**: Can `styles` be focussed after completing the backend engine?
    + Ans: Yes
 
+## Response Component
+1. **dtype and properties**: An example (JSON) as `dtype` and `properties` examples are not found in reference/test JSON file.
+
 ## Item Component
 
 1. **role**: defines the basic element type of a HTML Tag. I am assuming a `root` role is used as a root element of react app. How does role=`hint` work?
