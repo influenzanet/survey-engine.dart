@@ -6,21 +6,21 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
-class DisplayComponent extends ItemComponent {
+class DisplayComponent implements ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
   Expression disabled;
   Map<String, String> style;
   String key;
+  String get jsonValue => toJson();
   DisplayComponent(
       {this.role,
       this.displayCondition,
       this.content,
       this.disabled,
       this.style,
-      this.key})
-      : super(role, displayCondition, content, disabled, style, key) {
+      this.key}) {
     if (!(displayItemComponentRoles.contains(role))) {
       throw InvalidRoleException(
           message: 'Expected roles in the list $displayItemComponentRoles');

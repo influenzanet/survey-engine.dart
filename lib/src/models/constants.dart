@@ -36,3 +36,11 @@ const responseComponentRoles = [
   'dateinput'
 ];
 const responseDataType = ['string', 'number', 'date'];
+const itemGroupRoles = [
+  'root',
+  'helpGroup',
+  'responseGroup',
+  'singleChoiceGroup',
+  'multipleChoiceGroup',
+  'dropDownGroup'
+];
