@@ -25,7 +25,9 @@ const int firstArgument = 0,
     firstExpression = 0,
     secondExpression = 1,
     stringEqualityValue = 0,
-    maxUnaryOperands = 1;
+    maxUnaryOperands = 1,
+    firstComponent = 0,
+    secondComponent = 1;
 
 const List<String> displayItemComponentRoles = [
   'title',

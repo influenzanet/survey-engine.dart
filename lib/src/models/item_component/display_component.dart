@@ -16,6 +16,8 @@ class DisplayComponent implements ItemComponent {
   String key;
   String dType = null;
   Properties properties = null;
+  List<ItemComponent> items = null;
+  Expression order = null;
   DisplayComponent(
       {this.role,
       this.displayCondition,

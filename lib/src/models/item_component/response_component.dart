@@ -16,6 +16,8 @@ class ResponseComponent implements ItemComponent {
   String key;
   String dType;
   Properties properties;
+  List<ItemComponent> items = null;
+  Expression order = null;
   ResponseComponent(
       {this.role,
       this.displayCondition,

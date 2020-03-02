@@ -15,7 +15,7 @@ void main() {
           {
             'code': 'en',
             'parts': [
-              {'str': 'Invalid input data'},
+              {'str': 'Some input data'},
             ]
           },
         ],
@@ -26,7 +26,7 @@ void main() {
       testLocalisedObjectMap = {
         'code': 'en',
         'parts': [
-          {'str': 'Invalid input data'},
+          {'str': 'Some input data'},
         ]
       };
       LocalizedObject localisedObject =

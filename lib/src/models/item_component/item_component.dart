@@ -1,6 +1,7 @@
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
@@ -14,6 +15,8 @@ abstract class ItemComponent {
   String key;
   String dType = 'string';
   Properties properties;
+  List<ItemComponent> items;
+  Expression order;
   factory ItemComponent(Map<String, dynamic> map) {
     if (displayItemComponentRoles.contains(map['role'])) {
       return DisplayComponent(
@@ -35,9 +38,25 @@ abstract class ItemComponent {
         dType: map['dType'] ?? 'string',
         properties: Properties.fromMap(map['properties']),
       );
+    } else if (itemGroupRoles.contains(map['role'])) {
+      return ItemGroupComponent(
+        role: map['role'],
+        displayCondition: Expression.fromMap(map['displayCondition']),
+        content: List<LocalizedObject>.from(
+            map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        disabled: Expression.fromMap(map['disabled']),
+        style: map['style'],
+        key: map['key'],
+        dType: map['dType'],
+        properties: Properties.fromMap(map['properties']),
+        items: List<ItemComponent>.from(
+            map['items']?.map((x) => ItemComponent(x))),
+        order: Expression.fromMap(map['order']),
+      );
     }
     // Dummy needs to be changed after other Item Components creation
     throw "Error";
   }
+  Map<String, dynamic> toMap();
   String toJson();
 }
