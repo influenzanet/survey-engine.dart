@@ -5,45 +5,54 @@ import 'package:test/test.dart';
 
 void main() {
   group('Item Component object creation init tests:\n', () {
-    Map<String, Object> testItemComponentMap, testResponseComponentMap;
-
-    setUp(() {
-      testItemComponentMap = {
-        'role': 'title',
-        'content': [
-          {
-            'code': 'en',
-            'parts': [
-              {'str': 'Invalid input data'},
-            ]
-          },
-        ],
-      };
-      testResponseComponentMap = {
-        'role': 'input',
-        'content': [
-          {
-            'code': 'en',
-            'parts': [
-              {'str': 'Invalid input data'},
-            ]
-          },
-        ],
-      };
-    });
+    setUp(() {});
 
     test('Test ItemComponent creation with DisplayComponent Roles', () {
-      DisplayComponent expected =
-          DisplayComponent.fromMap(testItemComponentMap);
-      ItemComponent actual = ItemComponent(testItemComponentMap);
-      expect(actual.jsonValue, expected.jsonValue);
+      const List<String> rolesTest = ['title', 'text', 'warning', 'error'];
+      Iterable<Map<String, Object>> testDisplayComponentList =
+          rolesTest.map((role) => {
+                'role': role,
+                'content': [
+                  {
+                    'code': 'en',
+                    'parts': [
+                      {'str': 'Some input data'},
+                    ]
+                  },
+                ],
+              });
+      testDisplayComponentList.forEach((component) {
+        DisplayComponent expected = DisplayComponent.fromMap(component);
+        ItemComponent actual = ItemComponent(component);
+        expect(actual.jsonValue, expected.jsonValue);
+      });
     });
 
     test('Test ItemComponent creation with ResponseComponent Roles', () {
-      ResponseComponent expected =
-          ResponseComponent.fromMap(testResponseComponentMap);
-      ItemComponent actual = ItemComponent(testResponseComponentMap);
-      expect(actual.jsonValue, expected.jsonValue);
+      const List<String> rolesTest = [
+        'option',
+        'input',
+        'multilineTextInput',
+        'numberInput',
+        'dateinput'
+      ];
+      Iterable<Map<String, Object>> testResponseComponentList =
+          rolesTest.map((role) => {
+                'role': role,
+                'content': [
+                  {
+                    'code': 'en',
+                    'parts': [
+                      {'str': 'Some input data'},
+                    ]
+                  },
+                ],
+              });
+      testResponseComponentList.forEach((component) {
+        ResponseComponent expected = ResponseComponent.fromMap(component);
+        ItemComponent actual = ItemComponent(component);
+        expect(actual.jsonValue, expected.jsonValue);
+      });
     });
   });
 }

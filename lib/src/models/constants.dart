@@ -27,7 +27,12 @@ const int firstArgument = 0,
     stringEqualityValue = 0,
     maxUnaryOperands = 1;
 
-const displayItemComponentRoles = ['title', 'text', 'warning', 'error'];
+const List<String> displayItemComponentRoles = [
+  'title',
+  'text',
+  'warning',
+  'error'
+];
 const responseComponentRoles = [
   'option',
   'input',
@@ -35,8 +40,8 @@ const responseComponentRoles = [
   'numberInput',
   'dateinput'
 ];
-const responseDataType = ['string', 'number', 'date'];
-const itemGroupRoles = [
+const List<String> responseDataType = ['string', 'number', 'date'];
+const List<String> itemGroupRoles = [
   'root',
   'helpGroup',
   'responseGroup',
