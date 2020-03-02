@@ -41,14 +41,6 @@ abstract class ItemComponent {
     } else if (itemGroupRoles.contains(map['role'])) {
       return ItemGroupComponent(
         role: map['role'],
-        displayCondition: Expression.fromMap(map['displayCondition']),
-        content: List<LocalizedObject>.from(
-            map['content']?.map((x) => LocalizedObject.fromMap(x))),
-        disabled: Expression.fromMap(map['disabled']),
-        style: map['style'],
-        key: map['key'],
-        dType: map['dType'],
-        properties: Properties.fromMap(map['properties']),
         items: List<ItemComponent>.from(
             map['items']?.map((x) => ItemComponent(x))),
         order: Expression.fromMap(map['order']),

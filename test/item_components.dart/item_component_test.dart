@@ -1,5 +1,6 @@
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
 import 'package:test/test.dart';
 
@@ -50,6 +51,39 @@ void main() {
               });
       testResponseComponentList.forEach((component) {
         ResponseComponent expected = ResponseComponent.fromMap(component);
+        ItemComponent actual = ItemComponent(component);
+        expect(actual.toJson(), expected.toJson());
+      });
+    });
+
+    test('Test ItemComponent creation with ItemGroupComponent Roles', () {
+      const List<String> rolesTest = [
+        'root',
+        'helpGroup',
+        'responseGroup',
+        'singleChoiceGroup',
+        'multipleChoiceGroup',
+        'dropDownGroup'
+      ];
+      Iterable<Map<String, Object>> testItemGroupComponentList =
+          rolesTest.map((role) => {
+                'role': role,
+                'items': [
+                  {
+                    'role': 'input',
+                    'content': [
+                      {
+                        'code': 'en',
+                        'parts': [
+                          {'str': 'Some input data'},
+                        ]
+                      },
+                    ],
+                  },
+                ],
+              });
+      testItemGroupComponentList.forEach((component) {
+        ItemGroupComponent expected = ItemGroupComponent.fromMap(component);
         ItemComponent actual = ItemComponent(component);
         expect(actual.toJson(), expected.toJson());
       });
