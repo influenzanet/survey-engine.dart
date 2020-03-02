@@ -24,7 +24,7 @@ void main() {
       testDisplayComponentList.forEach((component) {
         DisplayComponent expected = DisplayComponent.fromMap(component);
         ItemComponent actual = ItemComponent(component);
-        expect(actual.jsonValue, expected.jsonValue);
+        expect(actual.toJson(), expected.toJson());
       });
     });
 
@@ -51,7 +51,7 @@ void main() {
       testResponseComponentList.forEach((component) {
         ResponseComponent expected = ResponseComponent.fromMap(component);
         ItemComponent actual = ItemComponent(component);
-        expect(actual.jsonValue, expected.jsonValue);
+        expect(actual.toJson(), expected.toJson());
       });
     });
   });

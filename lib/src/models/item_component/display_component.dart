@@ -16,7 +16,6 @@ class DisplayComponent implements ItemComponent {
   String key;
   String dType = null;
   Properties properties = null;
-  String get jsonValue => toJson();
   DisplayComponent(
       {this.role,
       this.displayCondition,

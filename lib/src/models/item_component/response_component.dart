@@ -16,7 +16,6 @@ class ResponseComponent implements ItemComponent {
   String key;
   String dType;
   Properties properties;
-  String get jsonValue => toJson();
   ResponseComponent(
       {this.role,
       this.displayCondition,

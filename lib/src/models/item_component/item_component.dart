@@ -39,5 +39,5 @@ abstract class ItemComponent {
     // Dummy needs to be changed after other Item Components creation
     throw "Error";
   }
-  String get jsonValue;
+  String toJson();
 }
