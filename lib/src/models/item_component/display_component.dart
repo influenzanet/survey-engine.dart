@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
 class DisplayComponent implements ItemComponent {
@@ -13,6 +14,8 @@ class DisplayComponent implements ItemComponent {
   Expression disabled;
   Map<String, String> style;
   String key;
+  String dType = null;
+  Properties properties = null;
   String get jsonValue => toJson();
   DisplayComponent(
       {this.role,

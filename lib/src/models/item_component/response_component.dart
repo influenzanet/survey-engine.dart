@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
-class ResponseComponent {
+class ResponseComponent implements ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
@@ -15,6 +16,7 @@ class ResponseComponent {
   String key;
   String dType;
   Properties properties;
+  String get jsonValue => toJson();
   ResponseComponent(
       {this.role,
       this.displayCondition,
