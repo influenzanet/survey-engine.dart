@@ -75,31 +75,4 @@ class ResponseComponent implements ItemComponent {
   String toString() {
     return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dType: $dType, properties: $properties';
   }
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is ResponseComponent &&
-        o.role == role &&
-        o.displayCondition == displayCondition &&
-        o.content == content &&
-        o.disabled == disabled &&
-        o.style == style &&
-        o.key == key &&
-        o.dType == dType &&
-        o.properties == properties;
-  }
-
-  @override
-  int get hashCode {
-    return role.hashCode ^
-        displayCondition.hashCode ^
-        content.hashCode ^
-        disabled.hashCode ^
-        style.hashCode ^
-        key.hashCode ^
-        dType.hashCode ^
-        properties.hashCode;
-  }
 }

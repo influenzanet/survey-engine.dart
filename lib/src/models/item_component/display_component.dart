@@ -64,27 +64,4 @@ class DisplayComponent implements ItemComponent {
   String toString() {
     return 'DisplayComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key';
   }
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is DisplayComponent &&
-        o.role == role &&
-        o.displayCondition == displayCondition &&
-        o.content == content &&
-        o.disabled == disabled &&
-        o.style == style &&
-        o.key == key;
-  }
-
-  @override
-  int get hashCode {
-    return role.hashCode ^
-        displayCondition.hashCode ^
-        content.hashCode ^
-        disabled.hashCode ^
-        style.hashCode ^
-        key.hashCode;
-  }
 }

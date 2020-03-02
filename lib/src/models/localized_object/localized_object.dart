@@ -47,14 +47,4 @@ class LocalizedObject {
 
   @override
   String toString() => 'LocalizedObject code: $code, parts: $parts';
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is LocalizedObject && o.code == code && o.parts == parts;
-  }
-
-  @override
-  int get hashCode => code.hashCode ^ parts.hashCode;
 }

@@ -36,17 +36,4 @@ class Properties {
 
   @override
   String toString() => 'Properties min: $min, max: $max, stepSize: $stepSize';
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is Properties &&
-        o.min == min &&
-        o.max == max &&
-        o.stepSize == stepSize;
-  }
-
-  @override
-  int get hashCode => min.hashCode ^ max.hashCode ^ stepSize.hashCode;
 }
