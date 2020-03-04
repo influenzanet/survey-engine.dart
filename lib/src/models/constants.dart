@@ -51,3 +51,12 @@ const List<String> itemGroupRoles = [
   'multipleChoiceGroup',
   'dropDownGroup'
 ];
+const List<String> validationType = ['hard', 'soft'];
+const List<String> itemTypes = [
+  'basic.static.title',
+  'basic.static.description',
+  'basic.input.numeric',
+  'basic.input.single-choice',
+  'basic.input.multiple-choice',
+  'concepts.v1.age.simple-age'
+];
