@@ -13,11 +13,7 @@ class Validations {
     this.type,
     this.key,
   }) {
-    if (rule.returnType.dType != 'boolean') {
-      throw InvalidValidationException(
-          message:
-              'Expected a return type `boolean` but got $rule.returnType.dType');
-    }
+    rule.returnType.dType = 'boolean';
     if (!validationType.contains(this.type)) {
       throw InvalidValidationException(
           message:
