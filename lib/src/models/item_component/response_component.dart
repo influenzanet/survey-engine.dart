@@ -14,7 +14,7 @@ class ResponseComponent implements ItemComponent {
   Expression disabled;
   Map<String, String> style;
   String key;
-  String dType;
+  String dtype;
   Properties properties;
   List<ItemComponent> items = null;
   Expression order = null;
@@ -25,9 +25,9 @@ class ResponseComponent implements ItemComponent {
       this.disabled,
       this.style,
       this.key,
-      this.dType = 'string',
+      this.dtype = 'string',
       this.properties}) {
-    if (!responseDataType.contains(this.dType)) {
+    if (!responseDataType.contains(this.dtype)) {
       throw InvalidResponseException(
           message:
               'Expected response data types in the list $responseDataType');
@@ -46,7 +46,7 @@ class ResponseComponent implements ItemComponent {
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,
-      'dType': dType,
+      'dtype': dtype,
       'properties': properties?.toMap(),
     };
   }
@@ -62,7 +62,7 @@ class ResponseComponent implements ItemComponent {
       disabled: Expression.fromMap(map['disabled']),
       style: map['style'],
       key: map['key'],
-      dType: map['dType'] ?? 'string',
+      dtype: map['dtype'] ?? 'string',
       properties: Properties.fromMap(map['properties']),
     );
   }
@@ -74,6 +74,6 @@ class ResponseComponent implements ItemComponent {
 
   @override
   String toString() {
-    return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dType: $dType, properties: $properties';
+    return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dtype: $dtype, properties: $properties';
   }
 }

@@ -18,7 +18,7 @@ void main() {
       testExpr = {
         'name': 'isDefined',
         'data': [
-          {'dType': 'number', 'str': '5'}
+          {'dtype': 'number', 'str': '5'}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -28,7 +28,7 @@ void main() {
       testExpr = {
         'name': 'isDefined',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);

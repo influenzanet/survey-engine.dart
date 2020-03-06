@@ -14,7 +14,7 @@ class DisplayComponent implements ItemComponent {
   Expression disabled;
   Map<String, String> style;
   String key;
-  String dType = null;
+  String dtype = null;
   Properties properties = null;
   List<ItemComponent> items = null;
   Expression order = null;

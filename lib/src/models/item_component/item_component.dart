@@ -13,7 +13,7 @@ abstract class ItemComponent {
   Expression disabled;
   Map<String, String> style;
   String key;
-  String dType = 'string';
+  String dtype = 'string';
   Properties properties;
   List<ItemComponent> items;
   Expression order;
@@ -35,7 +35,7 @@ abstract class ItemComponent {
         disabled: Expression.fromMap(map['disabled']),
         style: map['style'],
         key: map['key'],
-        dType: map['dType'] ?? 'string',
+        dtype: map['dtype'] ?? 'string',
         properties: Properties.fromMap(map['properties']),
       );
     } else if (itemGroupRoles.contains(map['role'])) {

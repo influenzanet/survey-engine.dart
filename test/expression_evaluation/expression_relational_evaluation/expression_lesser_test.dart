@@ -16,8 +16,8 @@ void main() {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 1}
+          {'dtype': 'number', 'number': 1},
+          {'dtype': 'number', 'number': 1}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -30,8 +30,8 @@ void main() {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 1},
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -42,8 +42,8 @@ void main() {
         'name': 'lte',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 1},
-          {'dType': 'number', 'number': 1}
+          {'dtype': 'number', 'number': 1},
+          {'dtype': 'number', 'number': 1}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -54,8 +54,8 @@ void main() {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'str', 'str': 'bc'},
-          {'dType': 'str', 'str': 'ab'}
+          {'dtype': 'str', 'str': 'bc'},
+          {'dtype': 'str', 'str': 'ab'}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -66,8 +66,8 @@ void main() {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'bc'}
+          {'dtype': 'str', 'str': 'ab'},
+          {'dtype': 'str', 'str': 'bc'}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -78,8 +78,8 @@ void main() {
         'name': 'lte',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'str', 'str': 'ab'},
-          {'dType': 'str', 'str': 'ab'}
+          {'dtype': 'str', 'str': 'ab'},
+          {'dtype': 'str', 'str': 'ab'}
         ]
       };
       expr = Expression.fromMap(testExpr);

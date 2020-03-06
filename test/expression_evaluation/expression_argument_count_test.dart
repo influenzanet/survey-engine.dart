@@ -19,7 +19,7 @@ void main() {
         'name': 'gt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -33,7 +33,7 @@ void main() {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -48,7 +48,7 @@ void main() {
         'name': 'lte',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -62,7 +62,7 @@ void main() {
         'name': 'gte',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -76,7 +76,7 @@ void main() {
         'name': 'and',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -90,7 +90,7 @@ void main() {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -102,8 +102,8 @@ void main() {
         'name': 'not',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2},
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2},
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -117,8 +117,8 @@ void main() {
         'name': 'isDefined',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2},
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2},
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -130,8 +130,8 @@ void main() {
         'name': 'dummy',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'number', 'number': 2},
-          {'dType': 'number', 'number': 2}
+          {'dtype': 'number', 'number': 2},
+          {'dtype': 'number', 'number': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);

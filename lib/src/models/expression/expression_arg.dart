@@ -17,7 +17,7 @@ class ExpressionArg {
 
   Map<String, dynamic> toMap() {
     return {
-      'dType': exprArgDType.dType,
+      'dtype': exprArgDType.dtype,
       'exp': exp?.toMap(),
       'str': str,
       'number': number,
@@ -28,7 +28,7 @@ class ExpressionArg {
     if (map == null) return null;
 
     return ExpressionArg(
-      exprArgDType: ExpressionArgDType(dType: map['dType']),
+      exprArgDType: ExpressionArgDType(dtype: map['dtype']),
       exp: Expression.fromMap(map['exp']),
       str: map['str'],
       number: map['number'],

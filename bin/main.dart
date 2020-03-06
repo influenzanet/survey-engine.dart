@@ -6,8 +6,8 @@ int main() {
     'name': 'lt',
     'returnType': 'boolean',
     'data': [
-      {'dType': 'str', 'str': 'aa'},
-      {'dType': 'str', 'str': 'ac'},
+      {'dtype': 'str', 'str': 'aa'},
+      {'dtype': 'str', 'str': 'ac'},
     ]
   };
   Expression expression = Expression.fromMap(testMap);

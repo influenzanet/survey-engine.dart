@@ -12,7 +12,7 @@ class ItemGroupComponent implements ItemComponent {
   Expression disabled = null;
   Map<String, String> style = null;
   String key = null;
-  String dType = null;
+  String dtype = null;
   Properties properties = null;
   List<ItemComponent> items;
   Expression order;
@@ -23,7 +23,7 @@ class ItemGroupComponent implements ItemComponent {
     this.disabled,
     this.style,
     this.key,
-    this.dType,
+    this.dtype,
     this.properties,
     this.items,
     this.order,
@@ -55,6 +55,6 @@ class ItemGroupComponent implements ItemComponent {
 
   @override
   String toString() {
-    return 'ItemGroupComponent(role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dType: $dType, properties: $properties, items: $items, order: $order)';
+    return 'ItemGroupComponent(role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dtype: $dtype, properties: $properties, items: $items, order: $order)';
   }
 }

@@ -11,16 +11,16 @@ void main() {
     var testExpr, testExprArg;
 
     setUp(() {
-      argDType = ExpressionArgDType(dType: 'number');
+      argDType = ExpressionArgDType(dtype: 'number');
       exprArg = ExpressionArg(exprArgDType: argDType, number: 1);
       ret = 'int';
 
-      testExprArg = {'dType': 'number', 'number': 1};
+      testExprArg = {'dtype': 'number', 'number': 1};
       testExpr = {
         'name': 'or',
         'returnType': 'int',
         'data': [
-          {'dType': 'number', 'number': 1}
+          {'dtype': 'number', 'number': 1}
         ]
       };
     });

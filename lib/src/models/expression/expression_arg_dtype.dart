@@ -4,17 +4,17 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 
 class ExpressionArgDType {
-  String dType;
-  ExpressionArgDType({this.dType}) {
-    this.dType = this.dType ?? 'str';
-    if (!expressionArgType.contains(this.dType)) {
+  String dtype;
+  ExpressionArgDType({this.dtype}) {
+    this.dtype = this.dtype ?? 'str';
+    if (!expressionArgType.contains(this.dtype)) {
       throw InvalidArgumentsException(message: expressionArgType.toString());
     }
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'dType': dType,
+      'dtype': dtype,
     };
   }
 
@@ -22,7 +22,7 @@ class ExpressionArgDType {
     if (map == null) return null;
 
     return ExpressionArgDType(
-      dType: map['dType'],
+      dtype: map['dtype'],
     );
   }
 
@@ -32,15 +32,15 @@ class ExpressionArgDType {
       fromMap(json.decode(source));
 
   @override
-  String toString() => '$dType';
+  String toString() => '$dtype';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is ExpressionArgDType && o.dType == dType;
+    return o is ExpressionArgDType && o.dtype == dtype;
   }
 
   @override
-  int get hashCode => dType.hashCode;
+  int get hashCode => dtype.hashCode;
 }

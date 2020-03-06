@@ -23,9 +23,9 @@ void main() {
       };
     });
 
-    test('Testing a JSON in absence of dType', () {
+    test('Testing a JSON in absence of dtype', () {
       exprArg = ExpressionArg(
-          exprArgDType: ExpressionArgDType(dType: 'str'),
+          exprArgDType: ExpressionArgDType(dtype: 'str'),
           str:
               'Fachkraft (z.B. Manager, Arzt, Lehrer, Krankenschwester, Ingenieur)');
       testExprArgArray = [exprArg];
@@ -41,13 +41,13 @@ void main() {
         'code': 'de',
         'parts': [
           {
-            'dType': 'exp',
+            'dtype': 'exp',
             'exp': {
               'name': 'or',
               'returnType': 'boolean',
               'data': [
-                {'dType': 'number', 'number': 2},
-                {'dType': 'number', 'number': 1}
+                {'dtype': 'number', 'number': 2},
+                {'dtype': 'number', 'number': 1}
               ]
             }
           },

@@ -20,13 +20,13 @@ void main() {
         'returnType': 'boolean',
         'data': [
           {
-            'dType': 'exp',
+            'dtype': 'exp',
             'exp': {
               'name': 'or',
               'returnType': 'boolean',
               'data': [
-                {'dType': 'number', 'number': 2},
-                {'dType': 'number', 'number': 1}
+                {'dtype': 'number', 'number': 2},
+                {'dtype': 'number', 'number': 1}
               ]
             }
           }
@@ -42,13 +42,13 @@ void main() {
         'returnType': 'boolean',
         'data': [
           {
-            'dType': 'exp',
+            'dtype': 'exp',
             'exp': {
               'name': 'or',
               'returnType': 'boolean',
               'data': [
-                {'dType': 'number', 'number': 0},
-                {'dType': 'number', 'number': 0}
+                {'dtype': 'number', 'number': 0},
+                {'dtype': 'number', 'number': 0}
               ]
             }
           }
@@ -64,13 +64,13 @@ void main() {
         'returnType': 'boolean',
         'data': [
           {
-            'dType': 'exp',
+            'dtype': 'exp',
             'exp': {
               'name': 'and',
               'returnType': 'boolean',
               'data': [
-                {'dType': 'number', 'number': 1},
-                {'dType': 'number', 'number': 1}
+                {'dtype': 'number', 'number': 1},
+                {'dtype': 'number', 'number': 1}
               ]
             }
           }
@@ -86,13 +86,13 @@ void main() {
         'returnType': 'boolean',
         'data': [
           {
-            'dType': 'exp',
+            'dtype': 'exp',
             'exp': {
               'name': 'and',
               'returnType': 'boolean',
               'data': [
-                {'dType': 'number', 'number': 0},
-                {'dType': 'number', 'number': 1}
+                {'dtype': 'number', 'number': 0},
+                {'dtype': 'number', 'number': 1}
               ]
             }
           }
