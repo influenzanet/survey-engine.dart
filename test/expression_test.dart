@@ -11,7 +11,7 @@ void main() {
     var testExpr, testExprArg;
 
     setUp(() {
-      argDType = ExpressionArgDType(dataType: 'number');
+      argDType = ExpressionArgDType(dType: 'number');
       exprArg = ExpressionArg(dType: argDType, number: 1);
       ret = 'int';
 

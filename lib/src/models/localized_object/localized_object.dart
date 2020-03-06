@@ -15,7 +15,7 @@ class LocalizedObject {
         ExpressionEvaluation eval = ExpressionEvaluation();
         expressionArg.str = eval.evalExpression(expressionArg.exp).toString();
       } else {
-        expressionArg.dType = ExpressionArgDType(dataType: 'str');
+        expressionArg.dType = ExpressionArgDType(dType: 'str');
       }
     });
     this.parts = parts;

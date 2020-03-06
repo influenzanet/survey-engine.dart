@@ -28,7 +28,7 @@ class ExpressionArg {
     if (map == null) return null;
 
     return ExpressionArg(
-      dType: ExpressionArgDType(dataType: map['dType']),
+      dType: ExpressionArgDType(dType: map['dType']),
       exp: Expression.fromMap(map['exp']),
       str: map['str'],
       number: map['number'],

@@ -13,7 +13,8 @@ void main() {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dType': 'boolean', 'boolean': 'true'}
+          {'dType': 'number', 'number': 2},
+          {'dType': 'number', 'number': 1}
         ]
       };
       testValidation = {
@@ -22,7 +23,8 @@ void main() {
         'rule': {
           'name': 'or',
           'data': [
-            {'dType': 'boolean', 'boolean': 'true'}
+            {'dType': 'number', 'number': 2},
+            {'dType': 'number', 'number': 1}
           ]
         }
       };

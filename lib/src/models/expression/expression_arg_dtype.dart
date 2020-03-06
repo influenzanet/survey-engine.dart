@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 
 class ExpressionArgDType {
   String dType;
-  ExpressionArgDType({String dataType = 'str'}) {
-    if (expressionArgType.contains(dataType)) {
-      dType = dataType;
+  ExpressionArgDType({this.dType}) {
+    this.dType = this.dType ?? 'str';
+    if (!expressionArgType.contains(this.dType)) {
+      throw InvalidArgumentsException(message: expressionArgType.toString());
     }
   }
 
@@ -20,7 +22,7 @@ class ExpressionArgDType {
     if (map == null) return null;
 
     return ExpressionArgDType(
-      dataType: map['dType'],
+      dType: map['dType'],
     );
   }
 
