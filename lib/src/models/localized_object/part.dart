@@ -9,7 +9,7 @@ class Part extends ExpressionArg {
     Expression exp,
     String str,
   }) : super(dType: dType, exp: exp, str: str, number: null) {
-    if (exp.returnType.dType != 'string' || dType.dType == 'num') {
+    if (exp.returnType != 'string' || dType.dType == 'num') {
       throw InvalidArgumentsException();
     }
   }

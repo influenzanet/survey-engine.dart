@@ -34,7 +34,6 @@ void main() {
       Validations expected = Validations(
           key: 'v1', type: 'soft', rule: Expression.fromMap(expression));
       Validations actual = Validations.fromMap(testValidation);
-
       expect(actual.toJson(), expected.toJson());
     });
 

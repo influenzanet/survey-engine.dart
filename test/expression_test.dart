@@ -1,20 +1,19 @@
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
-import 'package:survey_engine.dart/src/models/expression/expression_return_type.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Init tests:\n', () {
     ExpressionArgDType argDType;
     ExpressionArg exprArg;
-    ReturnType ret;
+    String ret;
     var testExpr, testExprArg;
 
     setUp(() {
       argDType = ExpressionArgDType(dataType: 'number');
       exprArg = ExpressionArg(dType: argDType, number: 1);
-      ret = ReturnType(dataType: 'int');
+      ret = 'int';
 
       testExprArg = {'dType': 'number', 'number': 1};
       testExpr = {

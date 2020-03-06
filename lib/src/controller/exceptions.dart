@@ -1,5 +1,11 @@
 class InvalidArgumentsException implements Exception {
-  String errMsg({String message = ''}) => message + 'Not a valid argument name';
+  String message;
+  InvalidArgumentsException({
+    this.message,
+  });
+
+  @override
+  String toString() => 'Expected $message in arguments';
 }
 
 class ArgumentCountException implements Exception {

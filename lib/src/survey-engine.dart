@@ -6,7 +6,6 @@ export 'package:survey_engine.dart/src/controller/localised_strings.dart';
 export 'package:survey_engine.dart/src/models/constants.dart';
 export 'package:survey_engine.dart/src/models/expression/expression.dart';
 export 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
-export 'package:survey_engine.dart/src/models/expression/expression_return_type.dart';
 export 'package:survey_engine.dart/src/models/item_component/display_component.dart';
 export 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 export 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';

@@ -13,7 +13,7 @@ class Validations {
     this.type,
     this.key,
   }) {
-    rule.returnType.dType = 'boolean';
+    rule.returnType = 'boolean';
     if (!validationType.contains(this.type)) {
       throw InvalidValidationException(
           message:

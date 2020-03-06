@@ -1,22 +1,29 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/models/constants.dart';
+
 import 'expression_arg.dart';
-import 'expression_return_type.dart';
 
 class Expression {
   String name;
-  ReturnType returnType;
+  String returnType;
   List<ExpressionArg> data;
   Expression({
     this.name,
     this.returnType,
     this.data,
-  });
+  }) {
+    this.returnType = this.returnType ?? 'string';
+    if (!returnTypes.contains(this.returnType)) {
+      throw InvalidArgumentsException(message: returnTypes.toString());
+    }
+  }
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'returnType': returnType.dType,
+      'returnType': returnType,
       'data': List<dynamic>.from(data.map((x) => x))
     };
   }
@@ -26,9 +33,7 @@ class Expression {
     var temp = map['data']?.map((x) => ExpressionArg.fromMap(x));
     var tempData = List<ExpressionArg>.from(temp);
     return Expression(
-        name: map['name'],
-        returnType: ReturnType(dataType: map['returnType']),
-        data: tempData);
+        name: map['name'], returnType: map['returnType'], data: tempData);
   }
 
   String toJson() => json.encode(toMap());
