@@ -1,5 +1,18 @@
 # Queries
 
+
+## Packaging of libraries
+
+1. **Library**: Should the library be a dart package or flutter plugin?
+   + Ans: The baeline needs to be a dart package. On top of that a flutter rendering needs to be set which later can be reused. All `survey components` logic must be written as a dart package as a primary task.
+
+## Survey Item
+
+1. **validations**: What are `hard` and `soft` validations
+   + Ans: `hard` validation ensures that a `submit` button or a fetch next `item component` is disabled if the validation is `False`. `soft` validation does not disable any component but can throw an `error` or `description` message. They are mostly used in rendering. The `flutter engine` on top of the dart package needs to take care of that.
+   
+2. **order**: How does it work?
+    + Ans: As the name suggests `sequential`,`random` and `random seed`. The `random` is yet not implemented in the survey engine yet. 
 ## LocalisedObject
 
 1. **parts**: returns the actual string/object to be displayed in the content.
