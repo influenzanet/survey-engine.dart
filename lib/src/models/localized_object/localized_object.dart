@@ -11,11 +11,11 @@ class LocalizedObject {
     this.code = code;
     parts.forEach((expressionArg) {
       // In case of expression evaluate the expression as String
-      if (expressionArg.dType.dType == 'exp') {
+      if (expressionArg.exprArgDType.dType == 'exp') {
         ExpressionEvaluation eval = ExpressionEvaluation();
         expressionArg.str = eval.evalExpression(expressionArg.exp).toString();
       } else {
-        expressionArg.dType = ExpressionArgDType(dType: 'str');
+        expressionArg.exprArgDType = ExpressionArgDType(dType: 'str');
       }
     });
     this.parts = parts;

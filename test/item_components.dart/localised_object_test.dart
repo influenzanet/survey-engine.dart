@@ -25,7 +25,7 @@ void main() {
 
     test('Testing a JSON in absence of dType', () {
       exprArg = ExpressionArg(
-          dType: ExpressionArgDType(dType: 'str'),
+          exprArgDType: ExpressionArgDType(dType: 'str'),
           str:
               'Fachkraft (z.B. Manager, Arzt, Lehrer, Krankenschwester, Ingenieur)');
       testExprArgArray = [exprArg];

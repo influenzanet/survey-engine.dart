@@ -12,7 +12,7 @@ void main() {
 
     setUp(() {
       argDType = ExpressionArgDType(dType: 'number');
-      exprArg = ExpressionArg(dType: argDType, number: 1);
+      exprArg = ExpressionArg(exprArgDType: argDType, number: 1);
       ret = 'int';
 
       testExprArg = {'dType': 'number', 'number': 1};

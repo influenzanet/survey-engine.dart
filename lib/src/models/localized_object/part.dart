@@ -5,11 +5,11 @@ import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.da
 
 class Part extends ExpressionArg {
   Part({
-    ExpressionArgDType dType,
+    ExpressionArgDType exprArgDType,
     Expression exp,
     String str,
-  }) : super(dType: dType, exp: exp, str: str, number: null) {
-    if (exp.returnType != 'string' || dType.dType == 'num') {
+  }) : super(exprArgDType: exprArgDType, exp: exp, str: str, number: null) {
+    if (exp.returnType != 'string' || exprArgDType.dType == 'num') {
       throw InvalidArgumentsException();
     }
   }
