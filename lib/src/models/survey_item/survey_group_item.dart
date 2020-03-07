@@ -16,6 +16,7 @@ class SurveyGroupItem implements SurveyItem {
   ItemGroupComponent components;
   List<Validations> validation;
   List<SurveyItem> items;
+  // SelectionMethod is used when rendering so tests will be written after engine development
   Expression selectionMethod;
   SurveyGroupItem({
     this.items,

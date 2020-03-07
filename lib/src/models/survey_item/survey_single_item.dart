@@ -19,11 +19,16 @@ class SurveySingleItem implements SurveyItem {
   int priority;
   int version;
   List<String> versionTags;
-  SurveySingleItem({
-    this.type,
-    this.components,
-    this.validation,
-  }) {
+  SurveySingleItem(
+      {this.type,
+      this.components,
+      this.validation,
+      this.key,
+      this.follows,
+      this.condition,
+      this.priority,
+      this.version,
+      this.versionTags}) {
     if (!itemTypes.contains(this.type)) {
       throw InvalidItemTypeException(
           message: 'Expected types $itemTypes but got $this.type');
@@ -35,6 +40,12 @@ class SurveySingleItem implements SurveyItem {
       'type': type,
       'components': components.toMap(),
       'validation': List<dynamic>.from(validation.map((x) => x.toMap())),
+      'key': key,
+      'follows': follows,
+      'condition': condition,
+      'priority': priority,
+      'version': version,
+      'versionTags': versionTags
     };
   }
 
@@ -43,10 +54,15 @@ class SurveySingleItem implements SurveyItem {
     var temp = map['validations']?.map((x) => Validations.fromMap(x));
     var tempValidation = List<Validations>.from(temp);
     return SurveySingleItem(
-      type: map['type'],
-      components: ItemGroupComponent?.fromMap(map['components']),
-      validation: tempValidation,
-    );
+        type: map['type'],
+        components: ItemGroupComponent?.fromMap(map['components']),
+        validation: tempValidation,
+        key: map['key'],
+        follows: map['follows'],
+        condition: map['condition'],
+        priority: map['priority'],
+        version: map['version'],
+        versionTags: map['versionTags']);
   }
 
   String toJson() => json.encode(toMap());
