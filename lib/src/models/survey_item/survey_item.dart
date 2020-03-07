@@ -17,8 +17,8 @@ abstract class SurveyItem {
   Expression selectionMethod;
   Map<String, dynamic> toMap();
   factory SurveyItem(Map<String, dynamic> map) {
-    // SurveySingleItem does not have a selection method
-    if (map['selectionMethod'] == null) {
+    // SurveySingleItem does not have an items List
+    if (map['items'] == null) {
       var temp = map['validations']?.map((x) => Validations.fromMap(x));
       var tempValidation = List<Validations>.from(temp);
       return SurveySingleItem(
