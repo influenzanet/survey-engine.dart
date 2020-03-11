@@ -66,16 +66,4 @@ class SurveyGroupItem implements SurveyItem {
   @override
   String toString() =>
       'SurveyGroupItem(items: $items, selectionMethod: $selectionMethod)';
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is SurveyGroupItem &&
-        o.items == items &&
-        o.selectionMethod == selectionMethod;
-  }
-
-  @override
-  int get hashCode => items.hashCode ^ selectionMethod.hashCode;
 }

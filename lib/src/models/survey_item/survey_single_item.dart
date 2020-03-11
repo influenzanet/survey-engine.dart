@@ -52,7 +52,7 @@ class SurveySingleItem implements SurveyItem {
   static SurveySingleItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     var temp = map['validations']?.map((x) => Validations.fromMap(x));
-    var tempValidation = List<Validations>.from(temp);
+    var tempValidation = (temp != null) ? List<Validations>.from(temp) : null;
     return SurveySingleItem(
         type: map['type'],
         components: ItemGroupComponent?.fromMap(map['components']),

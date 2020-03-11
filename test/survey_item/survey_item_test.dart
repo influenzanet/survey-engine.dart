@@ -10,6 +10,8 @@ void main() {
 
     setUp(() {
       testSurveySingleItem = {
+        'key': 'q0',
+        'version': 1,
         'type': 'basic.static.title',
         'validations': [
           {
