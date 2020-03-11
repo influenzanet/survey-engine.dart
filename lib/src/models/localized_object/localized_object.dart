@@ -1,23 +1,15 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/expression_eval.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
-import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 
 class LocalizedObject {
   String code;
   List<ExpressionArg> parts;
   LocalizedObject({String code, List<ExpressionArg> parts}) {
     this.code = code;
-    parts.forEach((expressionArg) {
-      // In case of expression evaluate the expression as String
-      if (expressionArg.exprArgDType.dtype == 'exp') {
-        ExpressionEvaluation eval = ExpressionEvaluation();
-        expressionArg.str = eval.evalExpression(expressionArg.exp).toString();
-      } else {
-        expressionArg.exprArgDType = ExpressionArgDType(dtype: 'str');
-      }
-    });
+    // Localised media needs to be an 'str' only so it is resolved if it has any other datatype
+    parts = Utils.resolveContent(parts);
     this.parts = parts;
   }
   // LocalizedMedia needs to be defined

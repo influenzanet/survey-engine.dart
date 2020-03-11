@@ -1,4 +1,4 @@
-import 'package:survey_engine.dart/src/controller/selection_methods.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:test/test.dart';
 
 void main() {

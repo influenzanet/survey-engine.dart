@@ -2,7 +2,6 @@ library survey_engine;
 
 export 'package:survey_engine.dart/src/controller/exceptions.dart';
 export 'package:survey_engine.dart/src/controller/expression_eval.dart';
-export 'package:survey_engine.dart/src/controller/localised_strings.dart';
 export 'package:survey_engine.dart/src/models/constants.dart';
 export 'package:survey_engine.dart/src/models/expression/expression.dart';
 export 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
