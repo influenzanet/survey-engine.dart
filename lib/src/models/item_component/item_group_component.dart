@@ -27,7 +27,12 @@ class ItemGroupComponent implements ItemComponent {
     this.properties,
     this.items,
     this.order,
-  });
+  }) {
+    // Make sure that order name defaults to sequential if not present
+    if (this.order == null) {
+      this.order = Expression(name: 'sequential');
+    }
+  }
 
   Map<String, dynamic> toMap() {
     return {

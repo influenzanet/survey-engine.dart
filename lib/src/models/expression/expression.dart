@@ -24,7 +24,7 @@ class Expression {
     return {
       'name': name,
       'returnType': returnType,
-      'data': List<dynamic>.from(data.map((x) => x))
+      'data': (data == null) ? null : List<dynamic>.from(data.map((x) => x))
     };
   }
 

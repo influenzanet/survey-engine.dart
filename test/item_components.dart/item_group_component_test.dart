@@ -1,4 +1,5 @@
 import 'package:survey_engine.dart/src/models/constants.dart';
+import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
@@ -71,6 +72,7 @@ void main() {
       DisplayComponent displayComponent =
           DisplayComponent.fromMap(testDisplayItemComponentMap);
       expect(actual.role, 'root');
+      expect(actual.order.toJson(), Expression(name: 'sequential').toJson());
       expect(actual.items[firstComponent].toJson(), responseComponent.toJson());
       expect(actual.items[secondComponent].toJson(), displayComponent.toJson());
     });

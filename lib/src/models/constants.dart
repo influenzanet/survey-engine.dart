@@ -19,6 +19,8 @@ const List<Map<String, Object>> expressionArguments = [
   {'name': 'getObjByHierarchicalKey', 'arguments': 1},
   {'name': 'getResponseItem', 'arguments': 1},
   {'name': 'getSurveyItemValidation', 'arguments': 1},
+  {'name': 'sequential', 'arguments': 1},
+  {'name': 'random', 'arguments': 1}
 ];
 const int firstArgument = 0,
     secondArgument = 1,

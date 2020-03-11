@@ -4,7 +4,7 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
 class ExpressionEvaluation {
-  dynamic evalExpression(Expression expression) {
+  dynamic evalExpression([Expression expression]) {
     var checkValidMap;
     var exprMap = expression.toMap();
     try {
@@ -13,7 +13,8 @@ class ExpressionEvaluation {
     } catch (e) {
       throw InvalidArgumentsException();
     }
-    if ((checkValidMap['arguments'] > expression.data.length)) {
+    if (expression.data != null &&
+        (checkValidMap['arguments'] > expression.data.length)) {
       throw ArgumentCountException();
     }
     switch (expression.name) {
@@ -43,6 +44,13 @@ class ExpressionEvaluation {
         break;
       case 'isDefined':
         return isDefined(expression);
+        break;
+      // Needs to change after returnType of Expression is confirmed
+      case 'sequential':
+        return expression;
+        break;
+      case 'random':
+        return random(expression);
         break;
     }
     return false;
@@ -177,5 +185,10 @@ class ExpressionEvaluation {
         ? evalExpression(argument)
         : argument;
     return (result != null);
+  }
+
+  Expression random(Expression expression) {
+    expression.data.shuffle();
+    return expression;
   }
 }
