@@ -52,5 +52,13 @@
 ## Expression evaluation
 1. **getAttribute**: What is `temporaryItem` ?
    + Answer:
-2. **getContext**: How does it function?
+2. **getContext**: How does it function? What is a `profile` and `mode`
    + Answer: 
+
+## Selection method
+1. **Expression**: Selection method is of type `expression` having three cases of `uniform`,`highestPriority` and `exponential` as expression names. All the three have no `returnType`, considering evaluation of the selection method expression, should it just return a `SurveyGroupItem` object?
+ + Answer:
+2. **exponential**: Does `exponentialRandomSelector` some kind of standard logic to pick an item? If yes is there any available documentation for it?
+
+ 
+  
