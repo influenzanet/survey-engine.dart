@@ -2,9 +2,12 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 
 class ExpressionEvaluation {
-  dynamic evalExpression([Expression expression]) {
+  SurveyContext context;
+  ExpressionEvaluation({this.context});
+  dynamic evalExpression({Expression expression, SurveyContext context}) {
     var checkValidMap;
     var exprMap = expression.toMap();
     try {
@@ -45,6 +48,9 @@ class ExpressionEvaluation {
       case 'isDefined':
         return isDefined(expression);
         break;
+      case 'getContext':
+        return getContext(context);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return expression;
@@ -72,8 +78,10 @@ class ExpressionEvaluation {
     var argument1 = getData(arg1);
     var argument2 = getData(arg2);
 
-    var res1 = arg1.exp != null ? evalExpression(argument1) : argument1;
-    var res2 = arg2.exp != null ? evalExpression(argument2) : argument2;
+    var res1 =
+        arg1.exp != null ? evalExpression(expression: argument1) : argument1;
+    var res2 =
+        arg2.exp != null ? evalExpression(expression: argument2) : argument2;
     return [res1, res2];
   }
 
@@ -134,7 +142,7 @@ class ExpressionEvaluation {
         return (arg.str.length > 0);
         break;
       case 'exp':
-        return (evalExpression(arg.exp));
+        return (evalExpression(expression: arg.exp));
         break;
       default:
         return false;
@@ -182,7 +190,7 @@ class ExpressionEvaluation {
     }
     var argument = getData(arguments[firstArgument]);
     var result = arguments[firstArgument].exp != null
-        ? evalExpression(argument)
+        ? evalExpression(expression: argument)
         : argument;
     return (result != null);
   }
@@ -190,5 +198,15 @@ class ExpressionEvaluation {
   Expression random(Expression expression) {
     expression.data.shuffle();
     return expression;
+  }
+
+  SurveyContext getContext(SurveyContext context) {
+    if (context == null) {
+      if (this.context == null) {
+        throw InvalidContextException(message: "Context is missing");
+      }
+      return this.context;
+    }
+    return context;
   }
 }

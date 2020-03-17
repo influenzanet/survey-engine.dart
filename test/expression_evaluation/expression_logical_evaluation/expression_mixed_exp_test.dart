@@ -33,7 +33,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testNested);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
 
     test('Check isTrue for nums !(0||0)', () {
@@ -55,7 +55,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testNested);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
 
     test('Check isFalse for nums !(1&&1)', () {
@@ -77,7 +77,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testNested);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
 
     test('Check isTrue for nums !(0&&1)', () {
@@ -99,7 +99,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testNested);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
 }

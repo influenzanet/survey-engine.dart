@@ -23,7 +23,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test(
@@ -37,7 +37,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
 
@@ -52,7 +52,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test(
@@ -66,7 +66,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test(
@@ -80,7 +80,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test(
@@ -94,7 +94,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test('Two arguments for unary operator not catches invalid exception', () {
@@ -107,7 +107,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
 
@@ -122,7 +122,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<ArgumentCountException>()));
     });
     test('Invalid operation', () {
@@ -135,7 +135,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expr),
+      expect(() => eval.evalExpression(expression: expr),
           throwsA(TypeMatcher<InvalidArgumentsException>()));
     });
   });

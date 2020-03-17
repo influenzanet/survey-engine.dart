@@ -21,9 +21,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
       expr.name = 'lte';
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
     test('Check for nums isTrue (1<=2)', () {
       testExpr = {
@@ -35,7 +35,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
     test('Check equal for nums isTrue (1<=1)', () {
       testExpr = {
@@ -47,7 +47,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
     test('Check for strings isFalse (bc<=ab)', () {
       testExpr = {
@@ -59,7 +59,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
     test('Check for strings isTrue (ab<=bc)', () {
       testExpr = {
@@ -71,7 +71,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
     test('Check equality for strings isTrue (ab<=ab)', () {
       testExpr = {
@@ -83,7 +83,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
 }

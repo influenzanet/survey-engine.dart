@@ -20,7 +20,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
 
     test('Check isTrue for nums !(0)', () {
@@ -32,7 +32,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
 
     test('Check for strings isFalse !(ab)', () {
@@ -44,7 +44,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
     test('Check for strings isTrue for !(\'\')', () {
       testExpr = {
@@ -55,7 +55,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
 }

@@ -22,7 +22,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isFalse);
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
     test('Check isTrue for nums (2)', () {
       testExpr = {
@@ -32,7 +32,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expr), isTrue);
+      expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
 }

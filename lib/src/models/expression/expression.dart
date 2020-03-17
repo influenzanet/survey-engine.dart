@@ -31,7 +31,7 @@ class Expression {
   static Expression fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     var temp = map['data']?.map((x) => ExpressionArg.fromMap(x));
-    var tempData = List<ExpressionArg>.from(temp);
+    var tempData = (temp == null) ? null : List<ExpressionArg>.from(temp);
     return Expression(
         name: map['name'], returnType: map['returnType'], data: tempData);
   }

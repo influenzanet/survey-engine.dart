@@ -6,6 +6,7 @@ class SurveyContext {
   List<SurveyItemResponse> previousResponses;
   dynamic profile;
   String mode;
+  // To do: The model needs to be defined. Context fetches data from the mobile application. Currently `mode` is used for test strings.
   SurveyContext({
     this.previousResponses,
     this.profile,

@@ -51,3 +51,13 @@ class InvalidItemTypeException {
   @override
   String toString() => '$message';
 }
+
+class InvalidContextException {
+  String message;
+  InvalidContextException({
+    this.message,
+  });
+
+  @override
+  String toString() => '$message';
+}

@@ -13,7 +13,7 @@ int main() {
   Expression expression = Expression.fromMap(testMap);
   print(expression.toString());
   ExpressionEvaluation eval = ExpressionEvaluation();
-  bool m = eval.evalExpression(expression);
+  bool m = eval.evalExpression(expression: expression);
   print(m);
   return 0;
 }
