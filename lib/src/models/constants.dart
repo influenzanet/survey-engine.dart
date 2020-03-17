@@ -1,4 +1,4 @@
-const List<String> expressionArgType = ['exp', 'number', 'str'];
+const List<String> expressionArgType = ['exp', 'num', 'str'];
 const List<String> returnTypes = ['boolean', 'int', 'float', 'string'];
 const List<Map<String, Object>> expressionArguments = [
   {'name': 'not', 'arguments': 1},

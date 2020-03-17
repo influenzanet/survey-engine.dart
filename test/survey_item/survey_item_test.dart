@@ -20,8 +20,8 @@ void main() {
             'rule': {
               'name': 'or',
               'data': [
-                {'dtype': 'number', 'number': 2},
-                {'dtype': 'number', 'number': 1}
+                {'dtype': 'num', 'num': 2},
+                {'dtype': 'num', 'num': 1}
               ]
             }
           },
@@ -65,8 +65,8 @@ void main() {
                 'rule': {
                   'name': 'or',
                   'data': [
-                    {'dtype': 'number', 'number': 2},
-                    {'dtype': 'number', 'number': 1}
+                    {'dtype': 'num', 'num': 2},
+                    {'dtype': 'num', 'num': 1}
                   ]
                 }
               },

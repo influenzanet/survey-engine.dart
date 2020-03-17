@@ -20,7 +20,7 @@ class ExpressionArg {
       'dtype': exprArgDType.dtype,
       'exp': exp?.toMap(),
       'str': str,
-      'number': number,
+      'num': number,
     };
   }
 
@@ -31,7 +31,7 @@ class ExpressionArg {
       exprArgDType: ExpressionArgDType(dtype: map['dtype']),
       exp: Expression.fromMap(map['exp']),
       str: map['str'],
-      number: map['number'],
+      number: map['num'],
     );
   }
 

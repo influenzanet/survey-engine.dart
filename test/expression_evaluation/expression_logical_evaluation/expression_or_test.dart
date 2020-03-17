@@ -12,37 +12,37 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isTrue for numbers (2||1)', () {
+    test('Check isTrue for nums (2||1)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 2},
-          {'dtype': 'number', 'number': 1}
+          {'dtype': 'num', 'num': 2},
+          {'dtype': 'num', 'num': 1}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check isFalse for numbers (0||0)', () {
+    test('Check isFalse for nums (0||0)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 0},
-          {'dtype': 'number', 'number': 0}
+          {'dtype': 'num', 'num': 0},
+          {'dtype': 'num', 'num': 0}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check isTrue for numbers (1||0)', () {
+    test('Check isTrue for nums (1||0)', () {
       testExpr = {
         'name': 'or',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 1},
-          {'dtype': 'number', 'number': 0}
+          {'dtype': 'num', 'num': 1},
+          {'dtype': 'num', 'num': 0}
         ]
       };
       expr = Expression.fromMap(testExpr);

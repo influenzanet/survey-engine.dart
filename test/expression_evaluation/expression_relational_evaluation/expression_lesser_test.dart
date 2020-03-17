@@ -11,13 +11,13 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test('Check isFalse for numbers (1<=1)', () {
+    test('Check isFalse for nums (1<=1)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 1},
-          {'dtype': 'number', 'number': 1}
+          {'dtype': 'num', 'num': 1},
+          {'dtype': 'num', 'num': 1}
         ]
       };
       expr = Expression.fromMap(testExpr);
@@ -25,25 +25,25 @@ void main() {
       expr.name = 'lte';
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check for numbers isTrue (1<=2)', () {
+    test('Check for nums isTrue (1<=2)', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 1},
-          {'dtype': 'number', 'number': 2}
+          {'dtype': 'num', 'num': 1},
+          {'dtype': 'num', 'num': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isTrue);
     });
-    test('Check equal for numbers isTrue (1<=1)', () {
+    test('Check equal for nums isTrue (1<=1)', () {
       testExpr = {
         'name': 'lte',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 1},
-          {'dtype': 'number', 'number': 1}
+          {'dtype': 'num', 'num': 1},
+          {'dtype': 'num', 'num': 1}
         ]
       };
       expr = Expression.fromMap(testExpr);

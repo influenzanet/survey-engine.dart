@@ -11,24 +11,24 @@ void main() {
     setUp(() {
       eval = ExpressionEvaluation();
     });
-    test('Check isFalse for numbers !(2)', () {
+    test('Check isFalse for nums !(2)', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 2}
+          {'dtype': 'num', 'num': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
 
-    test('Check isTrue for numbers !(0)', () {
+    test('Check isTrue for nums !(0)', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
         'data': [
-          {'dtype': 'number', 'number': 0}
+          {'dtype': 'num', 'num': 0}
         ]
       };
       expr = Expression.fromMap(testExpr);

@@ -58,7 +58,7 @@ class ExpressionEvaluation {
 
   dynamic getData(ExpressionArg arg) {
     switch (arg.exprArgDType.dtype) {
-      case 'number':
+      case 'num':
         return arg.number;
         break;
       case 'str':
@@ -127,7 +127,7 @@ class ExpressionEvaluation {
 // Logical operations
   bool getLogicalEvaluation(ExpressionArg arg) {
     switch (arg.exprArgDType.dtype) {
-      case 'number':
+      case 'num':
         return (arg.number > 0);
         break;
       case 'str':

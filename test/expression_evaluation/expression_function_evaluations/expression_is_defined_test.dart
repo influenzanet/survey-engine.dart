@@ -13,22 +13,22 @@ void main() {
       eval = ExpressionEvaluation();
     });
     test(
-        'Check isFalse for data having an integer data type but containing a string value (null number) ',
+        'Check isFalse for data having an integer data type but containing a string value (null num) ',
         () {
       testExpr = {
         'name': 'isDefined',
         'data': [
-          {'dtype': 'number', 'str': '5'}
+          {'dtype': 'num', 'str': '5'}
         ]
       };
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expr), isFalse);
     });
-    test('Check isTrue for numbers (2)', () {
+    test('Check isTrue for nums (2)', () {
       testExpr = {
         'name': 'isDefined',
         'data': [
-          {'dtype': 'number', 'number': 2}
+          {'dtype': 'num', 'num': 2}
         ]
       };
       expr = Expression.fromMap(testExpr);

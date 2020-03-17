@@ -46,8 +46,8 @@ void main() {
               'name': 'or',
               'returnType': 'boolean',
               'data': [
-                {'dtype': 'number', 'number': 2},
-                {'dtype': 'number', 'number': 1}
+                {'dtype': 'num', 'num': 2},
+                {'dtype': 'num', 'num': 1}
               ]
             }
           },

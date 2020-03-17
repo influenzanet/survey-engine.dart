@@ -16,7 +16,7 @@ void main() {
       expect(items.contains(actual), isTrue);
     });
 
-    test('Check highest priority selection a list of maps:(number 4)\n', () {
+    test('Check highest priority selection a list of maps:(num 4)\n', () {
       List<Map<String, Object>> items = [
         {'key': 'q1', 'priority': 1},
         {'key': 'q2', 'priority': 4},
