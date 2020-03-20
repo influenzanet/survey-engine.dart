@@ -74,14 +74,19 @@ class ExpressionEvaluation {
     }
   }
 
-  List<dynamic> evaluateBinaryOperands(ExpressionArg arg1, ExpressionArg arg2) {
-    var argument1 = getData(arg1);
-    var argument2 = getData(arg2);
+  dynamic evaluateArgument(ExpressionArg arg) {
+    if (arg == null) {
+      return null;
+    }
+    var argument = getData(arg);
+    var result =
+        arg.exp != null ? evalExpression(expression: argument) : argument;
+    return result;
+  }
 
-    var res1 =
-        arg1.exp != null ? evalExpression(expression: argument1) : argument1;
-    var res2 =
-        arg2.exp != null ? evalExpression(expression: argument2) : argument2;
+  List<dynamic> evaluateBinaryOperands(ExpressionArg arg1, ExpressionArg arg2) {
+    var res1 = evaluateArgument(arg1);
+    var res2 = evaluateArgument(arg2);
     return [res1, res2];
   }
 

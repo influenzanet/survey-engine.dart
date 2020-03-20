@@ -14,9 +14,9 @@ class Properties {
 
   Map<String, dynamic> toMap() {
     return {
-      'min': min.toMap(),
-      'max': max.toMap(),
-      'stepSize': stepSize.toMap(),
+      'min': min?.toMap(),
+      'max': max?.toMap(),
+      'stepSize': stepSize?.toMap(),
     };
   }
 
