@@ -66,7 +66,7 @@ class SelectionMethods {
 }
 
 class Utils {
-  static List<ExpressionArg> resolveContent(List<ExpressionArg> parts) {
+  static List<ExpressionArg> resolveParts(List<ExpressionArg> parts) {
     parts?.forEach((expressionArg) {
       // In case of expression evaluate the expression as String
       if (expressionArg.exprArgDType.dtype == 'exp') {
@@ -81,10 +81,10 @@ class Utils {
   }
 
   static String getLocalisedString(LocalizedObject localizedObject) {
-    List<String> localisedString = [];
+    String localisedString = '';
     localizedObject.parts.forEach((expressionArg) {
-      localisedString.add(expressionArg.str);
+      localisedString = localisedString + (expressionArg.str);
     });
-    return localisedString.join();
+    return localisedString;
   }
 }

@@ -7,7 +7,8 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 class ExpressionEvaluation {
   SurveyContext context;
   ExpressionEvaluation({this.context});
-  dynamic evalExpression({Expression expression, SurveyContext context}) {
+  dynamic evalExpression(
+      {Expression expression, SurveyContext context, List<dynamic> items}) {
     var checkValidMap;
     var exprMap = expression.toMap();
     try {
@@ -53,10 +54,10 @@ class ExpressionEvaluation {
         break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
-        return expression;
+        return items;
         break;
       case 'random':
-        return random(expression);
+        return random(items);
         break;
     }
     return false;
@@ -200,9 +201,10 @@ class ExpressionEvaluation {
     return (result != null);
   }
 
-  Expression random(Expression expression) {
-    expression.data.shuffle();
-    return expression;
+  List<dynamic> random(dynamic items) {
+    // TO DO this and random seed needs to be implemented in typescript and is subject to change
+    items.shuffle;
+    return items;
   }
 
   SurveyContext getContext(SurveyContext context) {

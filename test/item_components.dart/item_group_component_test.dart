@@ -1,3 +1,4 @@
+import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
@@ -65,6 +66,7 @@ void main() {
     test(
         'Test item group component creation with an item list containing a response and a display component ',
         () {
+      ExpressionEvaluation eval = ExpressionEvaluation();
       ResponseComponent responseComponent =
           ResponseComponent.fromMap(testResponseComponentMap);
       ItemGroupComponent actual =
@@ -72,7 +74,13 @@ void main() {
       DisplayComponent displayComponent =
           DisplayComponent.fromMap(testDisplayItemComponentMap);
       expect(actual.role, 'root');
-      expect(actual.order.toJson(), Expression(name: 'sequential').toJson());
+      expect(
+          actual.items.toString(),
+          eval
+              .evalExpression(
+                  expression: Expression(name: 'sequential'),
+                  items: actual.items)
+              .toString());
       expect(actual.items[firstComponent].toJson(), responseComponent.toJson());
       expect(actual.items[secondComponent].toJson(), displayComponent.toJson());
     });
