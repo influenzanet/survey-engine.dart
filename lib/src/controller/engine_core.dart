@@ -6,9 +6,9 @@ import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
 class SurveyEngineCore {
-  Map<String, Object> resolveItemComponentProperties(Properties props) {
+  Map<Object, Object> resolveItemComponentProperties(Properties props) {
     ExpressionEvaluation eval = ExpressionEvaluation();
-    Map<String, Object> propertiesMap = {
+    Map<Object, Object> propertiesMap = {
       'min': eval.evaluateArgument(props.min),
       'max': eval.evaluateArgument(props.max),
       'stepSize': eval.evaluateArgument(props.stepSize)
@@ -25,25 +25,31 @@ class SurveyEngineCore {
     return resolvedContent;
   }
 
-  bool displayCondition(Expression expression) {
+  bool evaluateBooleanResult(Expression expression) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     // Display condition must always be of boolean type
-    if (Expression == null || expression.returnType != 'boolean') {
+    if (Expression == null || expression?.returnType != 'boolean') {
       return false;
     }
     return eval.evalExpression(expression: expression);
   }
 
   dynamic resolveItemComponentGroup(ItemGroupComponent component) {
-    ExpressionEvaluation eval = ExpressionEvaluation();
-    var itemGroupComponentMap = component.toMap();
-    itemGroupComponentMap['displayCondition'] =
-        displayCondition(component.displayCondition);
-    itemGroupComponentMap['content'] = resolveContent(component.content);
-    //itemGroupComponentMap['description'] = resolveContent(component.description);
-    itemGroupComponentMap['disabled'] =
-        eval.evalExpression(expression: component.disabled);
-    itemGroupComponentMap['properties'] =
-        resolveItemComponentProperties(component.properties);
+    List resolvedItems = [];
+    component.items.forEach((itemComponent) {
+      Map<String, Object> resolvedItemComponent = itemComponent.toMap();
+      resolvedItemComponent['displayCondition'] =
+          evaluateBooleanResult(itemComponent.displayCondition);
+      resolvedItemComponent['content'] = resolveContent(itemComponent.content);
+      //resolvedItemComponent['description'] = resolveContent(itemComponent.description);
+      resolvedItemComponent['disabled'] =
+          evaluateBooleanResult(itemComponent.disabled);
+      resolvedItemComponent['properties'] =
+          resolveItemComponentProperties(itemComponent.properties);
+      resolvedItems.add(resolvedItemComponent);
+    });
+    Map<String, Object> resolvedItemGroupComponent = component.toMap();
+    resolvedItemGroupComponent['items'] = resolvedItems;
+    return resolvedItemGroupComponent;
   }
 }
