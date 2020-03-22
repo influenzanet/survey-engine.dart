@@ -11,6 +11,7 @@ class ResponseComponent implements ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
+  List<LocalizedObject> description;
   Expression disabled;
   Map<String, String> style;
   String key;
@@ -22,6 +23,7 @@ class ResponseComponent implements ItemComponent {
       {this.role,
       this.displayCondition,
       this.content,
+      this.description,
       this.disabled,
       this.style,
       this.key,
@@ -43,6 +45,9 @@ class ResponseComponent implements ItemComponent {
       'role': role,
       'displayCondition': displayCondition?.toMap(),
       'content': List<dynamic>.from(content.map((x) => x?.toMap())),
+      'description': (description == null)
+          ? null
+          : List<dynamic>.from(description.map((x) => x?.toMap())),
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,
@@ -59,6 +64,10 @@ class ResponseComponent implements ItemComponent {
       displayCondition: Expression.fromMap(map['displayCondition']),
       content: List<LocalizedObject>.from(
           map['content']?.map((x) => LocalizedObject.fromMap(x))),
+      description: (map['description'] == null)
+          ? null
+          : List<LocalizedObject>.from(
+              map['description']?.map((x) => LocalizedObject.fromMap(x))),
       disabled: Expression.fromMap(map['disabled']),
       style: map['style'],
       key: map['key'],
@@ -74,6 +83,6 @@ class ResponseComponent implements ItemComponent {
 
   @override
   String toString() {
-    return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, disabled: $disabled, style: $style, key: $key, dtype: $dtype, properties: $properties';
+    return 'ResponseComponent role: $role, displayCondition: $displayCondition, content: $content, description:$description, disabled: $disabled, style: $style, key: $key, dtype: $dtype, properties: $properties';
   }
 }

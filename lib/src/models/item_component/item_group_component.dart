@@ -9,6 +9,7 @@ class ItemGroupComponent implements ItemComponent {
   String role;
   Expression displayCondition = null;
   List<LocalizedObject> content = null;
+  List<LocalizedObject> description = null;
   Expression disabled = null;
   Map<String, String> style = null;
   String key = null;
@@ -20,6 +21,7 @@ class ItemGroupComponent implements ItemComponent {
     this.role,
     this.displayCondition,
     this.content,
+    this.description,
     this.disabled,
     this.style,
     this.key,

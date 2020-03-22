@@ -10,6 +10,7 @@ abstract class ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
+  List<LocalizedObject> description;
   Expression disabled;
   Map<String, String> style;
   String key;
@@ -24,6 +25,10 @@ abstract class ItemComponent {
         displayCondition: Expression.fromMap(map['displayCondition']),
         content: List<LocalizedObject>.from(
             map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        description: (map['description'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['description']?.map((x) => LocalizedObject.fromMap(x))),
         style: map['style'],
       );
     } else if (responseComponentRoles.contains(map['role'])) {
@@ -32,6 +37,10 @@ abstract class ItemComponent {
         displayCondition: Expression.fromMap(map['displayCondition']),
         content: List<LocalizedObject>.from(
             map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        description: (map['description'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['description']?.map((x) => LocalizedObject.fromMap(x))),
         disabled: Expression.fromMap(map['disabled']),
         style: map['style'],
         key: map['key'],
