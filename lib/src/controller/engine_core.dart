@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 
 class SurveyEngineCore {
   Map<Object, Object> resolveItemComponentProperties(Properties props) {
@@ -50,6 +51,23 @@ class SurveyEngineCore {
     });
     Map<String, Object> resolvedItemGroupComponent = component.toMap();
     resolvedItemGroupComponent['items'] = resolvedItems;
+    resolvedItemGroupComponent =
+        Utils.removeNullParams(resolvedItemGroupComponent);
     return resolvedItemGroupComponent;
+  }
+
+  dynamic renderSurveySingleItem(SurveySingleItem surveySingleItem) {
+    Map<String, Object> renderedItem = surveySingleItem.toMap();
+    List<Map<String, Object>> renderedValidations = [];
+    surveySingleItem.validation?.forEach((validation) {
+      Map<String, Object> validationMap = validation.toMap();
+      validationMap['rule'] = evaluateBooleanResult(validation.rule);
+      renderedValidations.add(validationMap);
+    });
+    renderedItem['components'] =
+        resolveItemComponentGroup(surveySingleItem.components);
+    renderedItem['validation'] = renderedValidations;
+    renderedItem = Utils.removeNullParams(renderedItem);
+    return renderedItem;
   }
 }

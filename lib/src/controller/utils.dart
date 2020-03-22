@@ -87,4 +87,26 @@ class Utils {
     });
     return localisedString;
   }
+
+  static dynamic removeNullParams(dynamic mapToEdit) {
+    var keys = mapToEdit.keys.toList(growable: false);
+    for (String key in keys) {
+      var value = mapToEdit[key];
+      if (value == null) {
+        mapToEdit.remove(key);
+      } else if (value is Map) {
+        mapToEdit[key] = removeNullParams(value);
+      } else if (value is List) {
+        List valueList = [];
+        value.forEach((item) {
+          if (item is Map) {
+            item = removeNullParams(item);
+          }
+          valueList.add(item);
+        });
+        mapToEdit[key] = valueList;
+      }
+    }
+    return mapToEdit;
+  }
 }

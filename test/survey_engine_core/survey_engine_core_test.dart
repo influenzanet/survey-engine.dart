@@ -3,6 +3,7 @@ import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -100,7 +101,7 @@ void main() {
       ItemGroupComponent itemGroupComponent =
           ItemGroupComponent.fromMap(testItemGroupComponentMap);
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
-      var actual =
+      dynamic actual =
           surveyEngineCore.resolveItemComponentGroup(itemGroupComponent);
       Map<String, Object> expected = {
         'role': 'root',
@@ -110,14 +111,105 @@ void main() {
             'displayCondition': false,
             'content': 'Some input data',
             'disabled': false,
-            'style': null,
             'key': '4',
             'dtype': 'string',
-            'properties': {'min': -5, 'max': null, 'stepSize': null}
+            'properties': {'min': -5}
           },
         ],
-        'order': {'name': 'sequential', 'returnType': 'string', 'data': null}
+        'order': {'name': 'sequential', 'returnType': 'string'}
       };
+      expect(actual.toString(), expected.toString());
+    });
+  });
+  group('Resolve SurveySingleItem elements:\n', () {
+    Map<String, Object> testSurveySingleItem;
+    setUp(() {
+      testSurveySingleItem = {
+        'type': 'basic.static.title',
+        'validations': [
+          {
+            'type': 'soft',
+            'key': 'v1',
+            'rule': {
+              'name': 'or',
+              'data': [
+                {'dtype': 'num', 'num': 2},
+                {'dtype': 'num', 'num': 1}
+              ]
+            }
+          },
+        ],
+        'components': {
+          'role': 'root',
+          'items': [
+            {
+              'role': 'input',
+              'displayCondition': {
+                'name': 'not',
+                'returnType': 'boolean',
+                'data': [
+                  {'dtype': 'num', 'num': 2}
+                ]
+              },
+              'content': [
+                {
+                  'code': 'en',
+                  'parts': [
+                    {'str': 'Some input data'},
+                  ]
+                },
+              ],
+              'disabled': {
+                'name': 'not',
+                'returnType': 'boolean',
+                'data': [
+                  {'dtype': 'num', 'num': 2}
+                ]
+              },
+              'key': '4',
+              'dtype': 'string',
+              'properties': {
+                'min': {
+                  'dtype': 'num',
+                  'num': -5,
+                }
+              }
+            },
+          ]
+        }
+      };
+    });
+    test(
+        'Test resolve SurveySingleItem Component with items as a whole object to a Map',
+        () {
+      // TO DO Order of group components is set to default value and is subject to change
+      SurveySingleItem surveySingleItem =
+          SurveySingleItem.fromMap(testSurveySingleItem);
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      dynamic actual =
+          surveyEngineCore.renderSurveySingleItem(surveySingleItem);
+      dynamic expected = {
+        'type': 'basic.static.title',
+        'components': {
+          'role': 'root',
+          'items': [
+            {
+              'role': 'input',
+              'displayCondition': false,
+              'content': 'Some input data',
+              'disabled': false,
+              'key': '4',
+              'dtype': 'string',
+              'properties': {'min': -5}
+            },
+          ],
+          'order': {'name': 'sequential', 'returnType': 'string'}
+        },
+        'validation': [
+          {'rule': true, 'type': 'soft', 'key': 'v1'},
+        ],
+      };
+
       expect(actual.toString(), expected.toString());
     });
   });
