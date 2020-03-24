@@ -88,6 +88,10 @@ class Utils {
     return localisedString;
   }
 
+  static dynamic resolveNull(dynamic nullCheck, dynamic nullReplace) {
+    return (nullCheck == null) ? null : nullReplace;
+  }
+
   static dynamic removeNullParams(dynamic mapToEdit) {
     var keys = mapToEdit.keys.toList(growable: false);
     for (String key in keys) {

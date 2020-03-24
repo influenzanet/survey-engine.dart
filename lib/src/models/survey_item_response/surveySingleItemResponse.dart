@@ -16,20 +16,6 @@ class SurveySingleItemResponse implements SurveyItemResponse {
     this.meta,
   });
 
-  SurveySingleItemResponse copyWith({
-    ResponseItem response,
-    List<SurveyItemResponse> items,
-    String key,
-    ResponseMeta meta,
-  }) {
-    return SurveySingleItemResponse(
-      response: response ?? this.response,
-      items: items ?? this.items,
-      key: key ?? this.key,
-      meta: meta ?? this.meta,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'response': response.toMap(),
