@@ -17,7 +17,7 @@ class LocalizedObject {
   Map<String, dynamic> toMap() {
     return {
       'code': code,
-      'parts': List<dynamic>.from(parts.map((x) => x.toMap())),
+      'parts': Utils.resolveNullList(parts),
     };
   }
 

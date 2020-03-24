@@ -88,8 +88,10 @@ class Utils {
     return localisedString;
   }
 
-  static dynamic resolveNull(dynamic nullCheck, dynamic nullReplace) {
-    return (nullCheck == null) ? null : nullReplace;
+  static dynamic resolveNullList(dynamic nullCheck) {
+    return (nullCheck == null)
+        ? null
+        : List<dynamic>.from(nullCheck?.map((item) => item));
   }
 
   static dynamic removeNullParams(dynamic mapToEdit) {

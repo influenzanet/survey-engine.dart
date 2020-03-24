@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
+
 class ResponseItem {
   String key;
   String value;
@@ -17,9 +19,7 @@ class ResponseItem {
       'key': key,
       'value': value,
       'dtype': dtype,
-      'items': (items != null)
-          ? List<dynamic>.from(items?.map((x) => x?.toMap()))
-          : null,
+      'items': Utils.resolveNullList(items),
     };
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
@@ -44,10 +45,8 @@ class ResponseComponent implements ItemComponent {
     return {
       'role': role,
       'displayCondition': displayCondition?.toMap(),
-      'content': List<dynamic>.from(content.map((x) => x?.toMap())),
-      'description': (description == null)
-          ? null
-          : List<dynamic>.from(description.map((x) => x?.toMap())),
+      'content': Utils.resolveNullList(content),
+      'description': Utils.resolveNullList(description),
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,

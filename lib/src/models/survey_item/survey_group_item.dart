@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
@@ -31,7 +32,7 @@ class SurveyGroupItem implements SurveyItem {
 
   Map<String, dynamic> toMap() {
     return {
-      'items': List<dynamic>.from(items.map((x) => x?.toMap())),
+      'items': Utils.resolveNullList(items),
       'selectionMethod': selectionMethod?.toMap(),
       'key': key,
       'follows': follows,

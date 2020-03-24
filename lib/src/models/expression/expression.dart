@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 
 import 'expression_arg.dart';
@@ -24,7 +25,7 @@ class Expression {
     return {
       'name': name,
       'returnType': returnType,
-      'data': (data == null) ? null : List<dynamic>.from(data.map((x) => x))
+      'data': Utils.resolveNullList(data)
     };
   }
 

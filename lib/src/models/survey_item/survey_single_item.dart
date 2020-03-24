@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
@@ -39,7 +40,7 @@ class SurveySingleItem implements SurveyItem {
     return {
       'type': type,
       'components': components.toMap(),
-      'validation': List<dynamic>.from(validation.map((x) => x.toMap())),
+      'validation': Utils.resolveNullList(validation),
       'key': key,
       'follows': follows,
       'condition': condition,

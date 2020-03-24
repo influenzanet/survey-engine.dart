@@ -7,12 +7,13 @@ void main() {
       () {
     setUp(() {});
     test('Check if `null` is returned on nullCheck=`null`', () {
-      expect(Utils.resolveNull(null, 'replacedValue'), isNull);
+      expect(Utils.resolveNullList(null), isNull);
     });
   });
 
-  test('Check if `5` is returned on nullCheck=`value` and nullReplace = `5`',
+  test(
+      'Check if a list of dynamic items is sent it returns the List of map of the dynamic list',
       () {
-    expect(Utils.resolveNull('value', '5'), '5');
+    expect(Utils.resolveNullList([1, 2, 3]), [1, 2, 3]);
   });
 }

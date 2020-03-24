@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
+
 class ResponseMeta {
   int position;
   String localeCode;
@@ -21,9 +23,9 @@ class ResponseMeta {
       'position': position,
       'localeCode': localeCode,
       'version': version,
-      'rendered': List<dynamic>.from(rendered.map((x) => x)),
-      'displayed': List<dynamic>.from(displayed.map((x) => x)),
-      'responded': List<dynamic>.from(responded.map((x) => x)),
+      'rendered': Utils.resolveNullList(rendered),
+      'displayed': Utils.resolveNullList(displayed),
+      'responded': Utils.resolveNullList(responded),
     };
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
@@ -39,7 +40,7 @@ class ItemGroupComponent implements ItemComponent {
   Map<String, dynamic> toMap() {
     return {
       'role': role,
-      'items': List<dynamic>.from(items.map((x) => x.toMap())),
+      'items': Utils.resolveNullList(items),
       'order': order?.toMap(),
     };
   }

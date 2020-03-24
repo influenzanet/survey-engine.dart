@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/surveyItemResponse.dart';
 
 class SurveyContext {
@@ -15,9 +16,7 @@ class SurveyContext {
 
   Map<String, dynamic> toMap() {
     return {
-      'previousResponses': (previousResponses == null)
-          ? null
-          : List<dynamic>.from(previousResponses.map((x) => x.toMap())),
+      'previousResponses': Utils.resolveNullList(previousResponses),
       'profile': profile,
       'mode': mode,
     };
