@@ -11,7 +11,7 @@ class ResponseMeta {
   List<int> responded;
   ResponseMeta(
       {this.position = -1,
-      this.localeCode,
+      this.localeCode = '',
       this.version,
       this.rendered,
       this.displayed,
