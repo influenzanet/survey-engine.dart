@@ -20,40 +20,11 @@ abstract class ItemComponent {
   Expression order;
   factory ItemComponent(Map<String, dynamic> map) {
     if (displayItemComponentRoles.contains(map['role'])) {
-      return DisplayComponent(
-        role: map['role'],
-        displayCondition: Expression.fromMap(map['displayCondition']),
-        content: List<LocalizedObject>.from(
-            map['content']?.map((x) => LocalizedObject.fromMap(x))),
-        description: (map['description'] == null)
-            ? null
-            : List<LocalizedObject>.from(
-                map['description']?.map((x) => LocalizedObject.fromMap(x))),
-        style: map['style'],
-      );
+      return DisplayComponent.fromMap(map);
     } else if (responseComponentRoles.contains(map['role'])) {
-      return ResponseComponent(
-        role: map['role'],
-        displayCondition: Expression.fromMap(map['displayCondition']),
-        content: List<LocalizedObject>.from(
-            map['content']?.map((x) => LocalizedObject.fromMap(x))),
-        description: (map['description'] == null)
-            ? null
-            : List<LocalizedObject>.from(
-                map['description']?.map((x) => LocalizedObject.fromMap(x))),
-        disabled: Expression.fromMap(map['disabled']),
-        style: map['style'],
-        key: map['key'],
-        dtype: map['dtype'] ?? 'string',
-        properties: Properties.fromMap(map['properties']),
-      );
+      return ResponseComponent.fromMap(map);
     } else if (itemGroupRoles.contains(map['role'])) {
-      return ItemGroupComponent(
-        role: map['role'],
-        items: List<ItemComponent>.from(
-            map['items']?.map((x) => ItemComponent(x))),
-        order: Expression.fromMap(map['order']),
-      );
+      return ItemGroupComponent.fromMap(map);
     }
     // Dummy needs to be changed after other Item Components creation
     throw "Error";

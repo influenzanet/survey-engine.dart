@@ -30,8 +30,10 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
     if (map == null) return null;
 
     return SurveyGroupItemResponse(
-      items: List<SurveyItemResponse>.from(
-          map['items']?.map((x) => SurveyItemResponse(x))),
+      items: (map['items'] == null)
+          ? null
+          : List<SurveyItemResponse>.from(
+              map['items']?.map((x) => SurveyItemResponse(x))),
       key: map['key'],
       meta: ResponseMeta.fromMap(map['meta']),
       response: ResponseItem.fromMap(map['response']),
