@@ -9,14 +9,17 @@ class ResponseMeta {
   List<int> rendered;
   List<int> displayed;
   List<int> responded;
-  ResponseMeta({
-    this.position,
-    this.localeCode,
-    this.version,
-    this.rendered,
-    this.displayed,
-    this.responded,
-  });
+  ResponseMeta(
+      {this.position = -1,
+      this.localeCode,
+      this.version,
+      this.rendered,
+      this.displayed,
+      this.responded}) {
+    this.rendered ??= [];
+    this.displayed ??= [];
+    this.responded ??= [];
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -36,9 +39,12 @@ class ResponseMeta {
       position: map['position'],
       localeCode: map['localeCode'],
       version: map['version'],
-      rendered: List<int>.from(map['rendered']),
-      displayed: List<int>.from(map['displayed']),
-      responded: List<int>.from(map['responded']),
+      rendered:
+          (map['rendered'] == null) ? [] : List<int>.from(map['rendered']),
+      displayed:
+          (map['displayed'] == null) ? [] : List<int>.from(map['displayed']),
+      responded:
+          (map['responded'] == null) ? [] : List<int>.from(map['responded']),
     );
   }
 

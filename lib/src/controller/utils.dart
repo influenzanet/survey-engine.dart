@@ -38,7 +38,7 @@ class SelectionMethods {
   }
 
   static dynamic exponential(List<dynamic> items, Expression expression) {
-    // TO DO: the function has been directly picked from survey-engine.ts needs a bit bit of understanding
+    // TO DO: the function has been directly picked from survey-engine.ts needs a bit of understanding
     // and probably a little re-work
     if (items.length < 1 ||
         expression == null ||

@@ -9,7 +9,7 @@ void main() {
       testResponseItem = {
         'key': 'RG1',
         'items': [
-          {'key': 'RG1.R1'}
+          {'key': 'RG1.R1', 'value': "something", 'dtype': 'str'}
         ],
         'value': "14",
         'dtype': 'num',
@@ -17,7 +17,8 @@ void main() {
     });
 
     test('Test a sample valid response item  with a value:14 of num type', () {
-      ResponseItem item = ResponseItem(key: 'RG1.R1');
+      ResponseItem item =
+          ResponseItem(key: 'RG1.R1', value: "something", dtype: 'str');
       ResponseItem expected =
           ResponseItem(dtype: 'num', items: [item], key: 'RG1', value: '14');
       ResponseItem actual = ResponseItem.fromMap(testResponseItem);

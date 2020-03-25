@@ -1,12 +1,75 @@
+import 'dart:convert';
+
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/surveyGroupItemResponse.dart';
 
 class SurveyEngineCore {
+  SurveyGroupItem surveyDef;
+  SurveyGroupItemResponse responses;
+  SurveyContext context;
+  ExpressionEvaluation evalEngine;
+  SurveyEngineCore({
+    this.surveyDef,
+    this.context,
+    this.evalEngine,
+  }) {
+    //this.responses = initSurveyGroupItemResponse(this.surveyDef);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'surveyDef': surveyDef.toMap(),
+      'responses': responses.toMap(),
+      'context': context.toMap(),
+    };
+  }
+
+  static SurveyEngineCore fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return SurveyEngineCore(
+      surveyDef: SurveyGroupItem.fromMap(map['surveyDef']),
+      context: SurveyContext.fromMap(map['context']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  static SurveyEngineCore fromJson(String source) =>
+      fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'SurveyEngineCore(surveyDef: $surveyDef, responses: $responses, context: $context, evalEngine: $evalEngine)';
+  }
+
+  // SurveyGroupItemResponse initSurveyGroupItemResponse(
+  //     SurveyGroupItem questionGroup) {
+  //   SurveyGroupItemResponse responseGroup;
+  //   questionGroup.items.forEach((item) {
+  //     SurveySingleItemResponse response = SurveySingleItemResponse.fromMap({
+  //       'key': item.key,
+  //       'meta': {
+  //         'rendered': [],
+  //         'displayed': [],
+  //         'responded': [],
+  //         'position': -1,
+  //         'localeCode': '',
+  //         'version': item.version,
+  //       },
+  //     });
+  //   });
+  //   return responseGroup;
+  // }
+
   Map<Object, Object> resolveItemComponentProperties(Properties props) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     Map<Object, Object> propertiesMap = {

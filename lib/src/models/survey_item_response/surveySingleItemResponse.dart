@@ -17,7 +17,7 @@ class SurveySingleItemResponse implements SurveyItemResponse {
 
   Map<String, dynamic> toMap() {
     return {
-      'response': response.toMap(),
+      'response': response?.toMap(),
       'key': key,
       'meta': meta.toMap(),
     };
@@ -27,7 +27,7 @@ class SurveySingleItemResponse implements SurveyItemResponse {
     if (map == null) return null;
 
     return SurveySingleItemResponse(
-      response: ResponseItem.fromMap(map['response']),
+      response: ResponseItem?.fromMap(map['response']),
       key: map['key'],
       meta: ResponseMeta.fromMap(map['meta']),
     );

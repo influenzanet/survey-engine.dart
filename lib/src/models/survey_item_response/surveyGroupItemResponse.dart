@@ -22,7 +22,7 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
       'items': Utils.resolveNullList(items),
       'key': key,
       'meta': meta.toMap(),
-      'response': response.toMap(),
+      'response': response?.toMap(),
     };
   }
 
@@ -36,7 +36,7 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
               map['items']?.map((x) => SurveyItemResponse(x))),
       key: map['key'],
       meta: ResponseMeta.fromMap(map['meta']),
-      response: ResponseItem.fromMap(map['response']),
+      response: ResponseItem?.fromMap(map['response']),
     );
   }
 
