@@ -18,4 +18,5 @@ abstract class SurveyItemResponse {
 
   String toString();
   Map<String, dynamic> toMap();
+  String toJson();
 }

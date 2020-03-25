@@ -4,7 +4,6 @@ import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/validations.dart';
 
 class SurveyGroupItem implements SurveyItem {
@@ -45,8 +44,8 @@ class SurveyGroupItem implements SurveyItem {
 
   static SurveyGroupItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['items']?.map((x) => SurveySingleItem.fromMap(x));
-    var tempData = List<SurveySingleItem>.from(temp);
+    var temp = map['items']?.map((x) => SurveyItem(x));
+    var tempData = List<SurveyItem>.from(temp);
 
     return SurveyGroupItem(
         items: tempData,
