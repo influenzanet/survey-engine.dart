@@ -51,14 +51,20 @@
 
 ## Expression evaluation
 1. **getAttribute**: What is `temporaryItem` ?
-   + Answer:
+   + Answer: `temporaryItem` allows to have a reference to a survey item not pushed to the "survey tree" yet. Currently the objective is that we can resolve "this" and so making a shortcut to the current item - useful in case, we are referring to validations of the survey item in a displayCondition. When "rendering/resolving" an item, we have to do it step by step, and in between these steps the result is not pushed to the survey tree - so later in the pipeline, this is the only way to access the "temporary results".
 2. **getContext**: How does it function? What is a `profile` and `mode`
-   + Answer: 
+   + Answer: context is a data object, the engine should get from the client app it is running in. It can contain different infos, but this part has still to be defined properly, what attributes will be necessary. But the method getContext, is simple the getter, which returns the context attribute's value. `mode` is currently used to define a test string - like `mode = "test"`
 
 ## Selection method
 1. **Expression**: Selection method is of type `expression` having three cases of `uniform`,`highestPriority` and `exponential` as expression names. All the three have no `returnType`, considering evaluation of the selection method expression, should it just return a `SurveyGroupItem` object?
- + Answer:
+ + Answer: `temporaryItem` allows to have a reference to a survey item not pushed to the "survey tree" yet. Currently the objective is that we can resolve "this" and so making a shortcut to the current item - useful in case, we are referring to validations of the survey item in a displayCondition. When "rendering/resolving" an item, we have to do it step by step, and in between these steps the result is not pushed to the survey tree - so later in the pipeline, this is the only way to access the "temporary results".
+
 2. **exponential**: Does `exponentialRandomSelector` some kind of standard logic to pick an item? If yes is there any available documentation for it?
+This is a random selection, where the distribution looks something like this: https://en.wikipedia.org/wiki/Exponential_distribution
+Where items with higher priorioty value are more likely to be picked but they don't have to be picked first. 
+Collapse
+
+
 
  
   
