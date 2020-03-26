@@ -29,7 +29,7 @@ class SurveySingleItemResponse implements SurveyItemResponse {
     return SurveySingleItemResponse(
       response: ResponseItem?.fromMap(map['response']),
       key: map['key'],
-      meta: ResponseMeta.fromMap(map['meta']),
+      meta: ResponseMeta?.fromMap(map['meta']),
     );
   }
 

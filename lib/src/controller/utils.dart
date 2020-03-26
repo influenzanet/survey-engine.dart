@@ -103,14 +103,16 @@ class Utils {
       } else if (value is Map) {
         mapToEdit[key] = removeNullParams(value);
       } else if (value is List) {
-        List valueList = [];
+        int index = 0;
+        value.removeWhere((item) => item == null);
+        mapToEdit[key] = value;
         value.forEach((item) {
           if (item is Map) {
-            item = removeNullParams(item);
+            var m = removeNullParams(item);
+            mapToEdit[key][index] = m;
           }
-          valueList.add(item);
+          index++;
         });
-        mapToEdit[key] = valueList;
       }
     }
     return mapToEdit;
