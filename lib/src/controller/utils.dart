@@ -94,6 +94,12 @@ class Utils {
         : List<dynamic>.from(nullCheck?.map((item) => item));
   }
 
+  static dynamic resolveNullListOfMaps(dynamic nullCheck) {
+    return (nullCheck == null)
+        ? null
+        : List<dynamic>.from(nullCheck?.map((item) => item.toMap()));
+  }
+
   static dynamic removeNullParams(dynamic mapToEdit) {
     var keys = mapToEdit.keys.toList(growable: false);
     for (String key in keys) {

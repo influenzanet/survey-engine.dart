@@ -60,9 +60,28 @@
  + Answer: `temporaryItem` allows to have a reference to a survey item not pushed to the "survey tree" yet. Currently the objective is that we can resolve "this" and so making a shortcut to the current item - useful in case, we are referring to validations of the survey item in a displayCondition. When "rendering/resolving" an item, we have to do it step by step, and in between these steps the result is not pushed to the survey tree - so later in the pipeline, this is the only way to access the "temporary results".
 
 2. **exponential**: Does `exponentialRandomSelector` some kind of standard logic to pick an item? If yes is there any available documentation for it?
-This is a random selection, where the distribution looks something like this: https://en.wikipedia.org/wiki/Exponential_distribution
++ Answer: This is a random selection, where the distribution looks something like this: https://en.wikipedia.org/wiki/Exponential_distribution
 Where items with higher priorioty value are more likely to be picked but they don't have to be picked first. 
-Collapse
+
+## Engine.ts
+1. **initResponseObject**: Is there any specific reason as to why `position=-1` and timestamp an `string` instead of an array of `int`?
+2. **addRenderedItem**: 
+   1. Why does it return an `atPosition` despite not being used anywhere else?
+   2. The required functions to be implemented for implementing this are **initResponseObject**->**constructor**->**findresponseItem**->**setTimestampFor**
+3. **initRenderedGroup**
+4. **reRenderGroup**
+5. **getNextItem**
+6. **findSurveyDefItem**
+7. **findRenderedItem**
+8. **findResponseItem**
+
+Independent functions
+1. **resolveContent** : Resolves content and description of Localised objects
+2. **evaluateBooleanresult**: Converts any expression result to a `boolean` type used especially for evaluating `displayConditon` in `ItemComponent`
+3. **resolveItemComponentGroup**: Resolved Item Component group to a map
+4. **renderSurveySingleItem**: Renders SingleSurveyItem
+
+
 
 
 

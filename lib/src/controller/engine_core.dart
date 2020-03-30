@@ -11,7 +11,7 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/responseMeta.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/surveyGroupItemResponse.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveySingleItemResponse.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/surveyItemResponse.dart';
 
 class SurveyEngineCore {
   SurveyGroupItem surveyDef;
@@ -23,14 +23,16 @@ class SurveyEngineCore {
     this.context,
     this.evalEngine,
   }) {
+    this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
   }
 
+// Data functions
   Map<String, dynamic> toMap() {
     return {
       'surveyDef': surveyDef.toMap(),
-      'responses': responses.toMap(),
-      'context': context.toMap(),
+      'responses': responses?.toMap(),
+      'context': context?.toMap(),
     };
   }
 
@@ -39,7 +41,7 @@ class SurveyEngineCore {
 
     return SurveyEngineCore(
       surveyDef: SurveyGroupItem.fromMap(map['surveyDef']),
-      context: SurveyContext.fromMap(map['context']),
+      context: SurveyContext?.fromMap(map['context']),
     );
   }
 
@@ -53,6 +55,7 @@ class SurveyEngineCore {
     return 'SurveyEngineCore(surveyDef: $surveyDef, responses: $responses, context: $context, evalEngine: $evalEngine)';
   }
 
+// Init functions
   SurveyGroupItemResponse initSurveyGroupItemResponse(
       SurveyGroupItem questionGroup) {
     if (questionGroup == null) return null;
@@ -60,18 +63,26 @@ class SurveyEngineCore {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
+    var temp = responseGroup.toMap();
     questionGroup.items.forEach((item) {
-      SurveySingleItemResponse response = SurveySingleItemResponse.fromMap({
-        'key': item.key,
-        'meta': {
-          'version': item.version,
-        },
-      });
-      responseGroup.items.add(response);
+      if (item.items == null) {
+        SurveyItemResponse response = SurveyItemResponse({
+          'key': item.key,
+          'meta': {
+            'version': item.version,
+          },
+        });
+        temp['items'].add(response.toMap());
+        responseGroup.items.add(response);
+      } else {
+        responseGroup.items.add(initSurveyGroupItemResponse(item));
+      }
     });
-    return responseGroup;
+    SurveyGroupItemResponse res = SurveyGroupItemResponse.fromMap(temp);
+    return res;
   }
 
+// Item Component resolution functions
   Map<Object, Object> resolveItemComponentProperties(Properties props) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     Map<Object, Object> propertiesMap = {

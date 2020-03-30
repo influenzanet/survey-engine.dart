@@ -25,7 +25,7 @@ class Expression {
     return {
       'name': name,
       'returnType': returnType,
-      'data': Utils.resolveNullList(data)
+      'data': Utils.resolveNullListOfMaps(data)
     };
   }
 

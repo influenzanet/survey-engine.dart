@@ -10,12 +10,14 @@ class ResponseMeta {
   List<int> displayed;
   List<int> responded;
   ResponseMeta(
-      {this.position = -1,
-      this.localeCode = '',
+      {this.position,
+      this.localeCode,
       this.version,
       this.rendered,
       this.displayed,
       this.responded}) {
+    this.position ??= -1;
+    this.localeCode ??= '';
     this.rendered ??= [];
     this.displayed ??= [];
     this.responded ??= [];

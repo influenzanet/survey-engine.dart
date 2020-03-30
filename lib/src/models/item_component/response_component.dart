@@ -45,8 +45,8 @@ class ResponseComponent implements ItemComponent {
     return {
       'role': role,
       'displayCondition': displayCondition?.toMap(),
-      'content': Utils.resolveNullList(content),
-      'description': Utils.resolveNullList(description),
+      'content': Utils.resolveNullListOfMaps(content),
+      'description': Utils.resolveNullListOfMaps(description),
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,

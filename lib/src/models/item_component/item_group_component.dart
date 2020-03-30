@@ -40,7 +40,7 @@ class ItemGroupComponent implements ItemComponent {
   Map<String, dynamic> toMap() {
     return {
       'role': role,
-      'items': Utils.resolveNullList(items),
+      'items': Utils.resolveNullListOfMaps(items),
       'order': order?.toMap(),
     };
   }

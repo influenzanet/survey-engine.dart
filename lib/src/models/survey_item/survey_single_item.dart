@@ -40,7 +40,7 @@ class SurveySingleItem implements SurveyItem {
     return {
       'type': type,
       'components': components.toMap(),
-      'validation': Utils.resolveNullList(validation),
+      'validation': Utils.resolveNullListOfMaps(validation),
       'key': key,
       'follows': follows,
       'condition': condition,

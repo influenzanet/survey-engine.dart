@@ -16,7 +16,7 @@ class SurveyContext {
 
   Map<String, dynamic> toMap() {
     return {
-      'previousResponses': Utils.resolveNullList(previousResponses),
+      'previousResponses': Utils.resolveNullListOfMaps(previousResponses),
       'profile': profile,
       'mode': mode,
     };

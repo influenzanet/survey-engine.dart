@@ -19,17 +19,17 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
 
   Map<String, dynamic> toMap() {
     return {
-      'items': Utils.resolveNullList(items),
       'key': key,
       'meta': meta?.toMap(),
       'response': response?.toMap(),
+      'items': Utils.resolveNullListOfMaps(items),
     };
   }
 
   static SurveyGroupItemResponse fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     var temp = map['items']?.map((x) => SurveyItemResponse(x));
-    var tempData = List<SurveyItemResponse>.from(temp);
+    var tempData = (temp == null) ? null : List<SurveyItemResponse>.from(temp);
     return SurveyGroupItemResponse(
       items: tempData,
       key: map['key'],

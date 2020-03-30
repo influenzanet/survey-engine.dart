@@ -31,7 +31,7 @@ class SurveyGroupItem implements SurveyItem {
 
   Map<String, dynamic> toMap() {
     return {
-      'items': Utils.resolveNullList(items),
+      'items': Utils.resolveNullListOfMaps(items),
       'selectionMethod': selectionMethod?.toMap(),
       'key': key,
       'follows': follows,

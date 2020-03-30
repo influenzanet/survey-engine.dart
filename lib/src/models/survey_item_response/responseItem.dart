@@ -19,7 +19,7 @@ class ResponseItem {
       'key': key,
       'value': value,
       'dtype': dtype,
-      'items': Utils.resolveNullList(items),
+      'items': Utils.resolveNullListOfMaps(items),
     };
   }
 
