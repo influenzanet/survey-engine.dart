@@ -8,7 +8,9 @@ void main() {
   // Init group response elements
   group('Resolve SurveyGroup elements:\n', () {
     Map<String, Object> testSurveyGroupItemResult;
-    Map<String, Object> testSurveySingleItemOne, testSurveySingleItemTwo;
+    Map<String, Object> testSurveySingleItemOne,
+        testSurveySingleItemTwo,
+        testSurveyGroupItemOne;
     setUp(() {
       testSurveySingleItemOne = {
         'key': 'q1',
@@ -80,10 +82,19 @@ void main() {
           ]
         }
       };
+      testSurveyGroupItemOne = {
+        'key': 'grp1',
+        'version': 1,
+        'items': [testSurveySingleItemOne]
+      };
       testSurveyGroupItemResult = {
         'key': 'res',
         'version': 1,
-        'items': [testSurveySingleItemOne, testSurveySingleItemTwo]
+        'items': [
+          testSurveySingleItemOne,
+          testSurveySingleItemTwo,
+          testSurveyGroupItemOne
+        ]
       };
     });
     test('Test if responseObjects are created for each survey group item', () {
@@ -122,6 +133,32 @@ void main() {
               'responded': [],
             },
             'response': null,
+          },
+          {
+            'key': 'grp1',
+            'meta': {
+              'position': -1,
+              'localeCode': '',
+              'version': 1,
+              'rendered': [],
+              'displayed': [],
+              'responded': [],
+            },
+            'response': null,
+            'items': [
+              {
+                'key': 'q1',
+                'meta': {
+                  'position': -1,
+                  'localeCode': '',
+                  'version': null,
+                  'rendered': [],
+                  'displayed': [],
+                  'responded': [],
+                },
+                'response': null,
+              },
+            ]
           }
         ]
       };

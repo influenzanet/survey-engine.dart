@@ -63,7 +63,6 @@ class SurveyEngineCore {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
-    var temp = responseGroup.toMap();
     questionGroup.items.forEach((item) {
       if (item.items == null) {
         SurveyItemResponse response = SurveyItemResponse({
@@ -72,14 +71,12 @@ class SurveyEngineCore {
             'version': item.version,
           },
         });
-        temp['items'].add(response.toMap());
         responseGroup.items.add(response);
       } else {
         responseGroup.items.add(initSurveyGroupItemResponse(item));
       }
     });
-    SurveyGroupItemResponse res = SurveyGroupItemResponse.fromMap(temp);
-    return res;
+    return responseGroup;
   }
 
 // Item Component resolution functions
