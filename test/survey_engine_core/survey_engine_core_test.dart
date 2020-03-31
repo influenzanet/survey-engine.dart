@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:survey_engine.dart/src/controller/engine_core.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
@@ -118,7 +120,7 @@ void main() {
         ],
         'order': {'name': 'sequential', 'returnType': 'string'}
       };
-      expect(actual.toString(), expected.toString());
+      expect(json.encode(actual), json.encode(expected));
     });
   });
   group('Resolve SurveySingleItem elements:\n', () {
@@ -209,8 +211,7 @@ void main() {
           {'rule': true, 'type': 'soft', 'key': 'v1'},
         ],
       };
-
-      expect(actual.toString(), expected.toString());
+      expect(json.encode(actual), json.encode(expected));
     });
   });
 }
