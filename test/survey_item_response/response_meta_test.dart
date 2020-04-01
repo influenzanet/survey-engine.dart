@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/models/survey_item_response/responseMeta.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
 import 'package:test/test.dart';
 
 void main() {

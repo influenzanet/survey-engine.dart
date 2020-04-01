@@ -61,3 +61,4 @@ const List<String> itemTypes = [
   'basic.input.multiple-choice',
   'concepts.v1.age.simple-age'
 ];
+const List<String> timeStampTypes = ['rendered', 'displayed', 'responded'];

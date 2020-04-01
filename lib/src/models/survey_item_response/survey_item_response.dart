@@ -1,7 +1,7 @@
-import 'package:survey_engine.dart/src/models/survey_item_response/responseItem.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/responseMeta.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveyGroupItemResponse.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveySingleItemResponse.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
 abstract class SurveyItemResponse {
   String key;

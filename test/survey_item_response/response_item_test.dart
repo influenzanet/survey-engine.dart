@@ -1,4 +1,4 @@
-import 'package:survey_engine.dart/src/models/survey_item_response/responseItem.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
 import 'package:test/test.dart';
 
 void main() {

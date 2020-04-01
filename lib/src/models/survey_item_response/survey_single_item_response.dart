@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/models/survey_item_response/responseItem.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/responseMeta.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveyItemResponse.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 
 class SurveySingleItemResponse implements SurveyItemResponse {
   ResponseItem response;

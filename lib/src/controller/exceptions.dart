@@ -61,3 +61,13 @@ class InvalidContextException {
   @override
   String toString() => '$message';
 }
+
+class InvalidTimestampException {
+  String message;
+  InvalidTimestampException({
+    this.message,
+  });
+
+  @override
+  String toString() => '$message';
+}

@@ -5,12 +5,12 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart
 import 'package:test/test.dart';
 
 void main() {
-  // Init group response elements
   group('Resolve SurveyGroup elements:\n', () {
     Map<String, Object> testSurveyGroupItemResult;
     Map<String, Object> testSurveySingleItemOne,
         testSurveySingleItemTwo,
         testSurveyGroupItemOne;
+    // Init group response elements
     setUp(() {
       testSurveySingleItemOne = {
         'key': 'q1',

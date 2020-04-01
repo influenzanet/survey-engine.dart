@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveyItemResponse.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 
 class SurveyContext {
   List<SurveyItemResponse> previousResponses;

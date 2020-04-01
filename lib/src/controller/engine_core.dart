@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
+import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
@@ -9,9 +11,9 @@ import 'package:survey_engine.dart/src/models/localized_object/localized_object.
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/responseMeta.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveyGroupItemResponse.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/surveyItemResponse.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 
 class SurveyEngineCore {
   SurveyGroupItem surveyDef;
@@ -77,6 +79,30 @@ class SurveyEngineCore {
       }
     });
     return responseGroup;
+  }
+
+// Resolution of responses
+  SurveyItemResponse setTimestampFor(
+      String timeStampType, SurveyItemResponse responseObject) {
+    if (responseObject == null) return null;
+    if (!(timeStampTypes.contains(timeStampType))) {
+      throw InvalidTimestampException(
+          message:
+              'Wrong timestamp type $timeStampType valid timestamps are $timeStampTypes');
+    }
+    int timestamp = new DateTime.now().millisecondsSinceEpoch;
+    switch (timeStampType) {
+      case 'rendered':
+        responseObject.meta.rendered.add(timestamp);
+        break;
+      case 'displayed':
+        responseObject.meta.displayed.add(timestamp);
+        break;
+      case 'responded':
+        responseObject.meta.responded.add(timestamp);
+        break;
+    }
+    return responseObject;
   }
 
 // Item Component resolution functions
