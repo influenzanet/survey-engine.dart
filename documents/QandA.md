@@ -65,15 +65,23 @@ Where items with higher priorioty value are more likely to be picked but they do
 
 ## Engine.ts
 1. **initResponseObject**: Is there any specific reason as to why `position=-1` and timestamp an `string` instead of an array of `int`?
+   + Answer: Yes `position` will be incremented as `0` is the initial position. and `timestamp` is a 64 bit `Integer` so one can use dart `int`
 2. **addRenderedItem**: 
    1. Why does it return an `atPosition` despite not being used anywhere else?
+   + Answer: Yes `atPosition` return can be removed __Mention it in comments__
    2. The required functions to be implemented for implementing this are **initResponseObject**->**constructor**->**findresponseItem**->**setTimestampFor**
+   + Answer: Use a flowchart and get it reviewed.
 3. **initRenderedGroup**
 4. **reRenderGroup**
 5. **getNextItem**
 6. **findSurveyDefItem**
 7. **findRenderedItem**
-8. **findResponseItem**
+8. **findResponseItem**: A naming convention is followed for naming SurveyGroupItem and SurveySingleItem keys but does it follow a hierarchy  
+eg:
+if `GROUP1` has `GROUP2` and `SINGLE` as items.
+`GROUP2` has `SINGLE2` as items
+will the keys of `SINGLE2` item be `GROUP2.SINGLE2` or `GROUP1.GROUP2.SINGLE2`?
+
 
 Independent functions
 1. **resolveContent** : Resolves content and description of Localised objects
