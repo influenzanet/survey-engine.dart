@@ -169,4 +169,29 @@ class SurveyEngineCore {
     renderedItem = Utils.removeNullParams(renderedItem);
     return renderedItem;
   }
+
+  SurveyItemResponse findResponseItem(String itemId,
+      {SurveyItemResponse rootResponseItem}) {
+    if (itemId == null) return null;
+    SurveyItemResponse root = rootResponseItem ?? this.responses;
+    if (itemId == root.key) {
+      return SurveyItemResponse(root.toMap());
+    }
+    String componentId = root.key;
+    SurveyItemResponse obj = SurveyItemResponse(root.toMap());
+    List<String> ids = itemId.split('.').sublist(1);
+    ids.forEach((id) {
+      if (!(obj is SurveyGroupItemResponse)) {
+        return;
+      }
+      componentId = componentId + '.' + id;
+      SurveyItemResponse foundItem = obj.items
+          .firstWhere((item) => item.key == componentId, orElse: () => null);
+      if (foundItem == null) {
+        throw NotFoundException(object: itemId);
+      } else
+        obj = foundItem;
+    });
+    return obj;
+  }
 }

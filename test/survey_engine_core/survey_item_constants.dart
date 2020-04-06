@@ -1,3 +1,52 @@
+const testSurveySingleItemResponseOne = {
+  'key': 'G0.S1',
+  'meta': {
+    'position': -1,
+    'localeCode': '',
+    'version': null,
+    'rendered': [],
+    'displayed': [],
+    'responded': [],
+  },
+  'response': null,
+};
+const testSurveySingleItemResponseTwo = {
+  'key': 'G0.S2',
+  'meta': {
+    'position': -1,
+    'localeCode': '',
+    'version': null,
+    'rendered': [],
+    'displayed': [],
+    'responded': [],
+  },
+  'response': null,
+};
+const testSurveySingleItemResponseThree = {
+  'key': 'G0.G1.S3',
+  'meta': {
+    'position': -1,
+    'localeCode': '',
+    'version': null,
+    'rendered': [],
+    'displayed': [],
+    'responded': [],
+  },
+  'response': null,
+};
+
+const testSurveyGroupItemResponseOne = {
+  'key': 'G0.G1',
+  'items': [testSurveySingleItemResponseThree]
+};
+const testSurveyGroupItemResponseRoot = {
+  'key': 'G0',
+  'items': [
+    testSurveySingleItemResponseOne,
+    testSurveySingleItemResponseTwo,
+    testSurveyGroupItemResponseOne
+  ]
+};
 const testSurveySingleItemOne = {
   'key': 'G0.S1',
   'type': 'basic.static.title',

@@ -71,3 +71,13 @@ class InvalidTimestampException {
   @override
   String toString() => '$message';
 }
+
+class NotFoundException {
+  String object;
+  NotFoundException({
+    this.object,
+  });
+
+  @override
+  String toString() => '$object not found';
+}
