@@ -13,7 +13,7 @@ import 'survey_item_constants.dart';
 void main() {
   Map<String, Object> initObject;
   initObject = {
-    'key': 'res',
+    'key': 'G0',
     'meta': {
       'position': -1,
       'localeCode': '',
@@ -25,7 +25,7 @@ void main() {
     'response': null,
     'items': [
       {
-        'key': 'q1',
+        'key': 'G0.S1',
         'meta': {
           'position': -1,
           'localeCode': '',
@@ -37,7 +37,7 @@ void main() {
         'response': null,
       },
       {
-        'key': 'q2',
+        'key': 'G0.S2',
         'meta': {
           'position': -1,
           'localeCode': '',
@@ -49,7 +49,7 @@ void main() {
         'response': null,
       },
       {
-        'key': 'grp1',
+        'key': 'G0.G1',
         'meta': {
           'position': -1,
           'localeCode': '',
@@ -61,7 +61,7 @@ void main() {
         'response': null,
         'items': [
           {
-            'key': 'q1',
+            'key': 'G0.G1.S3',
             'meta': {
               'position': -1,
               'localeCode': '',
@@ -83,7 +83,7 @@ void main() {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItemResponse actual =
           surveyEngineCore.initSurveyGroupItemResponse(
-              SurveyGroupItem.fromMap(testSurveyGroupItemResult));
+              SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       expect(actual.toJson(), json.encode(initObject));
     });
     test('Test if responseObjects is null if survey group item is null item',
