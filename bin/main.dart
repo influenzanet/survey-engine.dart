@@ -23,10 +23,11 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 
 const testSurveySingleItemOne = {'key': 'G0.S1'};
 const testSurveySingleItemOneGrpTwo = {'key': 'G0.G1.S1'};
+const testSurveySingleItemThreeGrpTwo = {'key': 'G0.G1.S2'};
 const testSurveySingleItemTwo = {'key': 'G0.S2'};
 const testSurveyGroupItemOne = {
   'key': 'G0.G1',
-  'items': [testSurveySingleItemOneGrpTwo]
+  'items': [testSurveySingleItemOneGrpTwo, testSurveySingleItemThreeGrpTwo]
 };
 const testSurveyGroupItemResult = {
   'key': 'G0',
@@ -115,19 +116,19 @@ Item findItem(String itemID) {
     return Item(testSurveyGroupItemResult);
   }
   String compID = testSurveyGroupItemResult['key'];
-  var obj = Item(testSurveyGroupItemResult);
-  var idx = itemID.split('.').sublist(1);
-  idx.forEach((id) {
+  Item obj = Item(testSurveyGroupItemResult);
+  List<String> ids = itemID.split('.').sublist(1);
+  ids.forEach((id) {
     if (!(obj is GroupItem)) {
       return;
     }
     compID = compID + '.' + id;
-    var ind =
+    Item foundItem =
         obj.items.firstWhere((item) => item.key == compID, orElse: () => null);
-    if (ind == null) {
+    if (foundItem == null) {
       throw InvalidTimestampException(message: 'Not found');
     } else
-      obj = ind;
+      obj = foundItem;
   });
   return obj;
 }
@@ -135,6 +136,6 @@ Item findItem(String itemID) {
 void main() {
   GroupItem actual = GroupItem.fromMap(testSurveyGroupItemResult);
   print(actual.toMap());
-  var x = findItem('G0.G1.S1');
+  var x = findItem('G0');
   print(x.toMap());
 }
