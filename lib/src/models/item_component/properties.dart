@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
 class Properties {
@@ -13,11 +14,11 @@ class Properties {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'min': min?.toMap(),
       'max': max?.toMap(),
       'stepSize': stepSize?.toMap(),
-    };
+    });
   }
 
   static Properties fromMap(Map<String, dynamic> map) {

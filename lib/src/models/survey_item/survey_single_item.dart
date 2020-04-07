@@ -37,7 +37,7 @@ class SurveySingleItem implements SurveyItem {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'type': type,
       'components': components.toMap(),
       'validation': Utils.resolveNullListOfMaps(validation),
@@ -47,7 +47,7 @@ class SurveySingleItem implements SurveyItem {
       'priority': priority,
       'version': version,
       'versionTags': versionTags
-    };
+    });
   }
 
   static SurveySingleItem fromMap(Map<String, dynamic> map) {

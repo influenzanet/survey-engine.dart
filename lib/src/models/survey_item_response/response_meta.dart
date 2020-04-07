@@ -24,14 +24,14 @@ class ResponseMeta {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'position': position,
       'localeCode': localeCode,
       'version': version,
       'rendered': Utils.resolveNullList(rendered),
       'displayed': Utils.resolveNullList(displayed),
       'responded': Utils.resolveNullList(responded),
-    };
+    });
   }
 
   static ResponseMeta fromMap(Map<String, dynamic> map) {

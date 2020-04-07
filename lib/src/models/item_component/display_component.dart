@@ -35,7 +35,7 @@ class DisplayComponent implements ItemComponent {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'role': role,
       'displayCondition': displayCondition?.toMap(),
       'content': Utils.resolveNullListOfMaps(content),
@@ -43,7 +43,7 @@ class DisplayComponent implements ItemComponent {
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,
-    };
+    });
   }
 
   static DisplayComponent fromMap(Map<String, dynamic> map) {

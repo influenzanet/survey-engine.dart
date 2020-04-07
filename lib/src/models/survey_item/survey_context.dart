@@ -15,11 +15,11 @@ class SurveyContext {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'previousResponses': Utils.resolveNullListOfMaps(previousResponses),
       'profile': profile,
       'mode': mode,
-    };
+    });
   }
 
   static SurveyContext fromMap(Map<String, dynamic> map) {

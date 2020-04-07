@@ -18,12 +18,12 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'key': key,
       'meta': meta?.toMap(),
       'response': response?.toMap(),
       'items': Utils.resolveNullListOfMaps(items),
-    };
+    });
   }
 
   static SurveyGroupItemResponse fromMap(Map<String, dynamic> map) {

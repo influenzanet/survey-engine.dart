@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 
@@ -22,11 +23,11 @@ class Validations {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'rule': rule.toMap(),
       'type': type,
       'key': key,
-    };
+    });
   }
 
   static Validations fromMap(Map<String, dynamic> map) {

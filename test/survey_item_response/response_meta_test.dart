@@ -11,7 +11,6 @@ void main() {
       Map<String, Object> expected = {
         'position': -1,
         'localeCode': '',
-        'version': null,
         'rendered': [],
         'displayed': [],
         'responded': []

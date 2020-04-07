@@ -3,36 +3,30 @@ const testSurveySingleItemResponseOne = {
   'meta': {
     'position': -1,
     'localeCode': '',
-    'version': null,
     'rendered': [],
     'displayed': [],
     'responded': [],
   },
-  'response': null,
 };
 const testSurveySingleItemResponseTwo = {
   'key': 'G0.S2',
   'meta': {
     'position': -1,
     'localeCode': '',
-    'version': null,
     'rendered': [],
     'displayed': [],
     'responded': [],
   },
-  'response': null,
 };
 const testSurveySingleItemResponseThree = {
   'key': 'G0.G1.S3',
   'meta': {
     'position': -1,
     'localeCode': '',
-    'version': null,
     'rendered': [],
     'displayed': [],
     'responded': [],
   },
-  'response': null,
 };
 
 const testSurveyGroupItemResponseOne = {

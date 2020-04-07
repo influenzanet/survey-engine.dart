@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
+
 import 'expression.dart';
 import 'expression_arg_dtype.dart';
 
@@ -16,12 +18,12 @@ class ExpressionArg {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'dtype': exprArgDType.dtype,
       'exp': exp?.toMap(),
       'str': str,
       'num': number,
-    };
+    });
   }
 
   static ExpressionArg fromMap(Map<String, dynamic> map) {

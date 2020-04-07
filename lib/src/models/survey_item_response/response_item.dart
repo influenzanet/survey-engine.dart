@@ -15,12 +15,12 @@ class ResponseItem {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'key': key,
       'value': value,
       'dtype': dtype,
       'items': Utils.resolveNullListOfMaps(items),
-    };
+    });
   }
 
   static ResponseItem fromMap(Map<String, dynamic> map) {

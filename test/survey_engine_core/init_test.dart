@@ -23,19 +23,16 @@ void main() {
       'displayed': [],
       'responded': [],
     },
-    'response': null,
     'items': [
       {
         'key': 'G0.S1',
         'meta': {
           'position': -1,
           'localeCode': '',
-          'version': null,
           'rendered': [],
           'displayed': [],
           'responded': [],
         },
-        'response': null,
       },
       {
         'key': 'G0.S2',
@@ -47,7 +44,6 @@ void main() {
           'displayed': [],
           'responded': [],
         },
-        'response': null,
       },
       {
         'key': 'G0.G1',
@@ -59,19 +55,16 @@ void main() {
           'displayed': [],
           'responded': [],
         },
-        'response': null,
         'items': [
           {
             'key': 'G0.G1.S3',
             'meta': {
               'position': -1,
               'localeCode': '',
-              'version': null,
               'rendered': [],
               'displayed': [],
               'responded': [],
             },
-            'response': null,
           },
         ]
       }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 
 class ExpressionArgDType {
@@ -13,9 +14,9 @@ class ExpressionArgDType {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'dtype': dtype,
-    };
+    });
   }
 
   static ExpressionArgDType fromMap(Map<String, dynamic> map) {

@@ -15,10 +15,10 @@ class LocalizedObject {
   // LocalizedMedia needs to be defined
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'code': code,
       'parts': Utils.resolveNullListOfMaps(parts),
-    };
+    });
   }
 
   static LocalizedObject fromMap(Map<String, dynamic> map) {

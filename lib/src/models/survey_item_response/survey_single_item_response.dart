@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
@@ -16,7 +17,8 @@ class SurveySingleItemResponse implements SurveyItemResponse {
   });
 
   Map<String, dynamic> toMap() {
-    return {'key': key, 'meta': meta?.toMap(), 'response': response?.toMap()};
+    return Utils.removeNullParams(
+        {'key': key, 'meta': meta?.toMap(), 'response': response?.toMap()});
   }
 
   static SurveySingleItemResponse fromMap(Map<String, dynamic> map) {

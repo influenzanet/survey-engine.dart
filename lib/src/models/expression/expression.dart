@@ -22,11 +22,11 @@ class Expression {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'name': name,
       'returnType': returnType,
       'data': Utils.resolveNullListOfMaps(data)
-    };
+    });
   }
 
   static Expression fromMap(Map<String, dynamic> map) {

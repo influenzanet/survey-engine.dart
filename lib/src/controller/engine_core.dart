@@ -27,6 +27,7 @@ class SurveyEngineCore {
   }) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
+    this.responses = setTimestampFor('rendered', this.responses);
   }
 
 // Data functions

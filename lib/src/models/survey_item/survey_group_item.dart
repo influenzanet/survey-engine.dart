@@ -30,7 +30,7 @@ class SurveyGroupItem implements SurveyItem {
       this.versionTags});
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'items': Utils.resolveNullListOfMaps(items),
       'selectionMethod': selectionMethod?.toMap(),
       'key': key,
@@ -39,7 +39,7 @@ class SurveyGroupItem implements SurveyItem {
       'priority': priority,
       'version': version,
       'versionTags': versionTags
-    };
+    });
   }
 
   static SurveyGroupItem fromMap(Map<String, dynamic> map) {

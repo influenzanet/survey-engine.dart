@@ -42,7 +42,7 @@ class ResponseComponent implements ItemComponent {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'role': role,
       'displayCondition': displayCondition?.toMap(),
       'content': Utils.resolveNullListOfMaps(content),
@@ -52,7 +52,7 @@ class ResponseComponent implements ItemComponent {
       'key': key,
       'dtype': dtype,
       'properties': properties?.toMap(),
-    };
+    });
   }
 
   static ResponseComponent fromMap(Map<String, dynamic> map) {

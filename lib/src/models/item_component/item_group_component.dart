@@ -38,11 +38,11 @@ class ItemGroupComponent implements ItemComponent {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return Utils.removeNullParams({
       'role': role,
       'items': Utils.resolveNullListOfMaps(items),
       'order': order?.toMap(),
-    };
+    });
   }
 
   static ItemGroupComponent fromMap(Map<String, dynamic> map) {
