@@ -12,64 +12,6 @@ import 'package:test/test.dart';
 import 'survey_item_constants.dart';
 
 void main() {
-  Map<String, Object> initObject;
-  initObject = {
-    'key': 'G0',
-    'meta': {
-      'position': -1,
-      'localeCode': '',
-      'version': 1,
-      'rendered': [],
-      'displayed': [],
-      'responded': [],
-    },
-    'items': [
-      {
-        'key': 'G0.S1',
-        'meta': {
-          'position': -1,
-          'localeCode': '',
-          'rendered': [],
-          'displayed': [],
-          'responded': [],
-        },
-      },
-      {
-        'key': 'G0.S2',
-        'meta': {
-          'position': -1,
-          'localeCode': '',
-          'version': 1,
-          'rendered': [],
-          'displayed': [],
-          'responded': [],
-        },
-      },
-      {
-        'key': 'G0.G1',
-        'meta': {
-          'position': -1,
-          'localeCode': '',
-          'version': 1,
-          'rendered': [],
-          'displayed': [],
-          'responded': [],
-        },
-        'items': [
-          {
-            'key': 'G0.G1.S3',
-            'meta': {
-              'position': -1,
-              'localeCode': '',
-              'rendered': [],
-              'displayed': [],
-              'responded': [],
-            },
-          },
-        ]
-      }
-    ]
-  };
   group('Resolve SurveyGroup init survey group item responses:\n', () {
     // Init group response elements
     setUp(() {});
@@ -78,7 +20,7 @@ void main() {
       SurveyGroupItemResponse actual =
           surveyEngineCore.initSurveyGroupItemResponse(
               SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
-      expect(actual.toJson(), json.encode(initObject));
+      expect(actual.toJson(), json.encode(testSurveyGroupItemResponseRoot));
     });
     test('Test if responseObjects is null if survey group item is null item',
         () {
@@ -107,7 +49,7 @@ void main() {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       expect(
           () => surveyEngineCore.setTimestampFor(
-              'dummy', SurveyItemResponse(initObject)),
+              'dummy', SurveyItemResponse(testSurveyGroupItemResponseRoot)),
           throwsA(TypeMatcher<InvalidTimestampException>()));
     });
 
@@ -116,13 +58,13 @@ void main() {
         () {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItemResponse actual = surveyEngineCore.setTimestampFor(
-          'rendered', SurveyItemResponse(initObject));
+          'rendered', SurveyItemResponse(testSurveyGroupItemResponseRoot));
       expect(actual.meta.rendered[firstArgument], isNotNull);
       actual = surveyEngineCore.setTimestampFor(
-          'displayed', SurveyItemResponse(initObject));
+          'displayed', SurveyItemResponse(testSurveyGroupItemResponseRoot));
       expect(actual.meta.displayed[firstArgument], isNotNull);
       actual = surveyEngineCore.setTimestampFor(
-          'responded', SurveyItemResponse(initObject));
+          'responded', SurveyItemResponse(testSurveyGroupItemResponseRoot));
       expect(actual.meta.responded[firstArgument], isNotNull);
     });
   });

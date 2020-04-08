@@ -31,10 +31,26 @@ const testSurveySingleItemResponseThree = {
 
 const testSurveyGroupItemResponseOne = {
   'key': 'G0.G1',
+  'meta': {
+    'position': -1,
+    'localeCode': '',
+    'version': 1,
+    'rendered': [],
+    'displayed': [],
+    'responded': [],
+  },
   'items': [testSurveySingleItemResponseThree]
 };
 const testSurveyGroupItemResponseRoot = {
   'key': 'G0',
+  'meta': {
+    'position': -1,
+    'localeCode': '',
+    'version': 1,
+    'rendered': [],
+    'displayed': [],
+    'responded': [],
+  },
   'items': [
     testSurveySingleItemResponseOne,
     testSurveySingleItemResponseTwo,
@@ -86,7 +102,6 @@ const testSurveySingleItemOne = {
 const testSurveySingleItemTwo = {
   'key': 'G0.S2',
   'type': 'basic.static.title',
-  'version': 1,
   'validations': [],
   'components': {
     'role': 'root',
