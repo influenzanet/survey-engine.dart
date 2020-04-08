@@ -80,12 +80,17 @@ class Utils {
     return parts;
   }
 
-  static String getLocalisedString(LocalizedObject localizedObject) {
+  static Map<String, Object> getResolvedLocalisedObject(
+      LocalizedObject localizedObject) {
     String localisedString = '';
     localizedObject.parts.forEach((expressionArg) {
       localisedString = localisedString + (expressionArg.str);
     });
-    return localisedString;
+    Map<String, Object> resolvedParts = {
+      'code': localizedObject.code,
+      'parts': localisedString
+    };
+    return resolvedParts;
   }
 
   static dynamic resolveNullList(dynamic nullCheck) {

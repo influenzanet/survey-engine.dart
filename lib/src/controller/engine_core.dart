@@ -20,6 +20,7 @@ class SurveyEngineCore {
   SurveyGroupItem surveyDef;
   SurveyGroupItemResponse responses;
   SurveyContext context;
+  Map<String, Object> renderedSurvey;
   ExpressionEvaluation evalEngine;
   SurveyEngineCore({
     this.surveyDef,
@@ -28,6 +29,7 @@ class SurveyEngineCore {
   }) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
+    this.renderedSurvey = surveyDef?.toMap();
     this.responses = setTimestampFor('rendered', this.responses);
   }
 
@@ -115,14 +117,15 @@ class SurveyEngineCore {
       'max': eval.evaluateArgument(props.max),
       'stepSize': eval.evaluateArgument(props.stepSize)
     };
-    return propertiesMap;
+    return Utils.removeNullParams(propertiesMap);
   }
 
-  String resolveContent(List<LocalizedObject> content) {
-    String resolvedContent = '';
+  List<Map<String, Object>> resolveContent(List<LocalizedObject> content) {
+    List<Map<String, Object>> resolvedContent = [];
     content.forEach((localizedObject) {
-      resolvedContent =
-          resolvedContent + Utils.getLocalisedString(localizedObject);
+      Map<String, Object> resolvedLocalisedObject =
+          Utils.getResolvedLocalisedObject(localizedObject);
+      resolvedContent.add(resolvedLocalisedObject);
     });
     return resolvedContent;
   }
@@ -137,24 +140,29 @@ class SurveyEngineCore {
   }
 
   dynamic resolveItemComponentGroup(ItemGroupComponent component) {
-    List resolvedItems = [];
+    if (component == null) return null;
+    var resolvedGroup = component.toMap();
+    resolvedGroup['items'] = [];
     component.items.forEach((itemComponent) {
-      Map<String, Object> resolvedItemComponent = itemComponent.toMap();
-      resolvedItemComponent['displayCondition'] =
-          evaluateBooleanResult(itemComponent.displayCondition);
-      resolvedItemComponent['content'] = resolveContent(itemComponent.content);
-      //resolvedItemComponent['description'] = resolveContent(itemComponent.description);
-      resolvedItemComponent['disabled'] =
-          evaluateBooleanResult(itemComponent.disabled);
-      resolvedItemComponent['properties'] =
-          resolveItemComponentProperties(itemComponent.properties);
-      resolvedItems.add(resolvedItemComponent);
+      if (itemComponent.items == null) {
+        Map<String, Object> resolvedItemComponent = itemComponent.toMap();
+        resolvedItemComponent['displayCondition'] =
+            evaluateBooleanResult(itemComponent.displayCondition);
+        resolvedItemComponent['content'] =
+            resolveContent(itemComponent.content);
+        //resolvedItemComponent['description'] =
+        //resolveContent(itemComponent.description);
+        resolvedItemComponent['disabled'] =
+            evaluateBooleanResult(itemComponent.disabled);
+        resolvedItemComponent['properties'] =
+            resolveItemComponentProperties(itemComponent.properties);
+        resolvedGroup['items'].add(resolvedItemComponent);
+      } else {
+        resolvedGroup['items'].add(resolveItemComponentGroup(itemComponent));
+      }
     });
-    Map<String, Object> resolvedItemGroupComponent = component.toMap();
-    resolvedItemGroupComponent['items'] = resolvedItems;
-    resolvedItemGroupComponent =
-        Utils.removeNullParams(resolvedItemGroupComponent);
-    return resolvedItemGroupComponent;
+
+    return resolvedGroup;
   }
 
   dynamic renderSurveySingleItem(SurveySingleItem surveySingleItem) {
@@ -167,8 +175,7 @@ class SurveyEngineCore {
     });
     renderedItem['components'] =
         resolveItemComponentGroup(surveySingleItem.components);
-    renderedItem['validation'] = renderedValidations;
-    renderedItem = Utils.removeNullParams(renderedItem);
+    renderedItem['validations'] = renderedValidations;
     return renderedItem;
   }
 

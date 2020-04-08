@@ -111,7 +111,9 @@ void main() {
           {
             'role': 'input',
             'displayCondition': false,
-            'content': 'Some input data',
+            'content': [
+              {'code': 'en', 'parts': 'Some input data'},
+            ],
             'disabled': false,
             'key': '4',
             'dtype': 'string',
@@ -198,7 +200,12 @@ void main() {
             {
               'role': 'input',
               'displayCondition': false,
-              'content': 'Some input data',
+              'content': [
+                {
+                  'code': 'en',
+                  'parts': 'Some input data',
+                }
+              ],
               'disabled': false,
               'key': '4',
               'dtype': 'string',
@@ -207,7 +214,7 @@ void main() {
           ],
           'order': {'name': 'sequential', 'returnType': 'string'}
         },
-        'validation': [
+        'validations': [
           {'rule': true, 'type': 'soft', 'key': 'v1'},
         ],
       };

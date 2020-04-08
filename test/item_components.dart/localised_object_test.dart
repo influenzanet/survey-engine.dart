@@ -73,7 +73,8 @@ void main() {
 
     test('Evaluate parts containing a list of strings to one string', () {
       LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
-      expect(Utils.getLocalisedString(localizedObject), 'HelloWorld');
+      expect(Utils.getResolvedLocalisedObject(localizedObject),
+          {'code': 'de', 'parts': 'HelloWorld'});
     });
   });
 }
