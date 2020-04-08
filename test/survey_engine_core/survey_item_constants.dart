@@ -179,3 +179,83 @@ const testSurveyGroupItemRoot = {
     testSurveyGroupItemOne
   ]
 };
+const renderedSurveyGroupRoot = {
+  "items": [
+    {
+      "type": "basic.static.title",
+      "components": {
+        "role": "root",
+        "items": [
+          {
+            "role": "title",
+            "content": [
+              {
+                "code": "en",
+                "parts":
+                    "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
+              },
+              {"code": "de", "parts": "XX"}
+            ],
+            "displayCondition": false,
+            "disabled": false
+          }
+        ],
+        "order": {"name": "sequential", "returnType": "string"}
+      },
+      "validations": [
+        {"rule": true, "type": "soft", "key": "v1"}
+      ],
+      "key": "G0.S1"
+    },
+    {
+      "type": "basic.static.title",
+      "components": {
+        "role": "root",
+        "items": [
+          {
+            "role": "title",
+            "content": [
+              {"code": "en", "parts": "What is your main activity?"},
+              {"code": "de", "parts": "Was ist Ihre Haupttätigkeit?"}
+            ],
+            "displayCondition": false,
+            "disabled": false
+          }
+        ],
+        "order": {"name": "sequential", "returnType": "string"}
+      },
+      "validations": [],
+      "key": "G0.S2"
+    },
+    {
+      "items": [
+        {
+          "type": "basic.static.title",
+          "components": {
+            "role": "root",
+            "items": [
+              {
+                "role": "title",
+                "content": [
+                  {"code": "en", "parts": "What is your occupation?"},
+                  {"code": "de", "parts": "XX"}
+                ],
+                "displayCondition": false,
+                "disabled": false
+              }
+            ],
+            "order": {"name": "sequential", "returnType": "string"}
+          },
+          "validations": [
+            {"rule": true, "type": "soft", "key": "v1"}
+          ],
+          "key": "G0.G1.S3"
+        }
+      ],
+      "key": "G0.G1",
+      "version": 1
+    }
+  ],
+  "key": "G0",
+  "version": 1
+};

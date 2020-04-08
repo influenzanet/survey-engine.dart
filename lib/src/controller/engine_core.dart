@@ -29,7 +29,7 @@ class SurveyEngineCore {
   }) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
-    this.renderedSurvey = surveyDef?.toMap();
+    this.renderedSurvey = initRenderedGroupItem(this.surveyDef);
     this.responses = setTimestampFor('rendered', this.responses);
   }
 
@@ -85,6 +85,22 @@ class SurveyEngineCore {
     return responseGroup;
   }
 
+  dynamic initRenderedGroupItem(SurveyGroupItem questionGroup) {
+    if (questionGroup == null) return null;
+    var renderedGroup = questionGroup.toMap();
+    renderedGroup['items'] = [];
+    questionGroup.items.forEach((item) {
+      if (item.items == null) {
+        var rendered = renderSurveySingleItem(item);
+        renderedGroup['items'].add(rendered);
+        // add timestamp
+      } else {
+        renderedGroup['items'].add(initRenderedGroupItem(item));
+      }
+    });
+    return renderedGroup;
+  }
+
 // Resolution of responses
   SurveyItemResponse setTimestampFor(
       String timeStampType, SurveyItemResponse responseObject) {
@@ -111,6 +127,7 @@ class SurveyEngineCore {
 
 // Item Component resolution functions
   Map<Object, Object> resolveItemComponentProperties(Properties props) {
+    if (props == null) return null;
     ExpressionEvaluation eval = ExpressionEvaluation();
     Map<Object, Object> propertiesMap = {
       'min': eval.evaluateArgument(props.min),
@@ -121,11 +138,12 @@ class SurveyEngineCore {
   }
 
   List<Map<String, Object>> resolveContent(List<LocalizedObject> content) {
+    if (content == null) return null;
     List<Map<String, Object>> resolvedContent = [];
     content.forEach((localizedObject) {
       Map<String, Object> resolvedLocalisedObject =
           Utils.getResolvedLocalisedObject(localizedObject);
-      resolvedContent.add(resolvedLocalisedObject);
+      resolvedContent.add(Utils.removeNullParams(resolvedLocalisedObject));
     });
     return resolvedContent;
   }
@@ -150,21 +168,23 @@ class SurveyEngineCore {
             evaluateBooleanResult(itemComponent.displayCondition);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
-        //resolvedItemComponent['description'] =
-        //resolveContent(itemComponent.description);
+        // Description needs to be changed after discussion
+        // resolvedItemComponent['description'] =resolveContent(itemComponent.description);
         resolvedItemComponent['disabled'] =
             evaluateBooleanResult(itemComponent.disabled);
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
-        resolvedGroup['items'].add(resolvedItemComponent);
+        resolvedGroup['items']
+            .add(Utils.removeNullParams(resolvedItemComponent));
       } else {
-        resolvedGroup['items'].add(resolveItemComponentGroup(itemComponent));
+        resolvedGroup['items'].add(
+            Utils.removeNullParams(resolveItemComponentGroup(itemComponent)));
       }
     });
-
-    return resolvedGroup;
+    return Utils.removeNullParams(resolvedGroup);
   }
 
+// Rendering Survey Group Items
   dynamic renderSurveySingleItem(SurveySingleItem surveySingleItem) {
     Map<String, Object> renderedItem = surveySingleItem.toMap();
     List<Map<String, Object>> renderedValidations = [];
@@ -176,7 +196,7 @@ class SurveyEngineCore {
     renderedItem['components'] =
         resolveItemComponentGroup(surveySingleItem.components);
     renderedItem['validations'] = renderedValidations;
-    return renderedItem;
+    return Utils.removeNullParams(renderedItem);
   }
 
 // Search objects by key

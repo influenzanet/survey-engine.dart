@@ -164,6 +164,7 @@ void main() {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItem expected =
           SurveyGroupItem.fromMap(testSurveyGroupItemOne);
+      //print(surveyEngineCore.initRenderedGroupItem(expected).toString());
       SurveyGroupItem actual =
           surveyEngineCore.findSurveyItem('G0.G1', rootItem: expected);
       print('Actual =' + actual.toJson());
@@ -180,6 +181,18 @@ void main() {
           surveyEngineCore.findSurveyItem('G0.G1.S3', rootItem: expected);
       print('Actual =' + actual.toJson());
       expect(actual.toJson(), expected.toJson());
+    });
+  });
+  group('Init Survey Group test:\n', () {
+    setUp(() {
+      print('Expected=' + renderedSurveyGroupRoot.toString());
+    });
+    test('Test if Group root G0 is rendered succesfully', () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      dynamic expected = surveyEngineCore.initRenderedGroupItem(
+          SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
+      dynamic actual = renderedSurveyGroupRoot;
+      expect(json.encode(actual), json.encode(expected));
     });
   });
 }
