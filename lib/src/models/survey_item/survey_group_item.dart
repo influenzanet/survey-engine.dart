@@ -15,7 +15,7 @@ class SurveyGroupItem implements SurveyItem {
   List<String> versionTags;
   String type;
   ItemGroupComponent components;
-  List<Validations> validation;
+  List<Validations> validations;
   List<SurveyItem> items;
   // SelectionMethod is used when rendering so tests will be written after engine development
   Expression selectionMethod;

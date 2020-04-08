@@ -10,6 +10,7 @@ import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
@@ -159,7 +160,7 @@ class SurveyEngineCore {
   dynamic renderSurveySingleItem(SurveySingleItem surveySingleItem) {
     Map<String, Object> renderedItem = surveySingleItem.toMap();
     List<Map<String, Object>> renderedValidations = [];
-    surveySingleItem.validation?.forEach((validation) {
+    surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
       validationMap['rule'] = evaluateBooleanResult(validation.rule);
       renderedValidations.add(validationMap);
@@ -171,6 +172,7 @@ class SurveyEngineCore {
     return renderedItem;
   }
 
+// Search objects by key
   SurveyItemResponse findResponseItem(String itemId,
       {SurveyItemResponse rootResponseItem}) {
     if (itemId == null) return null;
@@ -187,6 +189,30 @@ class SurveyEngineCore {
       }
       componentId = componentId + '.' + id;
       SurveyItemResponse foundItem = obj.items
+          .firstWhere((item) => item.key == componentId, orElse: () => null);
+      if (foundItem == null) {
+        throw NotFoundException(object: itemId);
+      } else
+        obj = foundItem;
+    });
+    return obj;
+  }
+
+  SurveyItem findSurveyItem(String itemId, {SurveyItem rootItem}) {
+    if (itemId == null) return null;
+    SurveyItem root = rootItem ?? this.surveyDef;
+    if (itemId == root.key) {
+      return SurveyItem(root.toMap());
+    }
+    String componentId = root.key;
+    SurveyItem obj = SurveyItem(root.toMap());
+    List<String> ids = itemId.split('.').sublist(1);
+    ids.forEach((id) {
+      if (!(obj is SurveyGroupItem)) {
+        return;
+      }
+      componentId = componentId + '.' + id;
+      SurveyItem foundItem = obj.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
         throw NotFoundException(object: itemId);

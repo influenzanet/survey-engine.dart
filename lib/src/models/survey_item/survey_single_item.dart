@@ -11,7 +11,7 @@ import 'package:survey_engine.dart/src/models/survey_item/validations.dart';
 class SurveySingleItem implements SurveyItem {
   String type;
   ItemGroupComponent components;
-  List<Validations> validation;
+  List<Validations> validations;
   List<SurveyItem> items;
   Expression selectionMethod;
   String key;
@@ -23,7 +23,7 @@ class SurveySingleItem implements SurveyItem {
   SurveySingleItem(
       {this.type,
       this.components,
-      this.validation,
+      this.validations,
       this.key,
       this.follows,
       this.condition,
@@ -40,7 +40,7 @@ class SurveySingleItem implements SurveyItem {
     return Utils.removeNullParams({
       'type': type,
       'components': components.toMap(),
-      'validation': Utils.resolveNullListOfMaps(validation),
+      'validations': Utils.resolveNullListOfMaps(validations),
       'key': key,
       'follows': follows,
       'condition': condition,
@@ -57,7 +57,7 @@ class SurveySingleItem implements SurveyItem {
     return SurveySingleItem(
         type: map['type'],
         components: ItemGroupComponent?.fromMap(map['components']),
-        validation: tempValidation,
+        validations: tempValidation,
         key: map['key'],
         follows: map['follows'],
         condition: map['condition'],
@@ -73,7 +73,7 @@ class SurveySingleItem implements SurveyItem {
 
   @override
   String toString() =>
-      'SurveySingleItem(type: $type, components: $components, validation: $validation)';
+      'SurveySingleItem(type: $type, components: $components, validation: $validations)';
 
   @override
   bool operator ==(Object o) {
@@ -82,9 +82,10 @@ class SurveySingleItem implements SurveyItem {
     return o is SurveySingleItem &&
         o.type == type &&
         o.components == components &&
-        o.validation == validation;
+        o.validations == validations;
   }
 
   @override
-  int get hashCode => type.hashCode ^ components.hashCode ^ validation.hashCode;
+  int get hashCode =>
+      type.hashCode ^ components.hashCode ^ validations.hashCode;
 }

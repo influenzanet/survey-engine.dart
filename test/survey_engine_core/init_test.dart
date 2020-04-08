@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/controller/engine_core.dart';
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
@@ -121,6 +122,62 @@ void main() {
           SurveySingleItemResponse.fromMap(testSurveySingleItemResponseThree);
       SurveySingleItemResponse actual = surveyEngineCore
           .findResponseItem('G0.G1.S3', rootResponseItem: expected);
+      print('Actual =' + actual.toJson());
+      expect(actual.toJson(), expected.toJson());
+    });
+  });
+
+  group('Find a  Survey Item for a particular item key tests:\n', () {
+    setUp(() {
+      print('Root=' + testSurveyGroupItemRoot.toString());
+    });
+    test('Test for a null key returns null', () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyGroupItem actual = surveyEngineCore.findSurveyItem(null);
+      expect(actual, isNull);
+    });
+
+    test('Test if a root object is returned on root SurveyGroup key G0', () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyGroupItem expected =
+          SurveyGroupItem.fromMap(testSurveyGroupItemRoot);
+      SurveyGroupItem actual =
+          surveyEngineCore.findSurveyItem('G0', rootItem: expected);
+      print('Actual =' + actual.toJson());
+      expect(actual.toJson(), expected.toJson());
+    });
+    test(
+        'Test if a single survey object is returned appropriately when searched for G0.G1.S1',
+        () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveySingleItem expected =
+          SurveySingleItem.fromMap(testSurveySingleItemOne);
+      SurveySingleItem actual =
+          surveyEngineCore.findSurveyItem('G0.G1.S1', rootItem: expected);
+      print('Actual =' + actual.toJson());
+      expect(actual.toJson(), expected.toJson());
+    });
+
+    test(
+        'Test if a group survey object is returned appropriately when searched for G0.G1',
+        () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyGroupItem expected =
+          SurveyGroupItem.fromMap(testSurveyGroupItemOne);
+      SurveyGroupItem actual =
+          surveyEngineCore.findSurveyItem('G0.G1', rootItem: expected);
+      print('Actual =' + actual.toJson());
+      expect(actual.toJson(), expected.toJson());
+    });
+
+    test(
+        'Test if a single nested survey object is returned appropriately when searched for G0.G1.S3',
+        () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveySingleItem expected =
+          SurveySingleItem.fromMap(testSurveySingleItemThree);
+      SurveySingleItem actual =
+          surveyEngineCore.findSurveyItem('G0.G1.S3', rootItem: expected);
       print('Actual =' + actual.toJson());
       expect(actual.toJson(), expected.toJson());
     });

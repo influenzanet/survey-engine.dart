@@ -104,7 +104,7 @@ void main() {
         SurveySingleItem expected = SurveySingleItem(
             type: item['type'],
             components: ItemGroupComponent.fromMap(testGroupComponent),
-            validation: [Validations.fromMap(testValidations)]);
+            validations: [Validations.fromMap(testValidations)]);
         SurveySingleItem actual = SurveySingleItem.fromMap(item);
         expect(actual.toJson(), expected.toJson());
       });

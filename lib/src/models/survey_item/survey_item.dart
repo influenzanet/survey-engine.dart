@@ -13,7 +13,7 @@ abstract class SurveyItem {
   List<String> versionTags;
   String type;
   ItemGroupComponent components;
-  List<Validations> validation;
+  List<Validations> validations;
   List<SurveyItem> items;
   Expression selectionMethod;
   factory SurveyItem(Map<String, dynamic> map) {
