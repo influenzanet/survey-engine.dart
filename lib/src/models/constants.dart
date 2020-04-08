@@ -30,7 +30,8 @@ const int firstArgument = 0,
     maxUnaryOperands = 1,
     firstComponent = 0,
     secondComponent = 1,
-    firstItem = 1;
+    firstItem = 1,
+    rootItem = 0;
 const List<String> displayItemComponentRoles = [
   'title',
   'text',

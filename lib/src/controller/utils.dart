@@ -66,6 +66,10 @@ class SelectionMethods {
 }
 
 class Utils {
+  static String getRootKey(String key) {
+    return key.split(keyHierarchySeperator)[rootItem];
+  }
+
   static List<ExpressionArg> resolveParts(List<ExpressionArg> parts) {
     parts?.forEach((expressionArg) {
       // In case of expression evaluate the expression as String

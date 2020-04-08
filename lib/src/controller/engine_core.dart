@@ -204,6 +204,9 @@ class SurveyEngineCore {
       {SurveyItemResponse rootResponseItem}) {
     if (itemId == null) return null;
     SurveyItemResponse root = rootResponseItem ?? this.responses;
+    if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
+      throw NotFoundException(object: itemId);
+    }
     if (itemId == root.key) {
       return SurveyItemResponse(root.toMap());
     }
@@ -228,6 +231,9 @@ class SurveyEngineCore {
   SurveyItem findSurveyItem(String itemId, {SurveyItem rootItem}) {
     if (itemId == null) return null;
     SurveyItem root = rootItem ?? this.surveyDef;
+    if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
+      throw NotFoundException(object: itemId);
+    }
     if (itemId == root.key) {
       return SurveyItem(root.toMap());
     }

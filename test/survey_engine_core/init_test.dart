@@ -80,6 +80,20 @@ void main() {
       expect(actual, isNull);
     });
 
+    test('Test for invalid keys G5, G0.G5 throws exception', () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyGroupItemResponse expected =
+          SurveyGroupItemResponse.fromMap(testSurveyGroupItemRoot);
+      expect(
+          () => surveyEngineCore.findResponseItem('G5',
+              rootResponseItem: expected),
+          throwsA(TypeMatcher<NotFoundException>()));
+      expect(
+          () => surveyEngineCore.findResponseItem('G0.G5',
+              rootResponseItem: expected),
+          throwsA(TypeMatcher<NotFoundException>()));
+    });
+
     test('Test if a root object is returned on root SurveyGroupResponse key G0',
         () {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
@@ -137,6 +151,15 @@ void main() {
       expect(actual, isNull);
     });
 
+    test('Test if invalid keys G5, G0.G5 throws exception', () {
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyGroupItem expected =
+          SurveyGroupItem.fromMap(testSurveyGroupItemRoot);
+      expect(() => surveyEngineCore.findSurveyItem('G5', rootItem: expected),
+          throwsA(TypeMatcher<NotFoundException>()));
+      expect(() => surveyEngineCore.findSurveyItem('G0.G5', rootItem: expected),
+          throwsA(TypeMatcher<NotFoundException>()));
+    });
     test('Test if a root object is returned on root SurveyGroup key G0', () {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItem expected =
