@@ -208,21 +208,21 @@ class SurveyEngineCore {
       return SurveyItemResponse(root.toMap());
     }
     String componentId = root.key;
-    SurveyItemResponse obj = SurveyItemResponse(root.toMap());
-    List<String> ids = itemId.split('.').sublist(1);
+    SurveyItemResponse result = SurveyItemResponse(root.toMap());
+    List<String> ids = itemId.split(keyHierarchySeperator).sublist(firstItem);
     ids.forEach((id) {
-      if (!(obj is SurveyGroupItemResponse)) {
+      if (!(result is SurveyGroupItemResponse)) {
         return;
       }
-      componentId = componentId + '.' + id;
-      SurveyItemResponse foundItem = obj.items
+      componentId = componentId + keyHierarchySeperator + id;
+      SurveyItemResponse foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
         throw NotFoundException(object: itemId);
       } else
-        obj = foundItem;
+        result = foundItem;
     });
-    return obj;
+    return result;
   }
 
   SurveyItem findSurveyItem(String itemId, {SurveyItem rootItem}) {
@@ -232,20 +232,20 @@ class SurveyEngineCore {
       return SurveyItem(root.toMap());
     }
     String componentId = root.key;
-    SurveyItem obj = SurveyItem(root.toMap());
-    List<String> ids = itemId.split('.').sublist(1);
+    SurveyItem result = SurveyItem(root.toMap());
+    List<String> ids = itemId.split(keyHierarchySeperator).sublist(firstItem);
     ids.forEach((id) {
-      if (!(obj is SurveyGroupItem)) {
+      if (!(result is SurveyGroupItem)) {
         return;
       }
-      componentId = componentId + '.' + id;
-      SurveyItem foundItem = obj.items
+      componentId = componentId + keyHierarchySeperator + id;
+      SurveyItem foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
         throw NotFoundException(object: itemId);
       } else
-        obj = foundItem;
+        result = foundItem;
     });
-    return obj;
+    return result;
   }
 }

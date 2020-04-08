@@ -29,7 +29,8 @@ const int firstArgument = 0,
     stringEqualityValue = 0,
     maxUnaryOperands = 1,
     firstComponent = 0,
-    secondComponent = 1;
+    secondComponent = 1,
+    firstItem = 1;
 const List<String> displayItemComponentRoles = [
   'title',
   'text',
@@ -62,3 +63,4 @@ const List<String> itemTypes = [
   'concepts.v1.age.simple-age'
 ];
 const List<String> timeStampTypes = ['rendered', 'displayed', 'responded'];
+const keyHierarchySeperator = '.';
