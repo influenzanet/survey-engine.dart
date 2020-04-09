@@ -63,6 +63,7 @@
 + Answer: This is a random selection, where the distribution looks something like this: https://en.wikipedia.org/wiki/Exponential_distribution
 Where items with higher priorioty value are more likely to be picked but they don't have to be picked first. 
 
+
 ## Engine.ts
 1. **initResponseObject**: Is there any specific reason as to why `position=-1` and timestamp an `string` instead of an array of `int`?
    + Answer: Yes `position` will be incremented as `0` is the initial position. and `timestamp` is a 64 bit `Integer` so one can use dart `int`
@@ -81,6 +82,8 @@ eg:
 if `GROUP1` has `GROUP2` and `SINGLE` as items.
 `GROUP2` has `SINGLE2` as items
 will the keys of `SINGLE2` item be `GROUP2.SINGLE2` or `GROUP1.GROUP2.SINGLE2`?
++ Answer: Yes but model is changed in later versions of `0.6.0`
+9. **setTimeStampFor**: Should `timestamp` be punched on each `ResponseItem` whether `single` or `group`. If we punch `timestamp` just to a group would not that be enough? 
 
 
 Independent functions
@@ -88,6 +91,11 @@ Independent functions
 2. **evaluateBooleanresult**: Converts any expression result to a `boolean` type used especially for evaluating `displayConditon` in `ItemComponent`
 3. **resolveItemComponentGroup**: Resolved Item Component group to a map
 4. **renderSurveySingleItem**: Renders SingleSurveyItem
+
+## LocalisedObject
+1. **description**: Why can't description have a `code`?.
+   + Answer: Description can have `code` as it is a child class of `LocalisedObject`. 
+
 
 
 
