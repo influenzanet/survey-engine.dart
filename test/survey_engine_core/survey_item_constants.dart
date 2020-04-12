@@ -59,6 +59,7 @@ const testSurveyGroupItemResponseRoot = {
 };
 const testSurveySingleItemOne = {
   'key': 'G0.S1',
+  'follows': ['G0'],
   'type': 'basic.static.title',
   'validations': [
     {
@@ -185,6 +186,7 @@ const renderedSurveyGroupRoot = {
   "items": [
     {
       "key": "G0.S1",
+      'follows': ['G0'],
       "type": "basic.static.title",
       "components": {
         "role": "root",

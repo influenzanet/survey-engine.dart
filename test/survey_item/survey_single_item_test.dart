@@ -60,6 +60,8 @@ void main() {
       print(itemTypesTest);
       Iterable<Map<String, Object>> testSurveySingleList =
           itemTypesTest.map((itemType) => {
+                'key': itemType,
+                'follows': ['root'],
                 'type': itemType,
                 'components': {
                   "role": "root",
@@ -102,6 +104,8 @@ void main() {
               });
       testSurveySingleList.forEach((item) {
         SurveySingleItem expected = SurveySingleItem(
+            key: item['type'],
+            follows: ['root'],
             type: item['type'],
             components: ItemGroupComponent.fromMap(testGroupComponent),
             validations: [Validations.fromMap(testValidations)]);

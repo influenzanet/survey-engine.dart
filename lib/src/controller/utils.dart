@@ -109,33 +109,47 @@ class Utils {
         : List<dynamic>.from(nullCheck?.map((item) => item.toMap()));
   }
 
+  static List<String> removeNullString(List<String> list) {
+    if (list == null) return [];
+    List<String> cur = [];
+    list.forEach((item) {
+      if (item != null) cur.add(item);
+    });
+    return cur;
+  }
+
   static List removeNullItems(List list) {
     if (list == null) return [];
     list.removeWhere((item) => item == null);
     return list;
   }
 
-  static dynamic removeNullParams(dynamic mapToEdit) {
-    var keys = mapToEdit.keys.toList(growable: false);
+  static dynamic removeNullParams(dynamic map) {
+    var keys = map.keys.toList(growable: false);
     for (String key in keys) {
-      var value = mapToEdit[key];
+      var value = map[key];
       if (value == null) {
-        mapToEdit.remove(key);
+        map.remove(key);
       } else if (value is Map) {
-        mapToEdit[key] = removeNullParams(value);
+        map[key] = removeNullParams(value);
       } else if (value is List) {
+        // This is a workaround for List<String> not subtype of List<Dynamic> and needs cleaning later
+        if (removeArrayStrings.contains(key)) {
+          value = removeNullString(value);
+          continue;
+        }
         int index = 0;
         value = removeNullItems(value);
-        mapToEdit[key] = value;
+        map[key] = value;
         value.forEach((item) {
           if (item is Map) {
             var m = removeNullParams(item);
-            mapToEdit[key][index] = m;
+            map[key][index] = m;
           }
           index++;
         });
       }
     }
-    return mapToEdit;
+    return map;
   }
 }

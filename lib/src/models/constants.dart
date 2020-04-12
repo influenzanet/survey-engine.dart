@@ -65,3 +65,5 @@ const List<String> itemTypes = [
 ];
 const List<String> timeStampTypes = ['rendered', 'displayed', 'responded'];
 const keyHierarchySeperator = '.';
+const List<String> removeArrayStrings = ['follows', 'versionTags'];
+const List<String> removeArrayIntegers = ['rendered', 'displayed', 'responded'];
