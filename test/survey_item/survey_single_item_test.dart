@@ -61,19 +61,6 @@ void main() {
       Iterable<Map<String, Object>> testSurveySingleList =
           itemTypesTest.map((itemType) => {
                 'type': itemType,
-                'validations': [
-                  {
-                    'type': 'soft',
-                    'key': 'v1',
-                    'rule': {
-                      'name': 'or',
-                      'data': [
-                        {'dtype': 'num', 'num': 2},
-                        {'dtype': 'num', 'num': 1}
-                      ]
-                    }
-                  },
-                ],
                 'components': {
                   "role": "root",
                   "items": [
@@ -98,7 +85,20 @@ void main() {
                       ]
                     }
                   ]
-                }
+                },
+                'validations': [
+                  {
+                    'type': 'soft',
+                    'key': 'v1',
+                    'rule': {
+                      'name': 'or',
+                      'data': [
+                        {'dtype': 'num', 'num': 2},
+                        {'dtype': 'num', 'num': 1}
+                      ]
+                    }
+                  },
+                ],
               });
       testSurveySingleList.forEach((item) {
         SurveySingleItem expected = SurveySingleItem(
@@ -114,19 +114,6 @@ void main() {
         () {
       Map<String, Object> testSurveySingleItem = {
         'type': 'basic.static.float',
-        'validations': [
-          {
-            'type': 'soft',
-            'key': 'v1',
-            'rule': {
-              'name': 'or',
-              'data': [
-                {'dtype': 'num', 'num': 2},
-                {'dtype': 'num', 'num': 1}
-              ]
-            }
-          },
-        ],
         'components': {
           "role": "root",
           "items": [
@@ -151,7 +138,20 @@ void main() {
               ]
             }
           ]
-        }
+        },
+        'validations': [
+          {
+            'type': 'soft',
+            'key': 'v1',
+            'rule': {
+              'name': 'or',
+              'data': [
+                {'dtype': 'num', 'num': 2},
+                {'dtype': 'num', 'num': 1}
+              ]
+            }
+          },
+        ],
       };
       expect(() => SurveySingleItem.fromMap(testSurveySingleItem),
           throwsA(TypeMatcher<InvalidItemTypeException>()));

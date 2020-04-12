@@ -38,15 +38,15 @@ class SurveySingleItem implements SurveyItem {
 
   Map<String, dynamic> toMap() {
     return Utils.removeNullParams({
-      'type': type,
-      'components': components.toMap(),
-      'validations': Utils.resolveNullListOfMaps(validations),
       'key': key,
       'follows': follows,
       'condition': condition,
       'priority': priority,
       'version': version,
-      'versionTags': versionTags
+      'versionTags': versionTags,
+      'type': type,
+      'components': components.toMap(),
+      'validations': Utils.resolveNullListOfMaps(validations),
     });
   }
 

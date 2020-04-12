@@ -180,8 +180,11 @@ const testSurveyGroupItemRoot = {
   ]
 };
 const renderedSurveyGroupRoot = {
+  "key": "G0",
+  "version": 1,
   "items": [
     {
+      "key": "G0.S1",
       "type": "basic.static.title",
       "components": {
         "role": "root",
@@ -204,10 +207,10 @@ const renderedSurveyGroupRoot = {
       },
       "validations": [
         {"rule": true, "type": "soft", "key": "v1"}
-      ],
-      "key": "G0.S1"
+      ]
     },
     {
+      "key": "G0.S2",
       "type": "basic.static.title",
       "components": {
         "role": "root",
@@ -225,11 +228,13 @@ const renderedSurveyGroupRoot = {
         "order": {"name": "sequential", "returnType": "string"}
       },
       "validations": [],
-      "key": "G0.S2"
     },
     {
+      "key": "G0.G1",
+      "version": 1,
       "items": [
         {
+          "key": "G0.G1.S3",
           "type": "basic.static.title",
           "components": {
             "role": "root",
@@ -249,13 +254,8 @@ const renderedSurveyGroupRoot = {
           "validations": [
             {"rule": true, "type": "soft", "key": "v1"}
           ],
-          "key": "G0.G1.S3"
         }
       ],
-      "key": "G0.G1",
-      "version": 1
     }
   ],
-  "key": "G0",
-  "version": 1
 };

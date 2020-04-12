@@ -31,14 +31,14 @@ class SurveyGroupItem implements SurveyItem {
 
   Map<String, dynamic> toMap() {
     return Utils.removeNullParams({
-      'items': Utils.resolveNullListOfMaps(items),
-      'selectionMethod': selectionMethod?.toMap(),
       'key': key,
       'follows': follows,
       'condition': condition,
       'priority': priority,
       'version': version,
-      'versionTags': versionTags
+      'versionTags': versionTags,
+      'items': Utils.resolveNullListOfMaps(items),
+      'selectionMethod': selectionMethod?.toMap(),
     });
   }
 
