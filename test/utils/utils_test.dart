@@ -21,8 +21,11 @@ void main() {
     var simpleMap;
     var nestedMap;
     var listMap;
+    var simpleList;
 
     setUp(() {
+      simpleList = ['1', '1', null];
+
       simpleMap = {'key1': 'val1', 'key2': null};
       nestedMap = {
         'mainKey': {'key1': 'val1', 'key2': null},
@@ -32,7 +35,7 @@ void main() {
         'listItem': [
           {
             'mainKey': {'key1': 'val1', 'key2': null},
-            'nullKey': null
+            'nullKey': [null]
           },
           null,
           1,
@@ -55,11 +58,16 @@ void main() {
           {
             'listItem': [
               {
-                'mainKey': {'key1': 'val1'}
+                'mainKey': {'key1': 'val1'},
+                'nullKey': [],
               },
               1
             ]
           }.toString());
+    });
+    test('Check if `null` is removed from list ', () {
+      expect(
+          Utils.removeNullItems(simpleList).toString(), ['1', '1'].toString());
     });
   });
 }

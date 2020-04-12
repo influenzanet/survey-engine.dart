@@ -109,6 +109,12 @@ class Utils {
         : List<dynamic>.from(nullCheck?.map((item) => item.toMap()));
   }
 
+  static List removeNullItems(List list) {
+    if (list == null) return [];
+    list.removeWhere((item) => item == null);
+    return list;
+  }
+
   static dynamic removeNullParams(dynamic mapToEdit) {
     var keys = mapToEdit.keys.toList(growable: false);
     for (String key in keys) {
@@ -119,7 +125,7 @@ class Utils {
         mapToEdit[key] = removeNullParams(value);
       } else if (value is List) {
         int index = 0;
-        value.removeWhere((item) => item == null);
+        value = removeNullItems(value);
         mapToEdit[key] = value;
         value.forEach((item) {
           if (item is Map) {
