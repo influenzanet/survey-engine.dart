@@ -199,6 +199,60 @@ class SurveyEngineCore {
     return Utils.removeNullParams(renderedItem);
   }
 
+  dynamic getUnrenderedItems(
+      SurveyGroupItem surveyGroupItem, SurveyGroupItem renderedParentGroup) {
+    return surveyGroupItem.items.where((item) {
+      return (renderedParentGroup.items.firstWhere(
+                  (item) => item.key == item.key,
+                  orElse: () => null) ==
+              null) &&
+          this.evaluateBooleanResult(item.condition);
+    });
+  }
+
+  dynamic getFollowUpItems(dynamic availableItems, String lastKey) {
+    return availableItems.where(
+        (item) => item.follows.length > 0 && item.follows.contains(lastKey));
+  }
+
+  dynamic getItemsWithoutFollows(dynamic availableItems, String lastKey) {
+    return availableItems
+        .where((item) => item.follows != null || item.follows.length == 0);
+  }
+
+  SurveyItem getNextItem(
+      SurveyGroupItem surveyGroupItem,
+      SurveyGroupItem renderedParentGroup,
+      String lastKey,
+      bool onlyDirectFollower) {
+    // available items ==> fetch all unrendered groups in surveyGroupItem
+
+    var availableItems =
+        getUnrenderedItems(surveyGroupItem, renderedParentGroup);
+
+    // Needs clarification
+    if ((lastKey == null || lastKey.isEmpty) && onlyDirectFollower) {
+      return null;
+    }
+    var followUpItems = getFollowUpItems(availableItems, lastKey);
+
+    if (followUpItems.length > 0) {
+      return SelectionMethods.pickAnItem(
+          items: followUpItems.toList(),
+          expression: surveyGroupItem.selectionMethod);
+    } else if (onlyDirectFollower) {
+      return null;
+    }
+
+    var groupPool = getItemsWithoutFollows(availableItems, lastKey);
+    if (groupPool.length == 0) {
+      return null;
+    }
+
+    return SelectionMethods.pickAnItem(
+        items: groupPool.toList(), expression: surveyGroupItem.selectionMethod);
+  }
+
 // Search objects by key
   SurveyItemResponse findResponseItem(String itemId,
       {SurveyItemResponse rootResponseItem}) {
