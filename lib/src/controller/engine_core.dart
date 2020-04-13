@@ -151,7 +151,10 @@ class SurveyEngineCore {
   bool evaluateBooleanResult(Expression expression) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     // Display condition must always be of boolean type
-    if (Expression == null || expression?.returnType != 'boolean') {
+    if (Expression == null) {
+      return true;
+    }
+    if (expression?.returnType != 'boolean') {
       return false;
     }
     return eval.evalExpression(expression: expression);
@@ -199,6 +202,27 @@ class SurveyEngineCore {
     return Utils.removeNullParams(renderedItem);
   }
 
+// Helper functions
+
+  dynamic getFollowUpItems(SurveyItem availableItems, String lastKey) {
+    if (availableItems == null) return null;
+    return availableItems
+        .toMap()['items']
+        .where((item) =>
+            item['follows'] != null &&
+            item['follows'].length > 0 &&
+            item['follows'].contains(lastKey))
+        .toList();
+  }
+
+  dynamic getItemsWithoutFollows(SurveyItem availableItems, String lastKey) {
+    if (availableItems == null) return null;
+    return availableItems
+        .toMap()['items']
+        .where((item) => item['follows'] == null || item['follows'].length == 0)
+        .toList();
+  }
+
   dynamic getUnrenderedItems(
       SurveyGroupItem surveyGroupItem, SurveyGroupItem renderedParentGroup) {
     return surveyGroupItem.items.where((item) {
@@ -207,17 +231,7 @@ class SurveyEngineCore {
                   orElse: () => null) ==
               null) &&
           this.evaluateBooleanResult(item.condition);
-    });
-  }
-
-  dynamic getFollowUpItems(dynamic availableItems, String lastKey) {
-    return availableItems.where(
-        (item) => item.follows.length > 0 && item.follows.contains(lastKey));
-  }
-
-  dynamic getItemsWithoutFollows(dynamic availableItems, String lastKey) {
-    return availableItems
-        .where((item) => item.follows != null || item.follows.length == 0);
+    }).toList();
   }
 
   SurveyItem getNextItem(
@@ -238,8 +252,7 @@ class SurveyEngineCore {
 
     if (followUpItems.length > 0) {
       return SelectionMethods.pickAnItem(
-          items: followUpItems.toList(),
-          expression: surveyGroupItem.selectionMethod);
+          items: followUpItems, expression: surveyGroupItem.selectionMethod);
     } else if (onlyDirectFollower) {
       return null;
     }
