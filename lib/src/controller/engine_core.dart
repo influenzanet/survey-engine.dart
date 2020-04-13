@@ -4,7 +4,6 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
@@ -148,18 +147,6 @@ class SurveyEngineCore {
     return resolvedContent;
   }
 
-  bool evaluateBooleanResult(Expression expression) {
-    ExpressionEvaluation eval = ExpressionEvaluation();
-    // Display condition must always be of boolean type
-    if (Expression == null) {
-      return true;
-    }
-    if (expression?.returnType != 'boolean') {
-      return false;
-    }
-    return eval.evalExpression(expression: expression);
-  }
-
   dynamic resolveItemComponentGroup(ItemGroupComponent component) {
     if (component == null) return null;
     var resolvedGroup = component.toMap();
@@ -168,13 +155,15 @@ class SurveyEngineCore {
       if (itemComponent.items == null) {
         Map<String, Object> resolvedItemComponent = itemComponent.toMap();
         resolvedItemComponent['displayCondition'] =
-            evaluateBooleanResult(itemComponent.displayCondition);
+            Utils.evaluateBooleanResult(itemComponent.displayCondition);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
         // Description needs to be changed after discussion
         // resolvedItemComponent['description'] =resolveContent(itemComponent.description);
-        resolvedItemComponent['disabled'] =
-            evaluateBooleanResult(itemComponent.disabled);
+        // By default disabled
+        resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(
+            itemComponent.disabled,
+            nullValue: false);
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
         resolvedGroup['items']
@@ -193,7 +182,7 @@ class SurveyEngineCore {
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
-      validationMap['rule'] = evaluateBooleanResult(validation.rule);
+      validationMap['rule'] = Utils.evaluateBooleanResult(validation.rule);
       renderedValidations.add(validationMap);
     });
     renderedItem['components'] =
@@ -224,13 +213,14 @@ class SurveyEngineCore {
   }
 
   dynamic getUnrenderedItems(
-      SurveyGroupItem surveyGroupItem, SurveyGroupItem renderedParentGroup) {
-    return surveyGroupItem.items.where((item) {
-      return (renderedParentGroup.items.firstWhere(
-                  (item) => item.key == item.key,
-                  orElse: () => null) ==
-              null) &&
-          this.evaluateBooleanResult(item.condition);
+      SurveyGroupItem surveyGroupItem, dynamic renderedParentGroup) {
+    return surveyGroupItem.toMap()['items'].where((unRenderedItem) {
+      return (renderedParentGroup['items'].any((item) {
+            return (item['key'] == unRenderedItem['key']);
+          })) &&
+          ((unRenderedItem['condition'] == null) ||
+              (unRenderedItem['condition'] == null &&
+                  Utils.evaluateBooleanResult(unRenderedItem['condition'])));
     }).toList();
   }
 

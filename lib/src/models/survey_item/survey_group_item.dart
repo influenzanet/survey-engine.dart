@@ -33,7 +33,7 @@ class SurveyGroupItem implements SurveyItem {
     return Utils.removeNullParams({
       'key': key,
       'follows': follows,
-      'condition': condition,
+      'condition': condition?.toMap(),
       'priority': priority,
       'version': version,
       'versionTags': versionTags,
@@ -52,7 +52,7 @@ class SurveyGroupItem implements SurveyItem {
         selectionMethod: Expression.fromMap(map['selectionMethod']),
         key: map['key'],
         follows: map['follows'],
-        condition: map['condition'],
+        condition: Expression.fromMap(map['condition']),
         priority: map['priority'],
         version: map['version'],
         versionTags: map['versionTags']);

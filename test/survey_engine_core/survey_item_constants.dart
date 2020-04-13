@@ -168,6 +168,13 @@ const testSurveySingleItemThree = {
 };
 const testSurveyGroupItemOne = {
   'key': 'G0.G1',
+  'condition': {
+    'name': 'not',
+    'returnType': 'boolean',
+    'data': [
+      {'dtype': 'str', 'str': ''}
+    ]
+  },
   'version': 1,
   'items': [testSurveySingleItemThree]
 };
@@ -201,7 +208,7 @@ const renderedSurveyGroupRoot = {
               },
               {"code": "de", "parts": "XX"}
             ],
-            "displayCondition": false,
+            "displayCondition": true,
             "disabled": false
           }
         ],
@@ -223,7 +230,7 @@ const renderedSurveyGroupRoot = {
               {"code": "en", "parts": "What is your main activity?"},
               {"code": "de", "parts": "Was ist Ihre Haupttätigkeit?"}
             ],
-            "displayCondition": false,
+            "displayCondition": true,
             "disabled": false
           }
         ],
@@ -233,6 +240,13 @@ const renderedSurveyGroupRoot = {
     },
     {
       "key": "G0.G1",
+      'condition': {
+        'name': 'not',
+        'returnType': 'boolean',
+        'data': [
+          {'dtype': 'str', 'str': ''}
+        ]
+      },
       "version": 1,
       "items": [
         {
@@ -247,7 +261,7 @@ const renderedSurveyGroupRoot = {
                   {"code": "en", "parts": "What is your occupation?"},
                   {"code": "de", "parts": "XX"}
                 ],
-                "displayCondition": false,
+                "displayCondition": true,
                 "disabled": false
               }
             ],

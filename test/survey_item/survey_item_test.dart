@@ -12,6 +12,13 @@ void main() {
       testSurveySingleItem = {
         'key': 'q0',
         'version': 1,
+        "condition": {
+          'name': 'not',
+          'returnType': 'boolean',
+          'data': [
+            {'dtype': 'str', 'str': ''}
+          ]
+        },
         'type': 'basic.static.title',
         'validations': [
           {

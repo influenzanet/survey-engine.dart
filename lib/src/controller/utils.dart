@@ -66,6 +66,18 @@ class SelectionMethods {
 }
 
 class Utils {
+  static bool evaluateBooleanResult(Expression expression, {bool nullValue}) {
+    ExpressionEvaluation eval = ExpressionEvaluation();
+    // Display condition must always be of boolean type
+    if (expression == null) {
+      return nullValue ?? true;
+    }
+    if (expression?.returnType != 'boolean') {
+      return false;
+    }
+    return eval.evalExpression(expression: expression);
+  }
+
   static String getRootKey(String key) {
     return key.split(keyHierarchySeperator)[rootItem];
   }

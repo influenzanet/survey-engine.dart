@@ -33,4 +33,12 @@ void main() {
       expect(actual[secondArgument]['key'] == 'G0.G1', isTrue);
     });
   });
+  test('Get a list of unrendered survey items where conditions are true', () {
+    SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+    SurveyGroupItem expected = SurveyGroupItem.fromMap(testSurveyGroupItemRoot);
+    dynamic actual =
+        surveyEngineCore.getUnrenderedItems(expected, renderedSurveyGroupRoot);
+    expect(actual[firstArgument]['key'] == 'G0.S1', isTrue);
+    expect(actual[secondArgument]['key'] == 'G0.S2', isTrue);
+  });
 }
