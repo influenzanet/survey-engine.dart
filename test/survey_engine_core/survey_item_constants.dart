@@ -61,19 +61,6 @@ const testSurveySingleItemOne = {
   'key': 'G0.S1',
   'follows': ['G0'],
   'type': 'basic.static.title',
-  'validations': [
-    {
-      'type': 'soft',
-      'key': 'v1',
-      'rule': {
-        'name': 'or',
-        'data': [
-          {'dtype': 'num', 'num': 2},
-          {'dtype': 'num', 'num': 1}
-        ]
-      }
-    },
-  ],
   'components': {
     "role": "root",
     "items": [
@@ -98,12 +85,24 @@ const testSurveySingleItemOne = {
         ]
       }
     ]
-  }
+  },
+  'validations': [
+    {
+      'type': 'soft',
+      'key': 'v1',
+      'rule': {
+        'name': 'or',
+        'data': [
+          {'dtype': 'num', 'num': 2},
+          {'dtype': 'num', 'num': 1}
+        ]
+      }
+    },
+  ],
 };
 const testSurveySingleItemTwo = {
   'key': 'G0.S2',
   'type': 'basic.static.title',
-  'validations': [],
   'components': {
     'role': 'root',
     'items': [
@@ -125,24 +124,12 @@ const testSurveySingleItemTwo = {
         ]
       },
     ]
-  }
+  },
+  'validations': [],
 };
 const testSurveySingleItemThree = {
   'key': 'G0.G1.S3',
   'type': 'basic.static.title',
-  'validations': [
-    {
-      'type': 'soft',
-      'key': 'v1',
-      'rule': {
-        'name': 'or',
-        'data': [
-          {'dtype': 'num', 'num': 2},
-          {'dtype': 'num', 'num': 1}
-        ]
-      }
-    },
-  ],
   'components': {
     "role": "root",
     "items": [
@@ -164,7 +151,20 @@ const testSurveySingleItemThree = {
         ]
       }
     ]
-  }
+  },
+  'validations': [
+    {
+      'type': 'soft',
+      'key': 'v1',
+      'rule': {
+        'name': 'or',
+        'data': [
+          {'dtype': 'num', 'num': 2},
+          {'dtype': 'num', 'num': 1}
+        ]
+      }
+    },
+  ],
 };
 const testSurveyGroupItemOne = {
   'key': 'G0.G1',

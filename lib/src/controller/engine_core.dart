@@ -193,10 +193,9 @@ class SurveyEngineCore {
 
 // Helper functions
 
-  dynamic getFollowUpItems(SurveyItem availableItems, String lastKey) {
+  dynamic getFollowUpItems(dynamic availableItems, String lastKey) {
     if (availableItems == null) return null;
     return availableItems
-        .toMap()['items']
         .where((item) =>
             item['follows'] != null &&
             item['follows'].length > 0 &&
@@ -204,10 +203,9 @@ class SurveyEngineCore {
         .toList();
   }
 
-  dynamic getItemsWithoutFollows(SurveyItem availableItems, String lastKey) {
+  dynamic getItemsWithoutFollows(dynamic availableItems, String lastKey) {
     if (availableItems == null) return null;
     return availableItems
-        .toMap()['items']
         .where((item) => item['follows'] == null || item['follows'].length == 0)
         .toList();
   }
@@ -224,11 +222,8 @@ class SurveyEngineCore {
     }).toList();
   }
 
-  SurveyItem getNextItem(
-      SurveyGroupItem surveyGroupItem,
-      SurveyGroupItem renderedParentGroup,
-      String lastKey,
-      bool onlyDirectFollower) {
+  dynamic getNextItem(SurveyGroupItem surveyGroupItem,
+      dynamic renderedParentGroup, String lastKey, bool onlyDirectFollower) {
     // available items ==> fetch all unrendered groups in surveyGroupItem
 
     var availableItems =
@@ -253,7 +248,7 @@ class SurveyEngineCore {
     }
 
     return SelectionMethods.pickAnItem(
-        items: groupPool.toList(), expression: surveyGroupItem.selectionMethod);
+        items: groupPool, expression: surveyGroupItem.selectionMethod);
   }
 
 // Search objects by key
