@@ -61,8 +61,9 @@ void main() {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItem expected =
           SurveyGroupItem.fromMap(testSurveyGroupItemOne);
+      SurveyGroupItem parent = SurveyGroupItem.fromMap(testSurveyGroupItemRoot);
       dynamic actual = surveyEngineCore.getNextItem(
-          expected, expected.toMap(), expected.key, false);
+          expected, parent.toMap(), expected.key, false);
       expect(actual['key'] == 'G0.G1.S3', isTrue);
     });
   });

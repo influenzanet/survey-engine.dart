@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
+import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
@@ -214,11 +215,12 @@ class SurveyEngineCore {
       SurveyGroupItem surveyGroupItem, dynamic renderedParentGroup) {
     return surveyGroupItem.toMap()['items'].where((unRenderedItem) {
       return (renderedParentGroup['items'].any((item) {
-            return (item['key'] == unRenderedItem['key']);
+            return (item['key'] != unRenderedItem['key']);
           })) &&
           ((unRenderedItem['condition'] == null) ||
-              (unRenderedItem['condition'] == null &&
-                  Utils.evaluateBooleanResult(unRenderedItem['condition'])));
+              (unRenderedItem['condition'] != null &&
+                  Utils.evaluateBooleanResult(
+                      Expression.fromMap(unRenderedItem['condition']))));
     }).toList();
   }
 
