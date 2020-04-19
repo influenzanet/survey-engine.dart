@@ -93,15 +93,22 @@ class SurveyEngineCore {
     if (questionGroup == null) return null;
     var renderedGroup = questionGroup.toMap();
     renderedGroup['items'] = [];
-    questionGroup.items.forEach((item) {
-      if (item.items == null) {
-        var rendered = renderSurveySingleItem(item);
+    int i = 0;
+    while (i < questionGroup.items.length) {
+      dynamic item =
+          getNextItem(questionGroup, renderedGroup, questionGroup.key, false);
+      //var item = questionGroup.items[i];
+      if (item['items'] == null) {
+        dynamic rendered =
+            renderSurveySingleItem(SurveySingleItem.fromMap(item));
         renderedGroup['items'].add(rendered);
         // add timestamp
       } else {
-        renderedGroup['items'].add(initRenderedGroupItem(item));
+        renderedGroup['items']
+            .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
       }
-    });
+      i++;
+    }
     return renderedGroup;
   }
 

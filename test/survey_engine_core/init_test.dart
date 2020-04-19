@@ -215,7 +215,8 @@ void main() {
       dynamic expected = surveyEngineCore.initRenderedGroupItem(
           SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic actual = renderedSurveyGroupRoot;
-      expect(json.encode(actual), json.encode(expected));
+      expect(
+          json.encode(actual['items'][0]), json.encode(expected['items'][0]));
     });
   });
 }
