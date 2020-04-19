@@ -97,7 +97,6 @@ class SurveyEngineCore {
     while (i < questionGroup.items.length) {
       dynamic item =
           getNextItem(questionGroup, renderedGroup, questionGroup.key, false);
-      //var item = questionGroup.items[i];
       if (item['items'] == null) {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(item));
@@ -165,9 +164,10 @@ class SurveyEngineCore {
     resolvedGroup['items'] = [];
     component.items.forEach((itemComponent) {
       if (itemComponent.items == null) {
-        Map<String, Object> resolvedItemComponent = itemComponent.toMap();
-        resolvedItemComponent['displayCondition'] =
-            Utils.evaluateBooleanResult(itemComponent.displayCondition);
+        dynamic resolvedItemComponent = itemComponent.toMap();
+        resolvedItemComponent['displayCondition'] = Utils.evaluateBooleanResult(
+            itemComponent.displayCondition,
+            nullValue: true);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
         // Description needs to be changed after discussion

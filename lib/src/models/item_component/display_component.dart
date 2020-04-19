@@ -52,8 +52,10 @@ class DisplayComponent implements ItemComponent {
     return DisplayComponent(
       role: map['role'],
       displayCondition: Expression.fromMap(map['displayCondition']),
-      content: List<LocalizedObject>.from(
-          map['content']?.map((x) => LocalizedObject.fromMap(x))),
+      content: (map['content'] == null)
+          ? null
+          : List<LocalizedObject>.from(
+              map['content']?.map((x) => LocalizedObject.fromMap(x))),
       description: (map['description'] == null)
           ? null
           : List<LocalizedObject>.from(

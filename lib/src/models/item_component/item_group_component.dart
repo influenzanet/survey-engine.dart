@@ -40,6 +40,12 @@ class ItemGroupComponent implements ItemComponent {
   Map<String, dynamic> toMap() {
     return Utils.removeNullParams({
       'role': role,
+      'displayCondition': displayCondition?.toMap(),
+      'content': Utils.resolveNullListOfMaps(content),
+      'description': Utils.resolveNullListOfMaps(description),
+      'disabled': disabled?.toMap(),
+      'style': style,
+      'key': key,
       'items': Utils.resolveNullListOfMaps(items),
       'order': order?.toMap(),
     });
@@ -50,6 +56,18 @@ class ItemGroupComponent implements ItemComponent {
 
     return ItemGroupComponent(
       role: map['role'],
+      displayCondition: Expression.fromMap(map['displayCondition']),
+      content: (map['content'] == null)
+          ? null
+          : List<LocalizedObject>.from(
+              map['content']?.map((x) => LocalizedObject.fromMap(x))),
+      description: (map['description'] == null)
+          ? null
+          : List<LocalizedObject>.from(
+              map['description']?.map((x) => LocalizedObject.fromMap(x))),
+      disabled: Expression.fromMap(map['disabled']),
+      style: map['style'],
+      key: map['key'],
       items:
           List<ItemComponent>.from(map['items']?.map((x) => ItemComponent(x))),
       order: Expression.fromMap(map['order']),
