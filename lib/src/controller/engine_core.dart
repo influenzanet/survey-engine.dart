@@ -20,7 +20,7 @@ class SurveyEngineCore {
   SurveyGroupItem surveyDef;
   SurveyGroupItemResponse responses;
   SurveyContext context;
-  Map<String, Object> renderedSurvey;
+  dynamic renderedSurvey;
   ExpressionEvaluation evalEngine;
   SurveyEngineCore({
     this.surveyDef,
@@ -29,7 +29,11 @@ class SurveyEngineCore {
   }) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
-    this.renderedSurvey = initRenderedGroupItem(this.surveyDef);
+    this.renderedSurvey = {
+      'key': this.surveyDef != null ? this.surveyDef.key : '',
+      'version': this.surveyDef != null ? this.surveyDef.version : '',
+      'items': []
+    };
     this.responses = setTimestampFor('rendered', this.responses);
   }
 
@@ -213,15 +217,28 @@ class SurveyEngineCore {
 
   dynamic getUnrenderedItems(
       SurveyGroupItem surveyGroupItem, dynamic renderedParentGroup) {
-    return surveyGroupItem.toMap()['items'].where((unRenderedItem) {
-      return (renderedParentGroup['items'].any((item) {
-            return (item['key'] != unRenderedItem['key']);
-          })) &&
-          ((unRenderedItem['condition'] == null) ||
-              (unRenderedItem['condition'] != null &&
-                  Utils.evaluateBooleanResult(
-                      Expression.fromMap(unRenderedItem['condition']))));
+    if (renderedParentGroup['items'] == null ||
+        renderedParentGroup['items'].length == 0) {
+      return surveyGroupItem.toMap()['items'].toList();
+    }
+    dynamic unRenderedItems = [];
+    var renderedKeys = [];
+    renderedParentGroup['items'].forEach((item) {
+      renderedKeys.add(item['key']);
+    });
+    surveyGroupItem.items.forEach((item) {
+      if (renderedKeys.contains(item.key)) {
+        return;
+      }
+      unRenderedItems.add(item.toMap());
+    });
+    unRenderedItems = unRenderedItems.where((item) {
+      return ((item['condition'] == null) ||
+          (item['condition'] != null &&
+              Utils.evaluateBooleanResult(
+                  Expression.fromMap(item['condition']))));
     }).toList();
+    return unRenderedItems;
   }
 
   dynamic getNextItem(SurveyGroupItem surveyGroupItem,
@@ -237,7 +254,7 @@ class SurveyEngineCore {
     }
     var followUpItems = getFollowUpItems(availableItems, lastKey);
 
-    if (followUpItems.length > 0) {
+    if (followUpItems != null && followUpItems.length > 0) {
       return SelectionMethods.pickAnItem(
           items: followUpItems, expression: surveyGroupItem.selectionMethod);
     } else if (onlyDirectFollower) {
@@ -245,7 +262,7 @@ class SurveyEngineCore {
     }
 
     var groupPool = getItemsWithoutFollows(availableItems, lastKey);
-    if (groupPool.length == 0) {
+    if (groupPool != null && groupPool.length == 0) {
       return null;
     }
 
