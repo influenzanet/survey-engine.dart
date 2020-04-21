@@ -73,6 +73,7 @@ class SurveyEngineCore {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
+    responseGroup = setTimestampFor('rendered', responseGroup);
     questionGroup.items.forEach((item) {
       if (item.items == null) {
         SurveyItemResponse response = SurveyItemResponse({
@@ -81,6 +82,7 @@ class SurveyEngineCore {
             'version': item.version,
           },
         });
+        response = setTimestampFor('rendered', response);
         responseGroup.items.add(response);
       } else {
         responseGroup.items.add(initSurveyGroupItemResponse(item));
@@ -170,8 +172,7 @@ class SurveyEngineCore {
             nullValue: true);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
-        // Description needs to be changed after discussion
-        // resolvedItemComponent['description'] =resolveContent(itemComponent.description);
+        // Description needs to be added
         // By default disabled
         resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(
             itemComponent.disabled,
