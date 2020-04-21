@@ -29,12 +29,11 @@ class SurveyEngineCore {
   }) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
-    this.renderedSurvey = {
-      'key': this.surveyDef != null ? this.surveyDef.key : '',
-      'version': this.surveyDef != null ? this.surveyDef.version : '',
-      'items': []
-    };
-    this.responses = setTimestampFor('rendered', this.responses);
+    if (this.surveyDef == null) {
+      this.renderedSurvey = {'key': '', 'version': '', 'items': []};
+    } else {
+      this.renderedSurvey = initRenderedGroupItem(this.surveyDef);
+    }
   }
 
 // Data functions
@@ -73,8 +72,8 @@ class SurveyEngineCore {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
-    responseGroup = setTimestampFor('rendered', responseGroup);
-    questionGroup.items.forEach((item) {
+    //responseGroup = setTimestampFor('rendered', responseGroup);
+    for (final item in questionGroup.items) {
       if (item.items == null) {
         SurveyItemResponse response = SurveyItemResponse({
           'key': item.key,
@@ -82,18 +81,22 @@ class SurveyEngineCore {
             'version': item.version,
           },
         });
-        response = setTimestampFor('rendered', response);
+        //response = setTimestampFor('rendered', response);
         responseGroup.items.add(response);
       } else {
         responseGroup.items.add(initSurveyGroupItemResponse(item));
       }
-    });
+    }
     return responseGroup;
   }
 
   dynamic initRenderedGroupItem(SurveyGroupItem questionGroup) {
     if (questionGroup == null) return null;
     var renderedGroup = questionGroup.toMap();
+    updateResponseItem(
+        responseGroup: this.responses,
+        changeKey: questionGroup.key,
+        timeStampType: 'rendered');
     renderedGroup['items'] = [];
     int i = 0;
     while (i < questionGroup.items.length) {
@@ -103,7 +106,10 @@ class SurveyEngineCore {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(item));
         renderedGroup['items'].add(rendered);
-        // add timestamp
+        updateResponseItem(
+            responseGroup: this.responses,
+            changeKey: item['key'],
+            timeStampType: 'rendered');
       } else {
         renderedGroup['items']
             .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
@@ -332,5 +338,37 @@ class SurveyEngineCore {
         result = foundItem;
     });
     return result;
+  }
+
+  // Update trees
+  SurveyGroupItemResponse updateResponseItem(
+      {SurveyGroupItemResponse responseGroup,
+      String changeKey,
+      String timeStampType}) {
+    if (responseGroup == null || changeKey == null || timeStampType == null)
+      return null;
+    if (responseGroup.key == changeKey) {
+      responseGroup = setTimestampFor(timeStampType, responseGroup);
+      return responseGroup;
+    }
+    SurveyGroupItemResponse iterResponseGroup = SurveyGroupItemResponse(
+        key: responseGroup.key, items: [], meta: responseGroup.meta);
+    for (final item in responseGroup.items) {
+      if (item.key == changeKey) {
+        SurveyItemResponse response = setTimestampFor(timeStampType, item);
+        iterResponseGroup.items.add(response);
+        continue;
+      }
+      if (item.items == null) {
+        SurveyItemResponse response = item;
+        iterResponseGroup.items.add(response);
+      } else {
+        iterResponseGroup.items.add(updateResponseItem(
+            responseGroup: item,
+            changeKey: changeKey,
+            timeStampType: timeStampType));
+      }
+    }
+    return iterResponseGroup;
   }
 }

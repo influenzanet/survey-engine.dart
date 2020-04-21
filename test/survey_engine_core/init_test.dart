@@ -21,11 +21,11 @@ void main() {
       SurveyGroupItemResponse actual =
           surveyEngineCore.initSurveyGroupItemResponse(
               SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
-      // expect(actual.toJson(), json.encode(testSurveyGroupItemResponseRoot));
+      expect(actual.toJson(), json.encode(testSurveyGroupItemResponseRoot));
       // Rendered sets different timestamp at different intervals so only a root level check is
-      expect(actual.toMap().keys, testSurveyGroupItemResponseRoot.keys);
-      expect(actual.toMap()['meta']['rendered'], isNotNull);
-      expect(actual.toMap()['meta']['rendered'], isNotEmpty);
+      // expect(actual.toMap().keys, testSurveyGroupItemResponseRoot.keys);
+      // expect(actual.toMap()['meta']['rendered'], isNotNull);
+      // expect(actual.toMap()['meta']['rendered'], isNotEmpty);
     });
     test('Test if responseObjects is null if survey group item is null item',
         () {
@@ -215,12 +215,15 @@ void main() {
       print('Expected=' + renderedSurveyGroupRoot.toString());
     });
     test('Test if Group root G0 is rendered succesfully', () {
-      SurveyEngineCore surveyEngineCore = SurveyEngineCore();
+      SurveyEngineCore surveyEngineCore = SurveyEngineCore(
+          surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic expected = surveyEngineCore.initRenderedGroupItem(
           SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic actual = renderedSurveyGroupRoot;
       expect(
           json.encode(actual['items'][0]), json.encode(expected['items'][0]));
+      expect(json.encode(surveyEngineCore.renderedSurvey['items'][0]),
+          json.encode(expected['items'][0]));
     });
   });
 }
