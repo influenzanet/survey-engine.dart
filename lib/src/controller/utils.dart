@@ -6,6 +6,8 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
 class SelectionMethods {
   static dynamic pickAnItem({List<dynamic> items, Expression expression}) {
@@ -163,5 +165,22 @@ class Utils {
       }
     }
     return map;
+  }
+
+  static List<dynamic> getFlattenedSurveyResponses(
+      SurveyGroupItemResponse questionGroup,
+      {String parentKey}) {
+    if (questionGroup == null) return null;
+    dynamic flatResponseList = [];
+    for (final item in questionGroup.items) {
+      if (item is SurveySingleItemResponse) {
+        SurveySingleItemResponse response =
+            SurveySingleItemResponse.fromMap(item.toMap());
+        flatResponseList.addAll(response);
+      } else {
+        flatResponseList.addAll(getFlattenedSurveyResponses(item));
+      }
+    }
+    return flatResponseList.toList();
   }
 }

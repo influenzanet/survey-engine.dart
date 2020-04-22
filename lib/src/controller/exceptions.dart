@@ -81,3 +81,13 @@ class NotFoundException {
   @override
   String toString() => '$object not found';
 }
+
+class NullObjectException {
+  String object;
+  NullObjectException({
+    this.object,
+  });
+
+  @override
+  String toString() => '$object must not be null';
+}

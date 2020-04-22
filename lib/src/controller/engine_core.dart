@@ -12,9 +12,11 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
 class SurveyEngineCore {
   SurveyGroupItem surveyDef;
@@ -62,6 +64,41 @@ class SurveyEngineCore {
   @override
   String toString() {
     return 'SurveyEngineCore(surveyDef: $surveyDef, responses: $responses, context: $context, evalEngine: $evalEngine)';
+  }
+
+// Getters and setters (WIP)
+  setContext(SurveyContext context) {
+    this.context = context;
+  }
+
+  setResponse({String key, ResponseItem response}) {
+    if (key == null) {
+      throw NullObjectException(object: key);
+    }
+    if (response == null) {
+      throw NullObjectException(object: 'response');
+    }
+    updateResponseItem(
+        changeKey: key,
+        responseGroup: this.responses,
+        timeStampType: 'responded',
+        newResponseItem: response);
+    // Code to re-render tree WIP
+  }
+
+  dynamic getRenderedSurvey() {
+    return this.renderedSurvey;
+  }
+
+  dynamic questionDisplayed(String key) {
+    updateResponseItem(
+        changeKey: key,
+        responseGroup: this.responses,
+        timeStampType: 'displayed');
+  }
+
+  dynamic getResponses() {
+    return Utils.getFlattenedSurveyResponses;
   }
 
 // Init functions
@@ -257,8 +294,6 @@ class SurveyEngineCore {
 
   dynamic getNextItem(SurveyGroupItem surveyGroupItem,
       dynamic renderedParentGroup, String lastKey, bool onlyDirectFollower) {
-    // available items ==> fetch all unrendered groups in surveyGroupItem
-
     var availableItems =
         getUnrenderedItems(surveyGroupItem, renderedParentGroup);
 
@@ -343,6 +378,7 @@ class SurveyEngineCore {
   // Update trees
   SurveyGroupItemResponse updateResponseItem(
       {SurveyGroupItemResponse responseGroup,
+      ResponseItem newResponseItem,
       String changeKey,
       String timeStampType}) {
     if (responseGroup == null || changeKey == null || timeStampType == null)
@@ -355,7 +391,14 @@ class SurveyEngineCore {
         key: responseGroup.key, items: [], meta: responseGroup.meta);
     for (final item in responseGroup.items) {
       if (item.key == changeKey) {
-        SurveyItemResponse response = setTimestampFor(timeStampType, item);
+        SurveyItemResponse response;
+        if (item.items == null && newResponseItem != null) {
+          response = SurveySingleItemResponse(
+              key: item.key, meta: item.meta, response: newResponseItem);
+          response = setTimestampFor(timeStampType, response);
+        } else {
+          response = setTimestampFor(timeStampType, item);
+        }
         iterResponseGroup.items.add(response);
         continue;
       }
