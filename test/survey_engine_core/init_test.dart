@@ -58,8 +58,7 @@ void main() {
           throwsA(TypeMatcher<InvalidTimestampException>()));
     });
 
-    test(
-        'Test if responseObjects throws exception if valid timestamps are appended',
+    test('Test for different kinds of timestamps creation in response item',
         () {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       SurveyGroupItemResponse actual = surveyEngineCore.setTimestampFor(
@@ -220,10 +219,7 @@ void main() {
       dynamic expected = surveyEngineCore.initRenderedGroupItem(
           SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic actual = renderedSurveyGroupRoot;
-      expect(
-          json.encode(actual['items'][0]), json.encode(expected['items'][0]));
-      expect(json.encode(surveyEngineCore.renderedSurvey['items'][0]),
-          json.encode(expected['items'][0]));
+      expect(json.encode(actual), json.encode(expected));
     });
   });
 }

@@ -31,7 +31,7 @@ void main() {
     });
 
     test(
-        'Check method selection defaults to uniform when `Expression` is absent',
+        'Check method selection defaults to sequential when `Expression` is absent',
         () {
       List<Map<String, String>> items = [
         {'key': 'q1'},
@@ -39,8 +39,7 @@ void main() {
         {'key': 'q3'},
       ];
       dynamic actual = SelectionMethods.pickAnItem(items: items);
-      expect(actual, isNotNull);
-      expect(items.contains(actual), isTrue);
+      expect(actual, {'key': 'q1'});
     });
   });
 }

@@ -12,7 +12,7 @@ import 'package:survey_engine.dart/src/models/survey_item_response/survey_single
 class SelectionMethods {
   static dynamic pickAnItem({List<dynamic> items, Expression expression}) {
     if (expression == null) {
-      return uniform(items);
+      return sequential(items);
     }
     switch (expression.name) {
       case 'uniform':
@@ -22,6 +22,10 @@ class SelectionMethods {
       case 'exponential':
         return exponential(items, expression);
     }
+  }
+
+  static dynamic sequential(List<dynamic> items) {
+    return items[rootItem];
   }
 
   static dynamic uniform(List<dynamic> items) {
@@ -68,6 +72,7 @@ class SelectionMethods {
 }
 
 class Utils {
+  // Survey model specific functions
   static bool evaluateBooleanResult(Expression expression, {bool nullValue}) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     // Display condition must always be of boolean type
@@ -111,6 +116,24 @@ class Utils {
     return resolvedParts;
   }
 
+  static List<dynamic> getFlattenedSurveyResponses(
+      SurveyGroupItemResponse questionGroup,
+      {String parentKey}) {
+    if (questionGroup == null) return null;
+    dynamic flatResponseList = [];
+    for (final item in questionGroup.items) {
+      if (item is SurveySingleItemResponse) {
+        SurveySingleItemResponse response =
+            SurveySingleItemResponse.fromMap(item.toMap());
+        flatResponseList.addAll(response);
+      } else {
+        flatResponseList.addAll(getFlattenedSurveyResponses(item));
+      }
+    }
+    return flatResponseList.toList();
+  }
+
+  // General functions
   static dynamic resolveNullList(dynamic nullCheck) {
     return (nullCheck == null)
         ? null
@@ -165,22 +188,5 @@ class Utils {
       }
     }
     return map;
-  }
-
-  static List<dynamic> getFlattenedSurveyResponses(
-      SurveyGroupItemResponse questionGroup,
-      {String parentKey}) {
-    if (questionGroup == null) return null;
-    dynamic flatResponseList = [];
-    for (final item in questionGroup.items) {
-      if (item is SurveySingleItemResponse) {
-        SurveySingleItemResponse response =
-            SurveySingleItemResponse.fromMap(item.toMap());
-        flatResponseList.addAll(response);
-      } else {
-        flatResponseList.addAll(getFlattenedSurveyResponses(item));
-      }
-    }
-    return flatResponseList.toList();
   }
 }
