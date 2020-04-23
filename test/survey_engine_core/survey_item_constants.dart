@@ -275,3 +275,35 @@ const renderedSurveyGroupRoot = {
     }
   ],
 };
+const List flatResponseItems = [
+  {
+    'key': 'G0.S1',
+    'meta': {
+      'position': -1,
+      'localeCode': '',
+      'rendered': [],
+      'displayed': [],
+      'responded': [],
+    }
+  },
+  {
+    'key': 'G0.S2',
+    'meta': {
+      'position': -1,
+      'localeCode': '',
+      'rendered': [],
+      'displayed': [],
+      'responded': [],
+    }
+  },
+  {
+    'key': 'G0.G1.S3',
+    'meta': {
+      'position': -1,
+      'localeCode': '',
+      'rendered': [],
+      'displayed': [],
+      'responded': [],
+    }
+  }
+];

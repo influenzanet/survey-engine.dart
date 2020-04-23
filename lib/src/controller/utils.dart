@@ -125,7 +125,7 @@ class Utils {
       if (item is SurveySingleItemResponse) {
         SurveySingleItemResponse response =
             SurveySingleItemResponse.fromMap(item.toMap());
-        flatResponseList.addAll(response);
+        flatResponseList.add(response.toMap());
       } else {
         flatResponseList.addAll(getFlattenedSurveyResponses(item));
       }

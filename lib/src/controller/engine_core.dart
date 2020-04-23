@@ -86,10 +86,6 @@ class SurveyEngineCore {
     // Code to re-render tree WIP
   }
 
-  dynamic getRenderedSurvey() {
-    return this.renderedSurvey;
-  }
-
   dynamic questionDisplayed(String key) {
     updateResponseItem(
         changeKey: key,
@@ -97,8 +93,12 @@ class SurveyEngineCore {
         timeStampType: 'displayed');
   }
 
+  dynamic getRenderedSurvey() {
+    return this.renderedSurvey;
+  }
+
   dynamic getResponses() {
-    return Utils.getFlattenedSurveyResponses;
+    return Utils.getFlattenedSurveyResponses(this.responses);
   }
 
 // Init functions
@@ -109,7 +109,10 @@ class SurveyEngineCore {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
-    //responseGroup = setTimestampFor('rendered', responseGroup);
+    updateResponseItem(
+        changeKey: questionGroup.key,
+        responseGroup: this.responses,
+        timeStampType: 'rendered');
     for (final item in questionGroup.items) {
       if (item.items == null) {
         SurveyItemResponse response = SurveyItemResponse({
@@ -118,7 +121,10 @@ class SurveyEngineCore {
             'version': item.version,
           },
         });
-        //response = setTimestampFor('rendered', response);
+        updateResponseItem(
+            changeKey: item.key,
+            responseGroup: this.responses,
+            timeStampType: 'rendered');
         responseGroup.items.add(response);
       } else {
         responseGroup.items.add(initSurveyGroupItemResponse(item));

@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:survey_engine.dart/src/controller/utils.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:test/test.dart';
+
+import '../survey_engine_core/survey_item_constants.dart';
 
 void main() {
   group(
@@ -68,6 +73,16 @@ void main() {
     test('Check if `null` is removed from list ', () {
       expect(
           Utils.removeNullItems(simpleList).toString(), ['1', '1'].toString());
+    });
+  });
+
+  group('Test flattening of survey response tree :\n', () {
+    setUp(() {});
+    test('Test if a root response tree is flattened', () {
+      dynamic actual = flatResponseItems;
+      dynamic expected = Utils.getFlattenedSurveyResponses(
+          SurveyGroupItemResponse.fromMap(testSurveyGroupItemResponseRoot));
+      expect(json.encode(actual), json.encode(expected));
     });
   });
 }
