@@ -98,7 +98,19 @@ class SurveyEngineCore {
   }
 
   dynamic getResponses() {
-    return Utils.getFlattenedSurveyResponses(this.responses);
+    dynamic flattenedRenderedSurvey =
+        Utils.getFlattenedRenderedSurvey(this.renderedSurvey);
+    dynamic responses = [];
+    for (int index = 0; index < flattenedRenderedSurvey.length; index++) {
+      dynamic response =
+          findResponseItem(flattenedRenderedSurvey[index]['key']);
+      if (response == null) {
+        break;
+      }
+      response.meta.position = index;
+      responses.add(response.toMap());
+    }
+    return responses.toList();
   }
 
 // Init functions
