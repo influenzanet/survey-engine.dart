@@ -133,6 +133,20 @@ class Utils {
     return flatResponseList.toList();
   }
 
+  static List<dynamic> getFlattenedRenderedSurvey(dynamic questionGroup,
+      {String parentKey}) {
+    if (questionGroup == null) return null;
+    dynamic flatRenderedList = [];
+    for (final item in questionGroup['items']) {
+      if (item['items'] == null) {
+        flatRenderedList.add(item);
+      } else {
+        flatRenderedList.addAll(getFlattenedRenderedSurvey(item));
+      }
+    }
+    return flatRenderedList.toList();
+  }
+
   // General functions
   static dynamic resolveNullList(dynamic nullCheck) {
     return (nullCheck == null)

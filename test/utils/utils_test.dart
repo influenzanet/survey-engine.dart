@@ -76,12 +76,21 @@ void main() {
     });
   });
 
-  group('Test flattening of survey response tree :\n', () {
+  group('Test flattening of survey trees :\n', () {
     setUp(() {});
     test('Test if a root response tree is flattened', () {
-      dynamic actual = flatResponseItems;
-      dynamic expected = Utils.getFlattenedSurveyResponses(
+      dynamic expected = flatResponseItems;
+      json.encode(expected);
+      dynamic actual = Utils.getFlattenedSurveyResponses(
           SurveyGroupItemResponse.fromMap(testSurveyGroupItemResponseRoot));
+      expect(json.encode(actual), json.encode(expected));
+    });
+
+    test('Test if a root rendered tree is flattened', () {
+      dynamic expected = flatRenderedItems;
+      json.encode(expected);
+      dynamic actual =
+          Utils.getFlattenedRenderedSurvey(renderedSurveyGroupRoot);
       expect(json.encode(actual), json.encode(expected));
     });
   });
