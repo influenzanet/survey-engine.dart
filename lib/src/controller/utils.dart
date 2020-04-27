@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
@@ -202,5 +203,19 @@ class Utils {
       }
     }
     return map;
+  }
+
+  static dynamic parseExpressionReturnType({dynamic item, String returnType}) {
+    if (item == null || returnType == null) {
+      return null;
+    }
+    switch (returnType) {
+      case 'int':
+        return (item is String) ? int.parse(item) : item;
+      case 'float':
+        return (item is String) ? double.parse(item) : item;
+      default:
+        throw InvalidReturnTypeException(object: item);
+    }
   }
 }

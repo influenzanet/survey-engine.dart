@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:test/test.dart';
@@ -92,6 +93,36 @@ void main() {
       dynamic actual =
           Utils.getFlattenedRenderedSurvey(renderedSurveyGroupRoot);
       expect(json.encode(actual), json.encode(expected));
+    });
+  });
+
+  group('Test parse return types of Expression model :\n', () {
+    setUp(() {});
+    test('Test null is returned on empty expressions and return  rtypes', () {
+      expect(Utils.parseExpressionReturnType(item: 'item'), isNull);
+      expect(Utils.parseExpressionReturnType(returnType: 'str'), isNull);
+    });
+
+    test('Test if integer is parsed from string \'1\' if string is provided',
+        () {
+      expect(Utils.parseExpressionReturnType(item: '1', returnType: 'int'), 1);
+      expect(Utils.parseExpressionReturnType(item: 1, returnType: 'int'), 1);
+    });
+
+    test('Test if float is parsed from string \'1.0\' if string is provided',
+        () {
+      expect(Utils.parseExpressionReturnType(item: '1.0', returnType: 'float'),
+          1.0);
+      expect(
+          Utils.parseExpressionReturnType(item: 1.0, returnType: 'float'), 1.0);
+    });
+    test(
+        'Test if exception is thrown on providing an invalid return type \'dummy\'',
+        () {
+      expect(
+          () =>
+              Utils.parseExpressionReturnType(item: '1.0', returnType: 'dummy'),
+          throwsA(TypeMatcher<InvalidReturnTypeException>()));
     });
   });
 }

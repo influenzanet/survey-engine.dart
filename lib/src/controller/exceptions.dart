@@ -91,3 +91,13 @@ class NullObjectException {
   @override
   String toString() => '$object must not be null';
 }
+
+class InvalidReturnTypeException {
+  String object;
+  InvalidReturnTypeException({
+    this.object,
+  });
+
+  @override
+  String toString() => '$object is not string or number';
+}
