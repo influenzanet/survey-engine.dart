@@ -69,6 +69,9 @@ class ExpressionEvaluation {
       case 'getAttribute':
         return getAttribute(expression);
         break;
+      case 'getArrayItemAtIndex':
+        return getArrayItemAtIndex(expression);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
@@ -241,7 +244,6 @@ class ExpressionEvaluation {
 
   dynamic getAttribute(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    //var attribute = getData(arguments[secondArgument]);
     if (arguments[secondArgument].str == null) {
       throw InvalidArgumentsException(
           message: 'getAttribute expected second argument to be a string');
@@ -277,10 +279,38 @@ class ExpressionEvaluation {
     }
     var attribute = root[expression.data[secondArgument].str];
     if (expression.returnType != null) {
-      attribute ==
-          Utils.parseExpressionReturnType(
-              item: attribute, returnType: expression.returnType);
+      attribute = Utils.parseExpressionReturnType(
+          item: attribute, returnType: expression.returnType);
     }
     return attribute;
+  }
+
+  dynamic getArrayItemAtIndex(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    var arg1 = getData(arguments[firstArgument]);
+    var arg2 = getData(arguments[secondArgument]);
+
+    if (arg1 == null || !(arg1 is Expression)) {
+      throw InvalidArgumentsException(
+          message: 'getArrayItem: First argument needs to be an expression');
+    }
+    if (!(arg2 is num)) {
+      throw InvalidArgumentsException(
+          message: 'getArrayItem: Second argument needs to be a number');
+    }
+
+    var array = evalExpression(expression: arg1);
+    if (!(array is List) || (array is List && array.length <= arg2)) {
+      throw InvalidArgumentsException(
+          message:
+              'getArrayItem: First argument Expression on evaluation needs to return a list');
+    }
+
+    var item = array[arg2];
+    if (expression.returnType != null) {
+      item = Utils.parseExpressionReturnType(
+          item: item, returnType: expression.returnType);
+    }
+    return item;
   }
 }

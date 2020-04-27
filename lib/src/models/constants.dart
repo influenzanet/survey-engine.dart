@@ -15,6 +15,7 @@ const List<Map<String, Object>> expressionArguments = [
   {'name': 'getResponses', 'arguments': 0},
   {'name': 'getRenderedItems', 'arguments': 0},
   {'name': 'getAttribute', 'arguments': 2},
+  {'name': 'getArrayItemAtIndex', 'arguments': 2},
   {'name': 'getArrayItemByKey', 'arguments': 1},
   {'name': 'getObjByHierarchicalKey', 'arguments': 1},
   {'name': 'getResponseItem', 'arguments': 1},

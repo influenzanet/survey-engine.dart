@@ -120,7 +120,7 @@ void main() {
             'properties': {'min': -5}
           },
         ],
-        'order': {'name': 'sequential', 'returnType': 'string'}
+        'order': {'name': 'sequential'}
       };
       expect(json.encode(actual), json.encode(expected));
     });
@@ -212,7 +212,7 @@ void main() {
               'properties': {'min': -5}
             },
           ],
-          'order': {'name': 'sequential', 'returnType': 'string'}
+          'order': {'name': 'sequential'}
         },
         'validations': [
           {'rule': true, 'type': 'soft', 'key': 'v1'},

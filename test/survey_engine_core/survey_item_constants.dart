@@ -212,7 +212,7 @@ const renderedSurveyGroupRoot = {
             "disabled": false
           }
         ],
-        "order": {"name": "sequential", "returnType": "string"}
+        "order": {"name": "sequential"}
       },
       "validations": [
         {"rule": true, "type": "soft", "key": "v1"}
@@ -234,7 +234,7 @@ const renderedSurveyGroupRoot = {
             "disabled": false
           }
         ],
-        "order": {"name": "sequential", "returnType": "string"}
+        "order": {"name": "sequential"}
       },
       "validations": [],
     },
@@ -265,7 +265,7 @@ const renderedSurveyGroupRoot = {
                 "disabled": false
               }
             ],
-            "order": {"name": "sequential", "returnType": "string"}
+            "order": {"name": "sequential"}
           },
           "validations": [
             {"rule": true, "type": "soft", "key": "v1"}
@@ -330,7 +330,7 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential", "returnType": "string"}
+      "order": {"name": "sequential"}
     },
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}
@@ -352,7 +352,7 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential", "returnType": "string"}
+      "order": {"name": "sequential"}
     },
     "validations": [],
   },
@@ -372,7 +372,7 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential", "returnType": "string"}
+      "order": {"name": "sequential"}
     },
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}
