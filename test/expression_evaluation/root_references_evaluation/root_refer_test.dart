@@ -35,12 +35,20 @@ void main() {
       SurveyContext expected = eval.evalExpression(expression: expr);
       expect(expected.mode, 'mobile');
     });
-    test('Check getRendredSurvey', () {
-      dynamic expected = eval.getRenderedItems();
+    test('Check getRenderedSurvey', () {
+      testExpr = {
+        'name': 'getRenderedItems',
+      };
+      expr = Expression.fromMap(testExpr);
+      dynamic expected = eval.evalExpression(expression: expr);
       expect(json.encode(expected), json.encode(renderedSurveyGroupRoot));
     });
     test('Check getResponses', () {
-      SurveyGroupItemResponse expected = eval.getResponses();
+      testExpr = {
+        'name': 'getResponses',
+      };
+      expr = Expression.fromMap(testExpr);
+      SurveyGroupItemResponse expected = eval.evalExpression(expression: expr);
       expect(expected.toJson(), json.encode(testSurveyGroupItemResponseOne));
     });
   });

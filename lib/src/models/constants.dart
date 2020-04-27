@@ -11,10 +11,10 @@ const List<Map<String, Object>> expressionArguments = [
   {'name': 'gte', 'arguments': 2},
   {'name': 'isDefined', 'arguments': 1},
   {'name': 'regex', 'arguments': 1},
-  {'name': 'getContext', 'arguments': 1},
-  {'name': 'getResponses', 'arguments': 1},
-  {'name': 'getRenderedItems', 'arguments': 1},
-  {'name': 'getAttribute', 'arguments': 1},
+  {'name': 'getContext', 'arguments': 0},
+  {'name': 'getResponses', 'arguments': 0},
+  {'name': 'getRenderedItems', 'arguments': 0},
+  {'name': 'getAttribute', 'arguments': 2},
   {'name': 'getArrayItemByKey', 'arguments': 1},
   {'name': 'getObjByHierarchicalKey', 'arguments': 1},
   {'name': 'getResponseItem', 'arguments': 1},
@@ -22,6 +22,13 @@ const List<Map<String, Object>> expressionArguments = [
   {'name': 'sequential', 'arguments': 1},
   {'name': 'random', 'arguments': 1}
 ];
+
+const List<String> rootReferenceExpressions = [
+  'getContext',
+  'getResponses',
+  'getRenderedItems'
+];
+
 const int firstArgument = 0,
     secondArgument = 1,
     firstExpression = 0,

@@ -24,6 +24,7 @@ class ExpressionEvaluation {
       throw InvalidArgumentsException();
     }
     if (expression.data != null &&
+        (!rootReferenceExpressions.contains(checkValidMap['name'])) &&
         (checkValidMap['arguments'] > expression.data.length)) {
       throw ArgumentCountException();
     }
@@ -57,6 +58,15 @@ class ExpressionEvaluation {
         break;
       case 'getContext':
         return getContext();
+        break;
+      case 'getResponses':
+        return getResponses();
+        break;
+      case 'getRenderedItems':
+        return getRenderedItems();
+        break;
+      case 'getAttribute':
+        return getAttribute(expression);
         break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
@@ -224,5 +234,19 @@ class ExpressionEvaluation {
 
   dynamic getRenderedItems() {
     return this.renderedSurvey;
+  }
+
+  // Object and arrays
+
+  dynamic getAttribute(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    if (arguments.length > maxUnaryOperands) {
+      throw ArgumentCountException();
+    }
+    var argument = getData(arguments[firstArgument]);
+    var result = arguments[firstArgument].exp != null
+        ? evalExpression(expression: argument)
+        : argument;
+    return (result != null);
   }
 }
