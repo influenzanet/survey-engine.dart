@@ -1,38 +1,100 @@
+import 'dart:convert';
+
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:test/test.dart';
 
+import '../../survey_engine_core/survey_item_constants.dart';
+
 void main() {
-  group(
-      'isDefined evaluations: Any evaluation other than null is considered true:\n',
-      () {
-    Expression expr;
+  group('getAttribute evaluations:\n', () {
     ExpressionEvaluation eval;
     Map<String, Object> testExpr;
+    Expression expr;
     setUp(() {
-      eval = ExpressionEvaluation();
+      eval = ExpressionEvaluation(
+        context: SurveyContext(mode: 'mobile'),
+      );
+      testExpr = {
+        'name': 'getAttribute',
+        'returnType': 'string',
+        'data': [
+          {
+            'dtype': 'exp',
+            'exp': {'name': 'getContext'}
+          },
+          {'dtype': 'str', 'str': 'mode'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
     });
+
+    test('Check getAttribute when default context mode:`mobile` is set', () {
+      print('Expression:\n' + json.encode(testExpr));
+      dynamic expected = eval.evalExpression(expression: expr);
+      expect(expected, 'mobile');
+    });
+
+    test('Check getAttribute for type other than string', () {
+      eval = ExpressionEvaluation(
+        context: SurveyContext(mode: 'mobile', profile: 3.14),
+      );
+      testExpr = {
+        'name': 'getAttribute',
+        'returnType': 'float',
+        'data': [
+          {
+            'dtype': 'exp',
+            'exp': {'name': 'getContext'}
+          },
+          {'dtype': 'str', 'str': 'profile'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      print('Expression:\n' + json.encode(testExpr));
+      dynamic expected = eval.evalExpression(expression: expr);
+      expect(expected, 3.14);
+    });
+
     test(
-        'Check isFalse for data having an integer data type but containing a string value (null num) ',
+        'Check expression if reference is not an expression and temporary item is not set',
         () {
       testExpr = {
-        'name': 'isDefined',
+        'name': 'getAttribute',
+        'returnType': 'string',
         'data': [
-          {'dtype': 'num', 'str': '5'}
+          {'dtype': 'str', 'str': 'hello'},
+          {'dtype': 'str', 'str': 'mode'}
         ]
       };
+      print('Expression:\n' + json.encode(testExpr));
+
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expression: expr), isFalse);
+      expect(() => eval.evalExpression(expression: expr),
+          throwsA(TypeMatcher<InvalidArgumentsException>()));
     });
-    test('Check isTrue for nums (2)', () {
+
+    test(
+        'Check getAttribute when reference is not an expression and temporary item is set',
+        () {
       testExpr = {
-        'name': 'isDefined',
+        'name': 'getAttribute',
+        'returnType': 'string',
         'data': [
-          {'dtype': 'num', 'num': 2}
+          {'dtype': 'str', 'str': 'this'},
+          {'dtype': 'str', 'str': 'key'}
         ]
       };
+      print('Expression:\n' + json.encode(testExpr));
       expr = Expression.fromMap(testExpr);
-      expect(eval.evalExpression(expression: expr), isTrue);
+      eval = ExpressionEvaluation(
+          context: SurveyContext(mode: 'mobile'),
+          temporaryItem: SurveySingleItem.fromMap(testSurveySingleItemOne));
+      dynamic expected = eval.evalExpression(expression: expr);
+      expect(expected, 'G0.S1');
     });
   });
 }

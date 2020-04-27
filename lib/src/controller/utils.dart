@@ -214,6 +214,8 @@ class Utils {
         return (item is String) ? int.parse(item) : item;
       case 'float':
         return (item is String) ? double.parse(item) : item;
+      case 'string':
+        return (item is String) ? item : item.toString();
       default:
         throw InvalidReturnTypeException(object: item);
     }

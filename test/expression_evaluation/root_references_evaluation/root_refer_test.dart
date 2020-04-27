@@ -22,7 +22,7 @@ void main() {
       testExpr = {
         'name': 'getContext',
       };
-      expr = Expression.fromMap(testExpr);
+
       print('Context: \n' +
           SurveyContext(mode: 'mobile').toJson() +
           'Rendered Survey: \n' +
@@ -32,6 +32,7 @@ void main() {
     });
 
     test('Check getContext when default context mode:`mobile` is set', () {
+      expr = Expression.fromMap(testExpr);
       SurveyContext expected = eval.evalExpression(expression: expr);
       expect(expected.mode, 'mobile');
     });

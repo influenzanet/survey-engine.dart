@@ -1,4 +1,5 @@
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
@@ -240,13 +241,46 @@ class ExpressionEvaluation {
 
   dynamic getAttribute(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
-    if (arguments.length > maxUnaryOperands) {
-      throw ArgumentCountException();
+    //var attribute = getData(arguments[secondArgument]);
+    if (arguments[secondArgument].str == null) {
+      throw InvalidArgumentsException(
+          message: 'getAttribute expected second argument to be a string');
     }
-    var argument = getData(arguments[firstArgument]);
-    var result = arguments[firstArgument].exp != null
-        ? evalExpression(expression: argument)
-        : argument;
-    return (result != null);
+
+    var reference = getData(arguments[firstArgument]);
+    var root;
+    if (!(reference is Expression)) {
+      if (this.temporaryItem == null) {
+        throw InvalidArgumentsException(
+            message:
+                'getAttribute expected first argument is not a valid expression or temporary object to be set');
+      }
+      if (reference == 'this') {
+        root = this.temporaryItem;
+      }
+    } else {
+      root = evalExpression(expression: reference);
+    }
+    if (root == null) {
+      throw InvalidArgumentsException(
+          message:
+              'getAttribute expected first argument received wrong type of reference object');
+    }
+    try {
+      if (!(root is Map)) {
+        root = root?.toMap();
+      }
+    } catch (e) {
+      throw InvalidArgumentsException(
+          message:
+              'getAttribute expected first argument received wrong type of reference object');
+    }
+    var attribute = root[expression.data[secondArgument].str];
+    if (expression.returnType != null) {
+      attribute ==
+          Utils.parseExpressionReturnType(
+              item: attribute, returnType: expression.returnType);
+    }
+    return attribute;
   }
 }
