@@ -161,6 +161,8 @@ class SurveyEngineCore {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(item));
         renderedGroup['items'].add(rendered);
+        // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+        // function to insert at a position use this in rerendering
         updateResponseItem(
             responseGroup: this.responses,
             changeKey: item['key'],

@@ -3,10 +3,16 @@ import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
+import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 
 class ExpressionEvaluation {
   SurveyContext context;
-  ExpressionEvaluation({this.context});
+  dynamic renderedSurvey;
+  SurveyGroupItemResponse responses;
+  SurveySingleItem temporaryItem;
+  ExpressionEvaluation(
+      {this.context, this.renderedSurvey, this.responses, this.temporaryItem});
   dynamic evalExpression(
       {Expression expression, SurveyContext context, List<dynamic> items}) {
     var checkValidMap;
@@ -50,7 +56,7 @@ class ExpressionEvaluation {
         return isDefined(expression);
         break;
       case 'getContext':
-        return getContext(context);
+        return getContext();
         break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
@@ -207,13 +213,16 @@ class ExpressionEvaluation {
     return items;
   }
 
-  SurveyContext getContext(SurveyContext context) {
-    if (context == null) {
-      if (this.context == null) {
-        throw InvalidContextException(message: "Context is missing");
-      }
-      return this.context;
-    }
-    return context;
+// Root references
+  SurveyContext getContext() {
+    return this.context;
+  }
+
+  SurveyGroupItemResponse getResponses() {
+    return this.responses;
+  }
+
+  dynamic getRenderedItems() {
+    return this.renderedSurvey;
   }
 }
