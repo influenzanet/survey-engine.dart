@@ -72,6 +72,9 @@ class ExpressionEvaluation {
       case 'getArrayItemAtIndex':
         return getArrayItemAtIndex(expression);
         break;
+      case 'getArrayItemByKey':
+        return getArrayItemByKey(expression);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
@@ -307,6 +310,50 @@ class ExpressionEvaluation {
     }
 
     var item = array[arg2];
+    if (expression.returnType != null) {
+      item = Utils.parseExpressionReturnType(
+          item: item, returnType: expression.returnType);
+    }
+    return item;
+  }
+
+  dynamic getArrayItemByKey(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    var arg1 = getData(arguments[firstArgument]);
+    var arg2 = getData(arguments[secondArgument]);
+
+    if (arg1 == null || !(arg1 is Expression)) {
+      throw InvalidArgumentsException(
+          message:
+              'getArrayItemByKey: First argument needs to be an expression');
+    }
+    if (!(arg2 is String)) {
+      throw InvalidArgumentsException(
+          message: 'getArrayItemByKey: Second argument needs to be a string');
+    }
+
+    var array = evalExpression(expression: arg1);
+    if (!(array is List)) {
+      throw InvalidArgumentsException(
+          message:
+              'getArrayItemByKey: First argument Expression on evaluation needs to return a list');
+    }
+    var item;
+    if (array[firstArgument] is Map) {
+      item = array.firstWhere((iterItem) => iterItem['key'] == arg2,
+          orElse: () => null);
+    } else {
+      try {
+        item = array.firstWhere((iterItem) => iterItem.key == arg2,
+            orElse: () => null);
+      } catch (e) {
+        throw InvalidArgumentsException(
+            message: 'getArrayItemByKey: Object does not have key');
+      }
+    }
+    if (item == null) {
+      return null;
+    }
     if (expression.returnType != null) {
       item = Utils.parseExpressionReturnType(
           item: item, returnType: expression.returnType);
