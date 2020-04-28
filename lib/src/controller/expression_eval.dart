@@ -75,6 +75,9 @@ class ExpressionEvaluation {
       case 'getArrayItemByKey':
         return getArrayItemByKey(expression);
         break;
+      case 'getObjByHierarchicalKey':
+        return getObjByHierarchicalKey(expression);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
@@ -359,5 +362,62 @@ class ExpressionEvaluation {
           item: item, returnType: expression.returnType);
     }
     return item;
+  }
+
+  dynamic getObjByHierarchicalKey(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    var arg1 = getData(arguments[firstArgument]);
+    var arg2 = getData(arguments[secondArgument]);
+
+    var key = arg2;
+
+    if (arg1 == null || !(arg1 is Expression)) {
+      throw InvalidArgumentsException(
+          message:
+              'getObjByHierarchicalKey: First argument needs to be an expression');
+    }
+    if (!(arg2 is String)) {
+      throw InvalidArgumentsException(
+          message:
+              'getObjByHierarchicalKey: Second argument needs to be a string');
+    }
+
+    var root = evalExpression(expression: arg1);
+    try {
+      if (!(root is Map)) {
+        root = root?.toMap();
+      }
+    } catch (e) {
+      throw InvalidArgumentsException(
+          message:
+              'getObjByHierarchicalKey expected first argument received wrong type of reference object');
+    }
+    if (root == null ||
+        ((root['items'] == null || root['items'].length == 0) &&
+            root.key != key)) {
+      return null;
+    }
+
+    if (Utils.getRootKey(root['key']) != Utils.getRootKey(key)) {
+      throw InvalidArgumentsException(
+          message: 'getObjByHierarchicalKey: Cannot find object for' + key);
+    }
+    String componentId = root['key'];
+    var result = root;
+    List<String> ids = key.split(keyHierarchySeperator).sublist(firstItem);
+    ids.forEach((id) {
+      if (result['items'] == null) {
+        return;
+      }
+      componentId = componentId + keyHierarchySeperator + id;
+      var foundItem = result['items']
+          .firstWhere((item) => item['key'] == componentId, orElse: () => null);
+      if (foundItem == null) {
+        throw InvalidArgumentsException(
+            message: 'getObjByHierarchicalKey: Cannot find object for' + key);
+      } else
+        result = foundItem;
+    });
+    return result;
   }
 }
