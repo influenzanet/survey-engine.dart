@@ -133,4 +133,60 @@ void main() {
           json.encode(expected), json.encode(testSurveySingleItemResponseTwo));
     });
   });
+
+  group('getResponseItem valid arguments :\n', () {
+    ExpressionEvaluation eval;
+    Map<String, Object> testExpr;
+    Expression expr;
+    setUp(() {});
+
+    test('Check getResponseItem returns appropriate response ', () {
+      var responseRoot = {
+        'key': 'TS',
+        'meta': {
+          'position': 0,
+          'localeCode': 'de',
+          'version': 1,
+          'rendered': [],
+          'displayed': [],
+          'responded': []
+        },
+        'items': [
+          {
+            'key': 'TS.I1',
+            'meta': {
+              'position': 0,
+              'localeCode': 'de',
+              'version': 1,
+              'rendered': [],
+              'displayed': [],
+              'responded': []
+            },
+            'response': {
+              'key': 'RG1',
+              'items': [
+                {'key': 'RG1.R1', 'value': 'testvalue'}
+              ]
+            }
+          }
+        ]
+      };
+      testExpr = {
+        'name': 'getResponseItem',
+        'data': [
+          {'str': 'TS.I1'},
+          {'str': 'RG1.R1'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      eval = ExpressionEvaluation(
+          context: SurveyContext(mode: 'mobile'),
+          responses: SurveyGroupItemResponse.fromMap(responseRoot));
+      print('Hierarchical key:\n');
+      print('Expression:\n' + json.encode(testExpr));
+      var expected = {'key': 'RG1.R1', 'value': 'testvalue'};
+      dynamic actual = eval.evalExpression(expression: expr);
+      expect(json.encode(actual), json.encode(expected));
+    });
+  });
 }

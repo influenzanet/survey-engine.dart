@@ -78,6 +78,9 @@ class ExpressionEvaluation {
       case 'getObjByHierarchicalKey':
         return getObjByHierarchicalKey(expression);
         break;
+      case 'getResponseItem':
+        return getResponseItem(expression);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
@@ -419,5 +422,41 @@ class ExpressionEvaluation {
         result = foundItem;
     });
     return result;
+  }
+
+  dynamic getResponseItem(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    var parentGroup = getData(arguments[firstArgument]);
+    var responseItem = getData(arguments[secondArgument]);
+    var exprMap = {
+      'name': 'getObjByHierarchicalKey',
+      'data': [
+        {
+          'dtype': 'exp',
+          'exp': {
+            'name': 'getAttribute',
+            'data': [
+              {
+                'dtype': 'exp',
+                'exp': {
+                  'name': 'getObjByHierarchicalKey',
+                  'data': [
+                    {
+                      'dtype': 'exp',
+                      'exp': {'name': 'getResponses'}
+                    },
+                    {'str': parentGroup}
+                  ]
+                }
+              },
+              {'str': 'response'}
+            ]
+          }
+        },
+        {'str': responseItem}
+      ]
+    };
+    Expression result = Expression.fromMap(exprMap);
+    return evalExpression(expression: result);
   }
 }
