@@ -81,6 +81,9 @@ class ExpressionEvaluation {
       case 'getResponseItem':
         return getResponseItem(expression);
         break;
+      case 'getSurveyItemValidation':
+        return getSurveyItemValidation(expression);
+        break;
       // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
@@ -458,5 +461,52 @@ class ExpressionEvaluation {
     };
     Expression result = Expression.fromMap(exprMap);
     return evalExpression(expression: result);
+  }
+
+  bool getSurveyItemValidation(Expression expression) {
+    List<ExpressionArg> arguments = expression.data;
+    var parentReference = getData(arguments[firstArgument]);
+    var surveyItemKey = getData(arguments[secondArgument]);
+    var root;
+    if (parentReference == 'this') {
+      root = this.temporaryItem;
+    } else {
+      var surveyExpression = {
+        'name': 'getObjByHierarchicalKey',
+        'data': [
+          {
+            'dtype': 'exp',
+            'exp': {'name': 'getRenderedItems'}
+          },
+          {'str': parentReference}
+        ]
+      };
+      root = getObjByHierarchicalKey(Expression.fromMap(surveyExpression));
+    }
+    if (!(parentReference is String)) {
+      throw InvalidArgumentsException(
+          message:
+              'getSurveyItemValidation: First argument needs to be a string');
+    }
+
+    try {
+      if (!(root is Map)) {
+        root = root?.toMap();
+      }
+    } catch (e) {
+      throw InvalidArgumentsException(
+          message:
+              'getSurveyItemValidation expected first argument received wrong type of reference object');
+    }
+    bool result;
+    if (root['validations'] == null) {
+      result = true;
+    }
+    var rule = root['validations']
+        .firstWhere((iter) => iter['key'] == surveyItemKey, orElse: () => null);
+    result = (rule == null)
+        ? true
+        : Utils.evaluateBooleanResult(Expression.fromMap(rule['rule']));
+    return result;
   }
 }

@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:test/test.dart';
 
@@ -187,6 +188,96 @@ void main() {
       var expected = {'key': 'RG1.R1', 'value': 'testvalue'};
       dynamic actual = eval.evalExpression(expression: expr);
       expect(json.encode(actual), json.encode(expected));
+    });
+  });
+
+  // Will be continued after temporary item is clarified
+  // Also write test to cover rendered survey in absence of temporary item
+  group('getSurveyItem validations :\n', () {
+    ExpressionEvaluation eval;
+    Map<String, Object> testExpr;
+    Expression expr;
+    var testRenderedSurveyItem;
+    setUp(() {
+      testRenderedSurveyItem = {
+        'key': 'TS',
+        'version': 1,
+        'type': 'basic.static.title',
+        'components': {'role': 'root', 'items': []},
+        'validations': [
+          {
+            'key': 'v1',
+            'type': 'hard',
+            'rule': {
+              'name': 'not',
+              'returnType': 'boolean',
+              'data': [
+                {'dtype': 'num', 'num': 0}
+              ]
+            }
+          },
+          {
+            'key': 'v2',
+            'type': 'hard',
+            'rule': {
+              'name': 'not',
+              'returnType': 'boolean',
+              'data': [
+                {'dtype': 'num', 'num': 2}
+              ]
+            }
+          }
+        ]
+      };
+      print('Temporary Item:\n' + json.encode(testRenderedSurveyItem));
+    });
+    test('Check getSurveyItem returns true when validation is true ', () {
+      testExpr = {
+        'name': 'getSurveyItemValidation',
+        'data': [
+          {'str': 'this'},
+          {'str': 'v1'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      eval = ExpressionEvaluation(
+          context: SurveyContext(mode: 'mobile'),
+          temporaryItem: SurveyItem(testRenderedSurveyItem));
+      print('Expression:\n' + json.encode(testExpr));
+      dynamic actual = eval.evalExpression(expression: expr);
+      expect(actual, isTrue);
+    });
+    test('Check getSurveyItem returns true when validation is absent ', () {
+      testExpr = {
+        'name': 'getSurveyItemValidation',
+        'data': [
+          {'str': 'this'},
+          {'str': 'v3'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      eval = ExpressionEvaluation(
+          context: SurveyContext(mode: 'mobile'),
+          temporaryItem: SurveyItem(testRenderedSurveyItem));
+      print('Expression:\n' + json.encode(testExpr));
+      dynamic actual = eval.evalExpression(expression: expr);
+      expect(actual, isTrue);
+    });
+    test('Check getSurveyItem returns false when validation is false ', () {
+      testExpr = {
+        'name': 'getSurveyItemValidation',
+        'data': [
+          {'str': 'this'},
+          {'str': 'v1'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      eval = ExpressionEvaluation(
+          context: SurveyContext(mode: 'mobile'),
+          temporaryItem: SurveyItem(testRenderedSurveyItem));
+      print('Expression:\n' + json.encode(testExpr));
+      dynamic actual = eval.evalExpression(expression: expr);
+      expect(actual, isTrue);
     });
   });
 }
