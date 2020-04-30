@@ -96,6 +96,11 @@ Independent functions
 1. **description**: Why can't description have a `code`?.
    + Answer: Description can have `code` as it is a child class of `LocalisedObject`. 
 
+## Expression evaluation
+1. **temporaryItem**: Continuing the question on **getAttribute**. Is the item resolved with all conditions and display conditions completely?
+## Engine.ts
+1. **setResponse**: What exactly does _onlyDirectFollower_ signify in addRenderedItem. What exactly is _lastKey_?
+
 
 
 
