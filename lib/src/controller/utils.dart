@@ -180,7 +180,7 @@ class Utils {
   static dynamic resolveNullListOfMaps(dynamic nullCheck) {
     return (nullCheck == null)
         ? null
-        : List<dynamic>.from(nullCheck?.map((item) => item.toMap()));
+        : List<dynamic>.from(nullCheck?.map((item) => item?.toMap()));
   }
 
   static List<String> removeNullString(List<String> list) {

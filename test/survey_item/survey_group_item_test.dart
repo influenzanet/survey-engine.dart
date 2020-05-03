@@ -110,4 +110,11 @@ void main() {
       expect(actual.toJson(), expected.toJson());
     });
   });
+  // test(
+  //     'Testing survey Group Item creation having a single Survey Item in items list\n',
+  //     () {
+  //   SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
+  //   print(actual.toJson());
+  //   expect(actual.toJson(), json.encode(qp));
+  // });
 }

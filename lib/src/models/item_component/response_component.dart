@@ -50,7 +50,7 @@ class ResponseComponent implements ItemComponent {
       'disabled': disabled?.toMap(),
       'style': style,
       'key': key,
-      'dtype': dtype,
+      'dtype': dtype ?? 'string',
       'properties': properties?.toMap(),
     });
   }

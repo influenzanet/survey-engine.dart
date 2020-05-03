@@ -52,7 +52,9 @@ const responseComponentRoles = [
   'input',
   'multilineTextInput',
   'numberInput',
-  'dateinput'
+  'dateinput',
+  'userInput',
+  'responseOption'
 ];
 const List<String> responseDataType = ['string', 'number', 'date'];
 const List<String> itemGroupRoles = [
