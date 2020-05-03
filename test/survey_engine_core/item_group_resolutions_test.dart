@@ -104,7 +104,7 @@ void main() {
           ItemGroupComponent.fromMap(testItemGroupComponentMap);
       SurveyEngineCore surveyEngineCore = SurveyEngineCore();
       dynamic actual =
-          surveyEngineCore.resolveItemComponentGroup(itemGroupComponent);
+          surveyEngineCore.resolveItemComponentGroup(itemGroupComponent, null);
       Map<String, Object> expected = {
         'role': 'root',
         'items': [

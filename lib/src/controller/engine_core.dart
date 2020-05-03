@@ -205,9 +205,18 @@ class SurveyEngineCore {
     if (props == null) return null;
     ExpressionEvaluation eval = ExpressionEvaluation();
     Map<Object, Object> propertiesMap = {
-      'min': eval.evaluateArgument(props.min),
-      'max': eval.evaluateArgument(props.max),
-      'stepSize': eval.evaluateArgument(props.stepSize)
+      'min': eval.evaluateArgument(props.min,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses),
+      'max': eval.evaluateArgument(props.max,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses),
+      'stepSize': eval.evaluateArgument(props.stepSize,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses)
     };
     return Utils.removeNullParams(propertiesMap);
   }
@@ -223,7 +232,8 @@ class SurveyEngineCore {
     return resolvedContent;
   }
 
-  dynamic resolveItemComponentGroup(ItemGroupComponent component) {
+  dynamic resolveItemComponentGroup(
+      ItemGroupComponent component, SurveySingleItem parentItem) {
     if (component == null) return null;
     var resolvedGroup = component.toMap();
     resolvedGroup['items'] = [];
@@ -232,21 +242,29 @@ class SurveyEngineCore {
         dynamic resolvedItemComponent = itemComponent.toMap();
         resolvedItemComponent['displayCondition'] = Utils.evaluateBooleanResult(
             itemComponent.displayCondition,
-            nullValue: true);
+            nullValue: true,
+            context: this.context,
+            renderedSurvey: this.renderedSurvey,
+            responses: this.responses,
+            temporaryItem: parentItem);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
         // Description needs to be added
         // By default disabled
         resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(
             itemComponent.disabled,
-            nullValue: false);
+            nullValue: false,
+            context: this.context,
+            renderedSurvey: this.renderedSurvey,
+            responses: this.responses,
+            temporaryItem: parentItem);
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
         resolvedGroup['items']
             .add(Utils.removeNullParams(resolvedItemComponent));
       } else {
-        resolvedGroup['items'].add(
-            Utils.removeNullParams(resolveItemComponentGroup(itemComponent)));
+        resolvedGroup['items'].add(Utils.removeNullParams(
+            resolveItemComponentGroup(itemComponent, parentItem)));
       }
     });
     return Utils.removeNullParams(resolvedGroup);
@@ -258,11 +276,14 @@ class SurveyEngineCore {
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
-      validationMap['rule'] = Utils.evaluateBooleanResult(validation.rule);
+      validationMap['rule'] = Utils.evaluateBooleanResult(validation.rule,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses);
       renderedValidations.add(validationMap);
     });
-    renderedItem['components'] =
-        resolveItemComponentGroup(surveySingleItem.components);
+    renderedItem['components'] = resolveItemComponentGroup(
+        surveySingleItem.components, surveySingleItem);
     renderedItem['validations'] = renderedValidations;
     return Utils.removeNullParams(renderedItem);
   }
@@ -306,8 +327,10 @@ class SurveyEngineCore {
     unRenderedItems = unRenderedItems.where((item) {
       return ((item['condition'] == null) ||
           (item['condition'] != null &&
-              Utils.evaluateBooleanResult(
-                  Expression.fromMap(item['condition']))));
+              Utils.evaluateBooleanResult(Expression.fromMap(item['condition']),
+                  context: this.context,
+                  renderedSurvey: this.renderedSurvey,
+                  responses: this.responses)));
     }).toList();
     return unRenderedItems;
   }

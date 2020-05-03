@@ -7,6 +7,8 @@ import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
+import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
@@ -74,7 +76,12 @@ class SelectionMethods {
 
 class Utils {
   // Survey model specific functions
-  static bool evaluateBooleanResult(Expression expression, {bool nullValue}) {
+  static bool evaluateBooleanResult(Expression expression,
+      {bool nullValue,
+      SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
     ExpressionEvaluation eval = ExpressionEvaluation();
     // Display condition must always be of boolean type
     if (expression == null) {
@@ -83,20 +90,35 @@ class Utils {
     if (expression?.returnType != 'boolean') {
       return false;
     }
-    return eval.evalExpression(expression: expression);
+    return eval.evalExpression(
+        expression: expression,
+        context: context,
+        renderedSurvey: renderedSurvey,
+        responses: responses,
+        temporaryItem: temporaryItem);
   }
 
   static String getRootKey(String key) {
     return key.split(keyHierarchySeperator)[rootItem];
   }
 
-  static List<ExpressionArg> resolveParts(List<ExpressionArg> parts) {
+  static List<ExpressionArg> resolveParts(List<ExpressionArg> parts,
+      {SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
     parts?.forEach((expressionArg) {
       // In case of expression evaluate the expression as String
       if (expressionArg.exprArgDType.dtype == 'exp') {
         ExpressionEvaluation eval = ExpressionEvaluation();
-        expressionArg.str =
-            eval.evalExpression(expression: expressionArg.exp).toString();
+        expressionArg.str = eval
+            .evalExpression(
+                expression: expressionArg.exp,
+                context: context,
+                renderedSurvey: renderedSurvey,
+                responses: responses,
+                temporaryItem: temporaryItem)
+            .toString();
       } else {
         expressionArg.exprArgDType = ExpressionArgDType(dtype: 'str');
       }

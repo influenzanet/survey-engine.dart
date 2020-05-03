@@ -15,7 +15,16 @@ class ExpressionEvaluation {
   ExpressionEvaluation(
       {this.context, this.renderedSurvey, this.responses, this.temporaryItem});
   dynamic evalExpression(
-      {Expression expression, SurveyContext context, List<dynamic> items}) {
+      {Expression expression,
+      SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem,
+      List<dynamic> items}) {
+    this.context = context ?? this.context;
+    this.renderedSurvey = renderedSurvey ?? this.renderedSurvey;
+    this.responses = responses ?? this.responses;
+    this.temporaryItem = temporaryItem ?? this.temporaryItem;
     var checkValidMap;
     var exprMap = expression.toMap();
     try {
@@ -107,13 +116,23 @@ class ExpressionEvaluation {
     }
   }
 
-  dynamic evaluateArgument(ExpressionArg arg) {
+  dynamic evaluateArgument(ExpressionArg arg,
+      {SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
     if (arg == null) {
       return null;
     }
     var argument = getData(arg);
-    var result =
-        arg.exp != null ? evalExpression(expression: argument) : argument;
+    var result = arg.exp != null
+        ? evalExpression(
+            expression: argument,
+            context: context,
+            renderedSurvey: renderedSurvey,
+            responses: responses,
+            temporaryItem: temporaryItem)
+        : argument;
     return result;
   }
 
@@ -171,7 +190,11 @@ class ExpressionEvaluation {
   }
 
 // Logical operations
-  bool getLogicalEvaluation(ExpressionArg arg) {
+  bool getLogicalEvaluation(ExpressionArg arg,
+      {SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
     switch (arg.exprArgDType.dtype) {
       case 'num':
         return (arg.number > 0);
@@ -180,7 +203,12 @@ class ExpressionEvaluation {
         return (arg.str.length > 0);
         break;
       case 'exp':
-        return (evalExpression(expression: arg.exp));
+        return (evalExpression(
+            expression: arg.exp,
+            context: context,
+            renderedSurvey: renderedSurvey,
+            responses: responses,
+            temporaryItem: temporaryItem));
         break;
       default:
         return false;
