@@ -157,6 +157,10 @@ class SurveyEngineCore {
     while (i < questionGroup.items.length) {
       dynamic item =
           getNextItem(questionGroup, renderedGroup, questionGroup.key, false);
+      if (item == null) {
+        i++;
+        continue;
+      }
       if (item['items'] == null) {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(item));

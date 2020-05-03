@@ -45,7 +45,7 @@ class SurveyGroupItem implements SurveyItem {
   static SurveyGroupItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     var temp = map['items']?.map((x) => SurveyItem(x));
-    var tempData = List<SurveyItem>.from(temp);
+    var tempData = (temp == null) ? null : List<SurveyItem>.from(temp);
 
     return SurveyGroupItem(
         items: tempData,

@@ -14,7 +14,7 @@ void main() {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore(
           surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic expected = renderedSurveyGroupRoot;
-      ;
+
       dynamic actual = surveyEngineCore.getRenderedSurvey();
       expect(json.encode(actual), json.encode(expected));
     });

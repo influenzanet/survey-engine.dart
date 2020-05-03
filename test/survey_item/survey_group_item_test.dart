@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:survey_engine.dart/src/controller/engine_core.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:test/test.dart';
+
+import '../survey_engine_core/qp4.dart';
 
 void main() {
   group('Survey Group item creation init tests:\n', () {
@@ -110,11 +115,14 @@ void main() {
       expect(actual.toJson(), expected.toJson());
     });
   });
-  // test(
-  //     'Testing survey Group Item creation having a single Survey Item in items list\n',
-  //     () {
-  //   SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
-  //   print(actual.toJson());
-  //   expect(actual.toJson(), json.encode(qp));
-  // });
+  test(
+      'Testing survey Group Item creation having a single Survey Item in items list\n',
+      () {
+    SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
+    print(actual.toJson());
+    SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
+    dynamic rendered = surveyEngineCore.getRenderedSurvey();
+    print(json.encode(rendered));
+    //expect(actual.toJson(), json.encode(qp));
+  });
 }
