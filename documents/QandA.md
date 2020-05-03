@@ -97,7 +97,8 @@ Independent functions
    + Answer: Description can have `code` as it is a child class of `LocalisedObject`. 
 
 ## Expression evaluation
-1. **temporaryItem**: Continuing the question on **getAttribute**. Is the item resolved with all conditions and display conditions completely?
+1. *temporaryItem*: Continuing the question on *getAttribute*. Is the item resolved with all conditions and display conditions completely? i.e. is temporaryItem a SurveyGroupItem or a rendered SurveyGroupItem that is not yet pushed to the tree?
+   + Answer: it is the rendered one
 ## Engine.ts
 1. **setResponse**: What exactly does _onlyDirectFollower_ signify in addRenderedItem. What exactly is _lastKey_?
 
