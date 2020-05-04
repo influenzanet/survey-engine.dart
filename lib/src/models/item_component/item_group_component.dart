@@ -54,6 +54,9 @@ class ItemGroupComponent implements ItemComponent {
   static ItemGroupComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
+    if (map == null) return null;
+    var temp = map['items']?.map((x) => ItemComponent(x));
+    var tempData = (temp == null) ? null : List<ItemComponent>.from(temp);
     return ItemGroupComponent(
       role: map['role'],
       displayCondition: Expression.fromMap(map['displayCondition']),
@@ -68,8 +71,7 @@ class ItemGroupComponent implements ItemComponent {
       disabled: Expression.fromMap(map['disabled']),
       style: map['style'],
       key: map['key'],
-      items:
-          List<ItemComponent>.from(map['items']?.map((x) => ItemComponent(x))),
+      items: tempData,
       order: Expression.fromMap(map['order']),
     );
   }

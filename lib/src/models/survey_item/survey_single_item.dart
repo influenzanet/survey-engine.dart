@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
@@ -29,12 +27,7 @@ class SurveySingleItem implements SurveyItem {
       this.condition,
       this.priority,
       this.version,
-      this.versionTags}) {
-    if (!itemTypes.contains(this.type)) {
-      throw InvalidItemTypeException(
-          message: 'Expected types $itemTypes but got $this.type');
-    }
-  }
+      this.versionTags}) {}
 
   Map<String, dynamic> toMap() {
     return Utils.removeNullParams({

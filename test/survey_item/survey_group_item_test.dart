@@ -119,7 +119,7 @@ void main() {
       'Testing survey Group Item creation having a single Survey Item in items list\n',
       () {
     SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
-    print(actual.toJson());
+    //print(actual.toJson());
     SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
     dynamic rendered = surveyEngineCore.getRenderedSurvey();
     print(json.encode(rendered));

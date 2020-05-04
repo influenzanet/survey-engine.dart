@@ -1,4 +1,3 @@
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/validations.dart';
@@ -112,53 +111,6 @@ void main() {
         SurveySingleItem actual = SurveySingleItem.fromMap(item);
         expect(actual.toJson(), expected.toJson());
       });
-    });
-
-    test('Testing an invalid itemType `basic.static.float` throws Exception',
-        () {
-      Map<String, Object> testSurveySingleItem = {
-        'type': 'basic.static.float',
-        'components': {
-          "role": "root",
-          "items": [
-            {
-              "role": "title",
-              "content": [
-                {
-                  "code": "en",
-                  "parts": [
-                    {
-                      "str":
-                          "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
-                    }
-                  ]
-                },
-                {
-                  "code": "de",
-                  "parts": [
-                    {"str": "XX"}
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        'validations': [
-          {
-            'type': 'soft',
-            'key': 'v1',
-            'rule': {
-              'name': 'or',
-              'data': [
-                {'dtype': 'num', 'num': 2},
-                {'dtype': 'num', 'num': 1}
-              ]
-            }
-          },
-        ],
-      };
-      expect(() => SurveySingleItem.fromMap(testSurveySingleItem),
-          throwsA(TypeMatcher<InvalidItemTypeException>()));
     });
   });
 }
