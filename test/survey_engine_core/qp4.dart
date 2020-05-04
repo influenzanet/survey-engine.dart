@@ -36,7 +36,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -54,7 +53,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -78,7 +76,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -96,7 +93,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -391,7 +387,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -409,7 +404,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -433,7 +427,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -451,7 +444,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -615,7 +607,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -633,7 +624,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -657,7 +647,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -675,7 +664,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1000,7 +988,6 @@ const qp = {
               },
               {
                 "role": "text",
-                "style": {"key": "variant", "value": "body1"},
                 "content": [
                   {
                     "code": "en",
@@ -1025,7 +1012,9 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
+                    "style": [
+                      {"key": "abc", "value": "abc"}
+                    ],
                     "content": [
                       {
                         "code": "en",
@@ -1043,7 +1032,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1067,7 +1055,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -1085,7 +1072,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1290,7 +1276,6 @@ const qp = {
               },
               {
                 "role": "text",
-                "style": {"key": "variant", "value": "body1"},
                 "content": [
                   {
                     "code": "en",
@@ -1315,7 +1300,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -1333,7 +1317,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1357,7 +1340,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -1375,7 +1357,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1659,7 +1640,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -1677,7 +1657,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",
@@ -1701,7 +1680,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "subtitle2"},
                     "content": [
                       {
                         "code": "en",
@@ -1719,7 +1697,6 @@ const qp = {
                   },
                   {
                     "role": "text",
-                    "style": {"key": "variant", "value": "body2"},
                     "content": [
                       {
                         "code": "en",

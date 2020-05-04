@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
+import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
 class ItemGroupComponent implements ItemComponent {
@@ -12,7 +13,7 @@ class ItemGroupComponent implements ItemComponent {
   List<LocalizedObject> content = null;
   List<LocalizedObject> description = null;
   Expression disabled = null;
-  List<Map<String, String>> style = null;
+  List<Style> style = null;
   String key = null;
   String dtype = null;
   Properties properties = null;
@@ -44,7 +45,7 @@ class ItemGroupComponent implements ItemComponent {
       'content': Utils.resolveNullListOfMaps(content),
       'description': Utils.resolveNullListOfMaps(description),
       'disabled': disabled?.toMap(),
-      'style': style,
+      'style': Utils.resolveNullListOfMaps(style),
       'key': key,
       'items': Utils.resolveNullListOfMaps(items),
       'order': order?.toMap(),
@@ -69,7 +70,9 @@ class ItemGroupComponent implements ItemComponent {
           : List<LocalizedObject>.from(
               map['description']?.map((x) => LocalizedObject.fromMap(x))),
       disabled: Expression.fromMap(map['disabled']),
-      style: (map['style'] == null) ? null : map['style'],
+      style: (map['style'] == null)
+          ? null
+          : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
       key: map['key'],
       items: tempData,
       order: Expression.fromMap(map['order']),

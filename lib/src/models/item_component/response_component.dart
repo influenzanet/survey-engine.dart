@@ -6,6 +6,7 @@ import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
+import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
 class ResponseComponent implements ItemComponent {
@@ -14,7 +15,7 @@ class ResponseComponent implements ItemComponent {
   List<LocalizedObject> content;
   List<LocalizedObject> description;
   Expression disabled;
-  List<Map<String, String>> style;
+  List<Style> style;
   String key;
   String dtype;
   Properties properties;
@@ -48,7 +49,7 @@ class ResponseComponent implements ItemComponent {
       'content': Utils.resolveNullListOfMaps(content),
       'description': Utils.resolveNullListOfMaps(description),
       'disabled': disabled?.toMap(),
-      'style': style,
+      'style': Utils.resolveNullListOfMaps(style),
       'key': key,
       'dtype': dtype ?? 'string',
       'properties': properties?.toMap(),
@@ -70,7 +71,9 @@ class ResponseComponent implements ItemComponent {
           : List<LocalizedObject>.from(
               map['description']?.map((x) => LocalizedObject.fromMap(x))),
       disabled: Expression.fromMap(map['disabled']),
-      style: map['style'],
+      style: (map['style'] == null)
+          ? null
+          : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
       key: map['key'],
       dtype: map['dtype'] ?? 'string',
       properties: Properties.fromMap(map['properties']),

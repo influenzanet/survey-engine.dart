@@ -4,6 +4,7 @@ import 'package:survey_engine.dart/src/models/item_component/display_component.d
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 
 abstract class ItemComponent {
@@ -12,7 +13,7 @@ abstract class ItemComponent {
   List<LocalizedObject> content;
   List<LocalizedObject> description;
   Expression disabled;
-  List<Map<String, String>> style;
+  List<Style> style;
   String key;
   String dtype = 'string';
   Properties properties;

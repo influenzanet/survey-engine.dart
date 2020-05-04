@@ -1,5 +1,6 @@
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
+import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
 import 'package:test/test.dart';
 
@@ -37,7 +38,7 @@ void main() {
       DisplayComponent expected = DisplayComponent(role: 'title', content: [
         localisedObject
       ], style: [
-        {'key': 'variant', 'value': 'annotation'}
+        Style.fromMap({'key': 'variant', 'value': 'annotation'})
       ]);
       DisplayComponent actual =
           DisplayComponent.fromMap(testDisplayItemComponentMap);
