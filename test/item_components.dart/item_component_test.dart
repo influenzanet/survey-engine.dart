@@ -68,6 +68,9 @@ void main() {
       Iterable<Map<String, Object>> testItemGroupComponentList =
           rolesTest.map((role) => {
                 'role': role,
+                'style': [
+                  {'key': 'variant', 'value': 'annotation'}
+                ],
                 'items': [
                   {
                     'role': 'input',

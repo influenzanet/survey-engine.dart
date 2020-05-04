@@ -11,6 +11,9 @@ void main() {
     setUp(() {
       testResponseComponentMap = {
         'role': 'input',
+        'style': [
+          {'key': 'variant', 'value': 'annotation'}
+        ],
         'content': [
           {
             'code': 'en',
@@ -31,8 +34,11 @@ void main() {
       };
       LocalizedObject localisedObject =
           LocalizedObject.fromMap(testLocalisedObjectMap);
-      ResponseComponent expected =
-          ResponseComponent(role: 'input', content: [localisedObject]);
+      ResponseComponent expected = ResponseComponent(role: 'input', content: [
+        localisedObject
+      ], style: [
+        {'key': 'variant', 'value': 'annotation'}
+      ]);
       ResponseComponent actual =
           ResponseComponent.fromMap(testResponseComponentMap);
       expect(actual.toJson(), expected.toJson());

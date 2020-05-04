@@ -14,7 +14,7 @@ class DisplayComponent implements ItemComponent {
   List<LocalizedObject> content;
   List<LocalizedObject> description;
   Expression disabled;
-  Map<String, String> style;
+  List<Map<String, String>> style;
   String key;
   String dtype = null;
   Properties properties = null;

@@ -36,6 +36,9 @@ void main() {
       };
       testItemGroupComponentMap = {
         'role': 'root',
+        'style': [
+          {'key': 'variant', 'value': 'annotation'}
+        ],
         'items': [
           {
             'role': 'input',

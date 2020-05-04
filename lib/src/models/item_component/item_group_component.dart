@@ -12,7 +12,7 @@ class ItemGroupComponent implements ItemComponent {
   List<LocalizedObject> content = null;
   List<LocalizedObject> description = null;
   Expression disabled = null;
-  Map<String, String> style = null;
+  List<Map<String, String>> style = null;
   String key = null;
   String dtype = null;
   Properties properties = null;
@@ -69,7 +69,7 @@ class ItemGroupComponent implements ItemComponent {
           : List<LocalizedObject>.from(
               map['description']?.map((x) => LocalizedObject.fromMap(x))),
       disabled: Expression.fromMap(map['disabled']),
-      style: map['style'],
+      style: (map['style'] == null) ? null : map['style'],
       key: map['key'],
       items: tempData,
       order: Expression.fromMap(map['order']),

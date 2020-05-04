@@ -253,6 +253,8 @@ class SurveyEngineCore {
             temporaryItem: parentItem);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
+        resolvedItemComponent['description'] =
+            resolveContent(itemComponent.description);
         // Description needs to be added
         // By default disabled
         resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(

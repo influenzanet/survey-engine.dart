@@ -11,6 +11,9 @@ void main() {
     setUp(() {
       testDisplayItemComponentMap = {
         'role': 'title',
+        'style': [
+          {'key': 'variant', 'value': 'annotation'}
+        ],
         'content': [
           {
             'code': 'en',
@@ -31,8 +34,11 @@ void main() {
       };
       LocalizedObject localisedObject =
           LocalizedObject.fromMap(testLocalisedObjectMap);
-      DisplayComponent expected =
-          DisplayComponent(role: 'title', content: [localisedObject]);
+      DisplayComponent expected = DisplayComponent(role: 'title', content: [
+        localisedObject
+      ], style: [
+        {'key': 'variant', 'value': 'annotation'}
+      ]);
       DisplayComponent actual =
           DisplayComponent.fromMap(testDisplayItemComponentMap);
       expect(actual.toJson(), expected.toJson());
