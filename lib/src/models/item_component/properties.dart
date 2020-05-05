@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
@@ -23,12 +24,15 @@ class Properties {
 
   static Properties fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return Properties(
-      min: ExpressionArg.fromMap(map['min']),
-      max: ExpressionArg.fromMap(map['max']),
-      stepSize: ExpressionArg.fromMap(map['stepSize']),
-    );
+    try {
+      return Properties(
+        min: ExpressionArg.fromMap(map['min']),
+        max: ExpressionArg.fromMap(map['max']),
+        stepSize: ExpressionArg.fromMap(map['stepSize']),
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'Properties', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

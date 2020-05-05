@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
@@ -54,29 +55,31 @@ class ItemGroupComponent implements ItemComponent {
 
   static ItemGroupComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    if (map == null) return null;
-    var temp = map['items']?.map((x) => ItemComponent(x));
-    var tempData = (temp == null) ? null : List<ItemComponent>.from(temp);
-    return ItemGroupComponent(
-      role: map['role'],
-      displayCondition: Expression.fromMap(map['displayCondition']),
-      content: (map['content'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['content']?.map((x) => LocalizedObject.fromMap(x))),
-      description: (map['description'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['description']?.map((x) => LocalizedObject.fromMap(x))),
-      disabled: Expression.fromMap(map['disabled']),
-      style: (map['style'] == null)
-          ? null
-          : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
-      key: map['key'],
-      items: tempData,
-      order: Expression.fromMap(map['order']),
-    );
+    try {
+      var temp = map['items']?.map((x) => ItemComponent(x));
+      var tempData = (temp == null) ? null : List<ItemComponent>.from(temp);
+      return ItemGroupComponent(
+        role: map['role'],
+        displayCondition: Expression.fromMap(map['displayCondition']),
+        content: (map['content'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        description: (map['description'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['description']?.map((x) => LocalizedObject.fromMap(x))),
+        disabled: Expression.fromMap(map['disabled']),
+        style: (map['style'] == null)
+            ? null
+            : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
+        key: map['key'],
+        items: tempData,
+        order: Expression.fromMap(map['order']),
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'ItemGroupComponent', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

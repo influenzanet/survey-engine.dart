@@ -16,3 +16,6 @@ test/.test_coverage.dart
 coverage/lcov.info
 coverage_badge.svg
 .vscode/settings.json
+
+# Directory used for comparison and other checks
+test_json/

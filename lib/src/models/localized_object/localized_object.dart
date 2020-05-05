@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 
@@ -23,13 +24,17 @@ class LocalizedObject {
 
   static LocalizedObject fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['parts']?.map((x) => ExpressionArg.fromMap(x));
-    var tempParts = List<ExpressionArg>.from(temp);
+    try {
+      var temp = map['parts']?.map((x) => ExpressionArg.fromMap(x));
+      var tempParts = List<ExpressionArg>.from(temp);
 
-    return LocalizedObject(
-      code: map['code'],
-      parts: tempParts,
-    );
+      return LocalizedObject(
+        code: map['code'],
+        parts: tempParts,
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'LocalisedObject', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

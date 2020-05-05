@@ -21,10 +21,13 @@ class ExpressionArgDType {
 
   static ExpressionArgDType fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return ExpressionArgDType(
-      dtype: map['dtype'],
-    );
+    try {
+      return ExpressionArgDType(
+        dtype: map['dtype'],
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'ExpressionArgDType', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

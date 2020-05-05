@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 
 class ResponseItem {
@@ -25,15 +26,19 @@ class ResponseItem {
 
   static ResponseItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['items']?.map((x) => ResponseItem.fromMap(x));
-    List<ResponseItem> tempData =
-        (temp != null) ? List<ResponseItem>.from(temp) : null;
-    return ResponseItem(
-      key: map['key'],
-      value: map['value'],
-      dtype: map['dtype'],
-      items: tempData,
-    );
+    try {
+      var temp = map['items']?.map((x) => ResponseItem.fromMap(x));
+      List<ResponseItem> tempData =
+          (temp != null) ? List<ResponseItem>.from(temp) : null;
+      return ResponseItem(
+        key: map['key'],
+        value: map['value'],
+        dtype: map['dtype'],
+        items: tempData,
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'ResponseItem', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

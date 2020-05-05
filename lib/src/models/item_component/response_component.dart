@@ -58,26 +58,29 @@ class ResponseComponent implements ItemComponent {
 
   static ResponseComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return ResponseComponent(
-      role: map['role'],
-      displayCondition: Expression.fromMap(map['displayCondition']),
-      content: (map['content'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['content']?.map((x) => LocalizedObject.fromMap(x))),
-      description: (map['description'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['description']?.map((x) => LocalizedObject.fromMap(x))),
-      disabled: Expression.fromMap(map['disabled']),
-      style: (map['style'] == null)
-          ? null
-          : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
-      key: map['key'],
-      dtype: map['dtype'] ?? 'string',
-      properties: Properties.fromMap(map['properties']),
-    );
+    try {
+      return ResponseComponent(
+        role: map['role'],
+        displayCondition: Expression.fromMap(map['displayCondition']),
+        content: (map['content'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        description: (map['description'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['description']?.map((x) => LocalizedObject.fromMap(x))),
+        disabled: Expression.fromMap(map['disabled']),
+        style: (map['style'] == null)
+            ? null
+            : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
+        key: map['key'],
+        dtype: map['dtype'] ?? 'string',
+        properties: Properties.fromMap(map['properties']),
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'ResponseComponent', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

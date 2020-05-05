@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 
 class Style {
@@ -29,11 +30,14 @@ class Style {
 
   static Style fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return Style(
-      key: map['key'],
-      value: map['value'],
-    );
+    try {
+      return Style(
+        key: map['key'],
+        value: map['value'],
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'Style', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

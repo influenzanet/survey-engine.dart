@@ -32,12 +32,15 @@ class Validations {
 
   static Validations fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return Validations(
-      rule: Expression.fromMap(map['rule']),
-      type: map['type'],
-      key: map['key'],
-    );
+    try {
+      return Validations(
+        rule: Expression.fromMap(map['rule']),
+        type: map['type'],
+        key: map['key'],
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'Validations', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

@@ -60,7 +60,7 @@ void main() {
         ],
       };
       expect(() => ResponseComponent.fromMap(testResponseComponentMap),
-          throwsA(TypeMatcher<InvalidRoleException>()));
+          throwsA(TypeMatcher<MapCreationException>()));
     });
   });
 }

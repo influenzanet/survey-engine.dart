@@ -49,24 +49,27 @@ class DisplayComponent implements ItemComponent {
 
   static DisplayComponent fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    return DisplayComponent(
-      role: map['role'],
-      displayCondition: Expression.fromMap(map['displayCondition']),
-      content: (map['content'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['content']?.map((x) => LocalizedObject.fromMap(x))),
-      description: (map['description'] == null)
-          ? null
-          : List<LocalizedObject>.from(
-              map['description']?.map((x) => LocalizedObject.fromMap(x))),
-      disabled: Expression.fromMap(map['disabled']),
-      style: (map['style'] == null)
-          ? null
-          : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
-      key: map['key'],
-    );
+    try {
+      return DisplayComponent(
+        role: map['role'],
+        displayCondition: Expression.fromMap(map['displayCondition']),
+        content: (map['content'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['content']?.map((x) => LocalizedObject.fromMap(x))),
+        description: (map['description'] == null)
+            ? null
+            : List<LocalizedObject>.from(
+                map['description']?.map((x) => LocalizedObject.fromMap(x))),
+        disabled: Expression.fromMap(map['disabled']),
+        style: (map['style'] == null)
+            ? null
+            : List<Style>.from(map['style']?.map((x) => Style.fromMap(x))),
+        key: map['key'],
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'DisplayComponent', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

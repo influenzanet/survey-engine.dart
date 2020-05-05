@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
@@ -44,18 +45,22 @@ class SurveyGroupItem implements SurveyItem {
 
   static SurveyGroupItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['items']?.map((x) => SurveyItem(x));
-    var tempData = (temp == null) ? null : List<SurveyItem>.from(temp);
+    try {
+      var temp = map['items']?.map((x) => SurveyItem(x));
+      var tempData = (temp == null) ? null : List<SurveyItem>.from(temp);
 
-    return SurveyGroupItem(
-        items: tempData,
-        selectionMethod: Expression.fromMap(map['selectionMethod']),
-        key: map['key'],
-        follows: map['follows'],
-        condition: Expression.fromMap(map['condition']),
-        priority: map['priority'],
-        version: map['version'],
-        versionTags: map['versionTags']);
+      return SurveyGroupItem(
+          items: tempData,
+          selectionMethod: Expression.fromMap(map['selectionMethod']),
+          key: map['key'],
+          follows: map['follows'],
+          condition: Expression.fromMap(map['condition']),
+          priority: map['priority'],
+          version: map['version'],
+          versionTags: map['versionTags']);
+    } catch (e) {
+      throw MapCreationException(className: 'SurveyGroupItem', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 
@@ -24,14 +25,18 @@ class SurveyContext {
 
   static SurveyContext fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['data']?.map((x) => SurveyItemResponse(x));
-    var tempData = List<SurveyItemResponse>.from(temp);
+    try {
+      var temp = map['data']?.map((x) => SurveyItemResponse(x));
+      var tempData = List<SurveyItemResponse>.from(temp);
 
-    return SurveyContext(
-      previousResponses: tempData,
-      profile: map['profile'],
-      mode: map['mode'],
-    );
+      return SurveyContext(
+        previousResponses: tempData,
+        profile: map['profile'],
+        mode: map['mode'],
+      );
+    } catch (e) {
+      throw MapCreationException(className: 'SurveyContext', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

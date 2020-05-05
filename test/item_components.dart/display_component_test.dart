@@ -60,7 +60,7 @@ void main() {
         ],
       };
       expect(() => DisplayComponent.fromMap(testDisplayItemComponentMap),
-          throwsA(TypeMatcher<InvalidRoleException>()));
+          throwsA(TypeMatcher<MapCreationException>()));
     });
   });
 }

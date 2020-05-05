@@ -101,3 +101,12 @@ class InvalidReturnTypeException {
   @override
   String toString() => '$object is not string or number';
 }
+
+class MapCreationException implements Exception {
+  String className;
+  Map<String, dynamic> map;
+  MapCreationException({this.className, this.map});
+
+  @override
+  String toString() => 'Cannot create map of $className with $map as arguments';
+}

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 
 import 'expression_arg.dart';
@@ -24,10 +25,14 @@ class Expression {
 
   static Expression fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['data']?.map((x) => ExpressionArg.fromMap(x));
-    var tempData = (temp == null) ? null : List<ExpressionArg>.from(temp);
-    return Expression(
-        name: map['name'], returnType: map['returnType'], data: tempData);
+    try {
+      var temp = map['data']?.map((x) => ExpressionArg.fromMap(x));
+      var tempData = (temp == null) ? null : List<ExpressionArg>.from(temp);
+      return Expression(
+          name: map['name'], returnType: map['returnType'], data: tempData);
+    } catch (e) {
+      throw MapCreationException(className: 'Expression', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());

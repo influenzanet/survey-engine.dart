@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
@@ -45,18 +46,22 @@ class SurveySingleItem implements SurveyItem {
 
   static SurveySingleItem fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    var temp = map['validations']?.map((x) => Validations.fromMap(x));
-    var tempValidation = (temp != null) ? List<Validations>.from(temp) : null;
-    return SurveySingleItem(
-        type: map['type'],
-        components: ItemGroupComponent?.fromMap(map['components']),
-        validations: tempValidation,
-        key: map['key'],
-        follows: map['follows'],
-        condition: Expression.fromMap(map['condition']),
-        priority: map['priority'],
-        version: map['version'],
-        versionTags: map['versionTags']);
+    try {
+      var temp = map['validations']?.map((x) => Validations.fromMap(x));
+      var tempValidation = (temp != null) ? List<Validations>.from(temp) : null;
+      return SurveySingleItem(
+          type: map['type'],
+          components: ItemGroupComponent?.fromMap(map['components']),
+          validations: tempValidation,
+          key: map['key'],
+          follows: map['follows'],
+          condition: Expression.fromMap(map['condition']),
+          priority: map['priority'],
+          version: map['version'],
+          versionTags: map['versionTags']);
+    } catch (e) {
+      throw MapCreationException(className: 'SurveySingleItem', map: map);
+    }
   }
 
   String toJson() => json.encode(toMap());
