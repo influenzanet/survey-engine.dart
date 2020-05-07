@@ -185,8 +185,24 @@ void main() {
           responses: SurveyGroupItemResponse.fromMap(responseRoot));
       print('Hierarchical key:\n');
       print('Expression:\n' + json.encode(testExpr));
-      var expected = {'key': 'RG1.R1', 'value': 'testvalue'};
+      dynamic expected = {'key': 'RG1.R1', 'value': 'testvalue'};
       dynamic actual = eval.evalExpression(expression: expr);
+      expect(json.encode(actual), json.encode(expected));
+      testExpr = {
+        'name': 'getResponseItem',
+        'data': [
+          {'str': 'TS.I1'},
+          {'str': 'RG1'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expected = {
+        'key': 'RG1',
+        'items': [
+          {'key': 'RG1.R1', 'value': 'testvalue'}
+        ],
+      };
+      actual = eval.evalExpression(expression: expr);
       expect(json.encode(actual), json.encode(expected));
     });
   });
