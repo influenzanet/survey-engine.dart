@@ -39,7 +39,7 @@ class SurveySingleItem implements SurveyItem {
       'version': version,
       'versionTags': versionTags,
       'type': type,
-      'components': components.toMap(),
+      'components': components?.toMap(),
       'validations': Utils.resolveNullListOfMaps(validations),
     });
   }

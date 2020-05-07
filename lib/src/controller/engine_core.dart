@@ -78,12 +78,13 @@ class SurveyEngineCore {
     if (response == null) {
       throw NullObjectException(object: 'response');
     }
-    updateResponseItem(
+    this.responses = updateResponseItem(
         changeKey: key,
         responseGroup: this.responses,
         timeStampType: 'responded',
         newResponseItem: response);
     // Code to re-render tree WIP
+    this.renderedSurvey = reRenderGroup(this.renderedSurvey);
   }
 
   dynamic questionDisplayed(String key) {
@@ -176,6 +177,122 @@ class SurveyEngineCore {
             .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
       }
       i++;
+    }
+    return renderedGroup;
+  }
+
+  dynamic reRenderGroup(dynamic renderedGroup) {
+    if (renderedGroup == null || renderedGroup['items'] == null) {
+      throw ReRenderException(
+          message: "Rendered group $renderedGroup not found");
+    }
+    SurveyGroupItem groupDef =
+        findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
+    if (groupDef == null || groupDef.items == null) {
+      throw ReRenderException(message: "Survey group $groupDef not found");
+    }
+
+    int currentIndex = 0;
+    while (currentIndex < groupDef.items.length) {
+      dynamic item = getNextItem(groupDef, renderedGroup, groupDef.key, true);
+      if (item == null) {
+        currentIndex++;
+        continue;
+      }
+      if (item['items'] == null) {
+        dynamic rendered =
+            renderSurveySingleItem(SurveySingleItem.fromMap(item));
+        renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+        // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+        // function to insert at a position use this in rerendering
+        updateResponseItem(
+            responseGroup: this.responses,
+            changeKey: item['key'],
+            timeStampType: 'rendered');
+      } else {
+        renderedGroup['items']
+            .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
+      }
+      currentIndex++;
+    }
+
+    renderedGroup['items'].forEach((item) {
+      SurveyItem itemDefGroup =
+          findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
+      dynamic itemDef = itemDefGroup?.toMap();
+      if (itemDef == null ||
+          (Utils.evaluateBooleanResult(itemDef['condition'],
+                      context: this.context,
+                      renderedSurvey: this.renderedSurvey,
+                      responses: this.responses) !=
+                  null) &&
+              (Utils.evaluateBooleanResult(itemDef['condition'],
+                      context: this.context,
+                      renderedSurvey: this.renderedSurvey,
+                      responses: this.responses) ==
+                  false)) {
+        dynamic tempItems =
+            itemDef['items'].where((iter) => iter['key'] != item['key']);
+        itemDef['items'] = tempItems;
+        return;
+      }
+
+      //currentIndex = itemDef['items']
+      //.indexWhere((iter) => iter['key'] == item['key'], orElse: () => null);
+      currentIndex = null;
+      for (int iter = 0; iter < itemDef['items'].length; iter++) {
+        if (itemDef['items'][iter]['key'] == item['key']) {
+          currentIndex = iter;
+        }
+      }
+      if (currentIndex == null) {
+        throw ReRenderException(message: "index not found for $item to insert");
+      }
+      if (item['items'] != null) {
+        renderedGroup['items'][currentIndex] = reRenderGroup(item);
+      } else {
+        renderedGroup['items'][currentIndex] =
+            renderSurveySingleItem(SurveySingleItem.fromMap(itemDef));
+      }
+
+      dynamic nextItem =
+          getNextItem(groupDef, renderedGroup, item['key'], true);
+      while (nextItem != null) {
+        if (nextItem['items'] == null) {
+          dynamic rendered =
+              renderSurveySingleItem(SurveySingleItem.fromMap(nextItem));
+          renderedGroup['items']
+              .insert(renderedGroup['items'].length, rendered);
+          updateResponseItem(
+              responseGroup: this.responses,
+              changeKey: nextItem['key'],
+              timeStampType: 'rendered');
+        } else {
+          renderedGroup['items']
+              .add(initRenderedGroupItem(SurveyGroupItem.fromMap(nextItem)));
+        }
+        nextItem = getNextItem(groupDef, renderedGroup, nextItem.key, true);
+      }
+    });
+
+    dynamic lastItem =
+        renderedGroup['items'][renderedGroup['items'].length - 1];
+    dynamic nextItem =
+        getNextItem(groupDef, renderedGroup, lastItem['key'], false);
+    while (nextItem != null) {
+      if (nextItem['items'] == null) {
+        dynamic rendered =
+            renderSurveySingleItem(SurveySingleItem.fromMap(nextItem));
+        renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+        updateResponseItem(
+            responseGroup: this.responses,
+            changeKey: nextItem['key'],
+            timeStampType: 'rendered');
+      } else {
+        renderedGroup['items']
+            .add(initRenderedGroupItem(SurveyGroupItem.fromMap(nextItem)));
+      }
+      nextItem = getNextItem(groupDef, renderedGroup, nextItem['key'], false);
     }
     return renderedGroup;
   }
@@ -278,6 +395,9 @@ class SurveyEngineCore {
 
 // Rendering Survey Group Items
   dynamic renderSurveySingleItem(SurveySingleItem surveySingleItem) {
+    if (surveySingleItem == null) {
+      return null;
+    }
     Map<String, Object> renderedItem = surveySingleItem.toMap();
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
@@ -457,6 +577,7 @@ class SurveyEngineCore {
       } else {
         iterResponseGroup.items.add(updateResponseItem(
             responseGroup: item,
+            newResponseItem: newResponseItem,
             changeKey: changeKey,
             timeStampType: timeStampType));
       }
