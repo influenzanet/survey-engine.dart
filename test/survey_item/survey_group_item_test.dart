@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:survey_engine.dart/src/controller/engine_core.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
 import 'package:test/test.dart';
 
 import '../survey_engine_core/qp4.dart';
@@ -127,30 +126,30 @@ void main() {
     //expect(actual.toJson(), json.encode(qp));
   });
 
-  test('Testing rerender\n', () {
-    SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
-    //print(actual.toJson());
-    SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
-    dynamic rendered = surveyEngineCore.getRenderedSurvey();
-    surveyEngineCore.questionDisplayed('QG0.QG4.Q4');
-    //print(json.encode(rendered));
-    surveyEngineCore.setResponse(
-        key: 'QG0.QG4.Q4',
-        response: ResponseItem.fromMap({
-          'key': 'RG1',
-          'items': [
-            {
-              'key': 'RG1.R1',
-              'value': "14",
-              'dtype': 'number',
-            }
-          ],
-        }));
-    dynamic responses = surveyEngineCore.getResponses();
-    //print(json.encode(responses));
-    dynamic newRendered = surveyEngineCore.getRenderedSurvey();
-    print(json.encode(newRendered));
-    expect(json.encode(rendered), json.encode(newRendered));
-    //expect(actual.toJson(), json.encode(qp));
-  });
+  // test('Testing rerender\n', () {
+  //   SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
+  //   //print(actual.toJson());
+  //   SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
+  //   dynamic rendered = surveyEngineCore.getRenderedSurvey();
+  //   surveyEngineCore.questionDisplayed('QG0.QG4.Q4');
+  //   //print(json.encode(rendered));
+  //   surveyEngineCore.setResponse(
+  //       key: 'QG0.QG4.Q4',
+  //       response: ResponseItem.fromMap({
+  //         'key': 'RG1',
+  //         'items': [
+  //           {
+  //             'key': 'RG1.R1',
+  //             'value': "14",
+  //             'dtype': 'number',
+  //           }
+  //         ],
+  //       }));
+  //   dynamic responses = surveyEngineCore.getResponses();
+  //   //print(json.encode(responses));
+  //   dynamic newRendered = surveyEngineCore.getRenderedSurvey();
+  //   print(json.encode(newRendered));
+  //   expect(json.encode(rendered), json.encode(newRendered));
+  //   //expect(actual.toJson(), json.encode(qp));
+  // });
 }
