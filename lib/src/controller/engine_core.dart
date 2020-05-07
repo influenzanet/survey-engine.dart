@@ -194,7 +194,8 @@ class SurveyEngineCore {
 
     int currentIndex = 0;
     while (currentIndex < groupDef.items.length) {
-      dynamic item = getNextItem(groupDef, renderedGroup, groupDef.key, true);
+      dynamic item =
+          getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
       if (item == null) {
         currentIndex++;
         continue;
@@ -218,10 +219,10 @@ class SurveyEngineCore {
 
     renderedGroup['items'].forEach((item) {
       SurveyItem itemDefGroup =
-          findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
+          findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
       if (itemDef == null ||
-          (Utils.evaluateBooleanResult(itemDef['condition'],
+          ((Utils.evaluateBooleanResult(itemDef['condition'],
                       context: this.context,
                       renderedSurvey: this.renderedSurvey,
                       responses: this.responses) !=
@@ -230,7 +231,7 @@ class SurveyEngineCore {
                       context: this.context,
                       renderedSurvey: this.renderedSurvey,
                       responses: this.responses) ==
-                  false)) {
+                  false))) {
         dynamic tempItems =
             itemDef['items'].where((iter) => iter['key'] != item['key']);
         itemDef['items'] = tempItems;
@@ -240,9 +241,10 @@ class SurveyEngineCore {
       //currentIndex = itemDef['items']
       //.indexWhere((iter) => iter['key'] == item['key'], orElse: () => null);
       currentIndex = null;
-      for (int iter = 0; iter < itemDef['items'].length; iter++) {
-        if (itemDef['items'][iter]['key'] == item['key']) {
+      for (int iter = 0; iter < renderedGroup['items'].length; iter++) {
+        if (renderedGroup['items'][iter]['key'] == item['key']) {
           currentIndex = iter;
+          break;
         }
       }
       if (currentIndex == null) {
@@ -411,6 +413,7 @@ class SurveyEngineCore {
     renderedItem['components'] = resolveItemComponentGroup(
         surveySingleItem.components, surveySingleItem);
     renderedItem['validations'] = renderedValidations;
+    renderedItem['condition'] = null;
     return Utils.removeNullParams(renderedItem);
   }
 
@@ -450,6 +453,18 @@ class SurveyEngineCore {
       }
       unRenderedItems.add(item.toMap());
     });
+    // for (int i = 0; i < unRenderedItems.length; i++) {
+    //   dynamic condition = unRenderedItems[i]['condition'];
+    //   if (condition['name'] == "or") {
+    //     print("here");
+    //     Expression expr = Expression.fromMap(condition);
+    //     var x = Utils.evaluateBooleanResult(expr,
+    //         context: this.context,
+    //         renderedSurvey: this.renderedSurvey,
+    //         responses: this.responses);
+    //     print(x);
+    //   }
+    // }
     unRenderedItems = unRenderedItems.where((item) {
       return ((item['condition'] == null) ||
           (item['condition'] != null &&

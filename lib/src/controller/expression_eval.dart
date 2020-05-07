@@ -128,10 +128,10 @@ class ExpressionEvaluation {
     var result = arg.exp != null
         ? evalExpression(
             expression: argument,
-            context: context,
-            renderedSurvey: renderedSurvey,
-            responses: responses,
-            temporaryItem: temporaryItem)
+            context: context ?? this.context,
+            renderedSurvey: renderedSurvey ?? this.renderedSurvey,
+            responses: responses ?? this.responses,
+            temporaryItem: temporaryItem ?? this.temporaryItem)
         : argument;
     return result;
   }
@@ -205,10 +205,10 @@ class ExpressionEvaluation {
       case 'exp':
         return (evalExpression(
             expression: arg.exp,
-            context: context,
-            renderedSurvey: renderedSurvey,
-            responses: responses,
-            temporaryItem: temporaryItem));
+            context: context ?? this.context,
+            renderedSurvey: renderedSurvey ?? this.renderedSurvey,
+            responses: responses ?? this.responses,
+            temporaryItem: temporaryItem ?? this.temporaryItem));
         break;
       default:
         return false;
@@ -256,7 +256,12 @@ class ExpressionEvaluation {
     }
     var argument = getData(arguments[firstArgument]);
     var result = arguments[firstArgument].exp != null
-        ? evalExpression(expression: argument)
+        ? evalExpression(
+            expression: argument,
+            context: this.context,
+            renderedSurvey: this.renderedSurvey,
+            responses: this.responses,
+            temporaryItem: this.temporaryItem)
         : argument;
     return (result != null);
   }
@@ -301,7 +306,12 @@ class ExpressionEvaluation {
         root = this.temporaryItem;
       }
     } else {
-      root = evalExpression(expression: reference);
+      root = evalExpression(
+          expression: reference,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses,
+          temporaryItem: this.temporaryItem);
     }
     if (root == null) {
       throw InvalidArgumentsException(
@@ -339,7 +349,12 @@ class ExpressionEvaluation {
           message: 'getArrayItem: Second argument needs to be a number');
     }
 
-    var array = evalExpression(expression: arg1);
+    var array = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     if (!(array is List) || (array is List && array.length <= arg2)) {
       throw InvalidArgumentsException(
           message:
@@ -369,7 +384,12 @@ class ExpressionEvaluation {
           message: 'getArrayItemByKey: Second argument needs to be a string');
     }
 
-    var array = evalExpression(expression: arg1);
+    var array = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     if (!(array is List)) {
       throw InvalidArgumentsException(
           message:
@@ -416,7 +436,12 @@ class ExpressionEvaluation {
               'getObjByHierarchicalKey: Second argument needs to be a string');
     }
 
-    var root = evalExpression(expression: arg1);
+    var root = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     try {
       if (!(root is Map)) {
         root = root?.toMap();
@@ -488,7 +513,13 @@ class ExpressionEvaluation {
       ]
     };
     Expression result = Expression.fromMap(exprMap);
-    return evalExpression(expression: result);
+    dynamic evaluate = evalExpression(
+        expression: result,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
+    return evaluate;
   }
 
   bool getSurveyItemValidation(Expression expression) {

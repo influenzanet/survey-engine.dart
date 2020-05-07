@@ -87,9 +87,9 @@ class Utils {
     if (expression == null) {
       return nullValue ?? true;
     }
-    if (expression?.returnType != 'boolean') {
-      return false;
-    }
+    // if (expression?.returnType != 'boolean') {
+    //   return false;
+    // }
     return eval.evalExpression(
         expression: expression,
         context: context,
