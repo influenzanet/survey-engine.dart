@@ -511,7 +511,8 @@ class SurveyEngineCore {
     if (itemId == null) return null;
     SurveyItemResponse root = rootResponseItem ?? this.responses;
     if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
-      throw NotFoundException(object: itemId);
+      Warning(message: itemId + ": not found");
+      return null;
     }
     if (itemId == root.key) {
       return SurveyItemResponse(root.toMap());
@@ -527,7 +528,9 @@ class SurveyEngineCore {
       SurveyItemResponse foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
-        throw NotFoundException(object: itemId);
+        Warning(message: itemId + ": not found");
+        result = null;
+        return;
       } else
         result = foundItem;
     });
@@ -538,7 +541,8 @@ class SurveyEngineCore {
     if (itemId == null) return null;
     SurveyItem root = rootItem ?? this.surveyDef;
     if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
-      throw NotFoundException(object: itemId);
+      Warning(message: itemId + ": not found");
+      return null;
     }
     if (itemId == root.key) {
       return SurveyItem(root.toMap());
@@ -554,7 +558,9 @@ class SurveyEngineCore {
       SurveyItem foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
-        throw NotFoundException(object: itemId);
+        Warning(message: itemId + ": not found");
+        result = null;
+        return;
       } else
         result = foundItem;
     });
