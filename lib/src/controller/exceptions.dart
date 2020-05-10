@@ -82,16 +82,6 @@ class NullObjectException {
   String toString() => '$object must not be null';
 }
 
-class InvalidReturnTypeException {
-  String object;
-  InvalidReturnTypeException({
-    this.object,
-  });
-
-  @override
-  String toString() => '$object is not string or number';
-}
-
 class MapCreationException implements Exception {
   String className;
   Map<String, dynamic> map;

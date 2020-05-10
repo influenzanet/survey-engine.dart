@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
@@ -248,7 +247,8 @@ class Utils {
       case 'string':
         return (item is String) ? item : item.toString();
       default:
-        throw InvalidReturnTypeException(object: item);
+        Warning(message: "$item: Cannot parse return type");
+        return item;
     }
   }
 }
