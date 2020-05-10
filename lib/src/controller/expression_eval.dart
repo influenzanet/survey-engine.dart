@@ -27,16 +27,25 @@ class ExpressionEvaluation {
     this.temporaryItem = temporaryItem ?? this.temporaryItem;
     var checkValidMap;
     var exprMap = expression.toMap();
-    try {
-      checkValidMap = expressionArguments
-          .firstWhere((iter) => iter['name'] == exprMap['name']);
-    } catch (e) {
-      throw InvalidArgumentsException();
+
+    checkValidMap = expressionArguments.firstWhere(
+        (iter) => iter['name'] == exprMap['name'],
+        orElse: () => null);
+
+    if (checkValidMap == null) {
+      Warning(
+          message: exprMap['name'] +
+              ': is not a valid expression name or is not implemented');
+      return false;
     }
     if (expression.data != null &&
         (!rootReferenceExpressions.contains(checkValidMap['name'])) &&
         (checkValidMap['arguments'] > expression.data.length)) {
-      throw ArgumentCountException();
+      Warning(
+          message: 'The expression' +
+              exprMap['name'] +
+              'has an invalid number of arguments');
+      return false;
     }
     switch (expression.name) {
       case 'lt':
@@ -244,7 +253,8 @@ class ExpressionEvaluation {
   bool not(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     if (arguments.length > maxUnaryOperands) {
-      throw ArgumentCountException();
+      Warning(message: 'The expression not has an invalid number of arguments');
+      return false;
     }
     return !getLogicalEvaluation(arguments[firstArgument]);
   }
@@ -252,7 +262,10 @@ class ExpressionEvaluation {
   bool isDefined(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     if (arguments.length > maxUnaryOperands) {
-      throw ArgumentCountException();
+      Warning(
+          message:
+              'The expression isDefined has an invalid number of arguments');
+      return false;
     }
     var argument = getData(arguments[firstArgument]);
     var result = arguments[firstArgument].exp != null

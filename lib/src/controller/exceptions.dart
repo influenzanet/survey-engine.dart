@@ -8,10 +8,6 @@ class InvalidArgumentsException implements Exception {
   String toString() => 'Expected $message in arguments';
 }
 
-class ArgumentCountException implements Exception {
-  String errMsg() => 'The expression has an invalid number of arguments';
-}
-
 class InvalidRoleException {
   String message;
   InvalidRoleException({
