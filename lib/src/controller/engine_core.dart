@@ -223,15 +223,9 @@ class SurveyEngineCore {
           findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
       if (itemDef == null ||
-          ((Utils.evaluateBooleanResult(itemDef['condition'],
-                      context: this.context,
-                      renderedSurvey: this.renderedSurvey,
-                      responses: this.responses) !=
+          ((resolveBooleanCondition(expression: itemDef['condition']) !=
                   null) &&
-              (Utils.evaluateBooleanResult(itemDef['condition'],
-                      context: this.context,
-                      renderedSurvey: this.renderedSurvey,
-                      responses: this.responses) ==
+              (resolveBooleanCondition(expression: itemDef['condition']) ==
                   false))) {
         dynamic tempItems =
             itemDef['items'].where((iter) => iter['key'] != item['key']);
@@ -239,8 +233,6 @@ class SurveyEngineCore {
         return;
       }
 
-      //currentIndex = itemDef['items']
-      //.indexWhere((iter) => iter['key'] == item['key'], orElse: () => null);
       currentIndex = null;
       for (int iter = 0; iter < renderedGroup['items'].length; iter++) {
         if (renderedGroup['items'][iter]['key'] == item['key']) {
@@ -365,12 +357,9 @@ class SurveyEngineCore {
     component.items.forEach((itemComponent) {
       if (itemComponent.items == null) {
         dynamic resolvedItemComponent = itemComponent.toMap();
-        resolvedItemComponent['displayCondition'] = Utils.evaluateBooleanResult(
-            itemComponent.displayCondition,
+        resolvedItemComponent['displayCondition'] = resolveBooleanCondition(
+            expression: itemComponent.displayCondition,
             nullValue: true,
-            context: this.context,
-            renderedSurvey: this.renderedSurvey,
-            responses: this.responses,
             temporaryItem: parentItem);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
@@ -378,12 +367,9 @@ class SurveyEngineCore {
             resolveContent(itemComponent.description);
         // Description needs to be added
         // By default disabled
-        resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(
-            itemComponent.disabled,
+        resolvedItemComponent['disabled'] = resolveBooleanCondition(
+            expression: itemComponent.disabled,
             nullValue: false,
-            context: this.context,
-            renderedSurvey: this.renderedSurvey,
-            responses: this.responses,
             temporaryItem: parentItem);
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
@@ -406,10 +392,8 @@ class SurveyEngineCore {
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
-      validationMap['rule'] = Utils.evaluateBooleanResult(validation.rule,
-          context: this.context,
-          renderedSurvey: this.renderedSurvey,
-          responses: this.responses);
+      validationMap['rule'] =
+          resolveBooleanCondition(expression: validation.rule);
       renderedValidations.add(validationMap);
     });
     renderedItem['components'] = resolveItemComponentGroup(
@@ -458,10 +442,8 @@ class SurveyEngineCore {
     unRenderedItems = unRenderedItems.where((item) {
       return ((item['condition'] == null) ||
           (item['condition'] != null &&
-              Utils.evaluateBooleanResult(Expression.fromMap(item['condition']),
-                  context: this.context,
-                  renderedSurvey: this.renderedSurvey,
-                  responses: this.responses)));
+              resolveBooleanCondition(
+                  expression: Expression.fromMap(item['condition']))));
     }).toList();
     return unRenderedItems;
   }
@@ -597,11 +579,12 @@ class SurveyEngineCore {
   }
 
   bool resolveBooleanCondition(
-      {Expression expression, SurveySingleItem temporaryItem}) {
+      {Expression expression, SurveySingleItem temporaryItem, bool nullValue}) {
     return Utils.evaluateBooleanResult(expression,
         context: this.context,
         renderedSurvey: this.renderedSurvey,
         responses: this.responses,
-        temporaryItem: temporaryItem);
+        temporaryItem: temporaryItem,
+        nullValue: nullValue);
   }
 }
