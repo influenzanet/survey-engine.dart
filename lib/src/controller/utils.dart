@@ -12,6 +12,15 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dar
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
+class Warning {
+  String message;
+  Warning({
+    this.message,
+  }) {
+    print("Warning: $message");
+  }
+}
+
 class SelectionMethods {
   static dynamic pickAnItem({List<dynamic> items, Expression expression}) {
     if (expression == null) {

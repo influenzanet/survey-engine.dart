@@ -110,13 +110,3 @@ class MapCreationException implements Exception {
   @override
   String toString() => 'Cannot create map of $className with $map as arguments';
 }
-
-class ReRenderException implements Exception {
-  String message;
-  ReRenderException({
-    this.message,
-  });
-
-  @override
-  String toString() => 'Rerender not possible: $message';
-}

@@ -183,13 +183,14 @@ class SurveyEngineCore {
 
   dynamic reRenderGroup(dynamic renderedGroup) {
     if (renderedGroup == null || renderedGroup['items'] == null) {
-      throw ReRenderException(
-          message: "Rendered group $renderedGroup not found");
+      Warning(message: "Rendered group $renderedGroup not found");
+      return null;
     }
     SurveyGroupItem groupDef =
         findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
     if (groupDef == null || groupDef.items == null) {
-      throw ReRenderException(message: "Survey group $groupDef not found");
+      Warning(message: "Survey group $groupDef not found");
+      return null;
     }
 
     int currentIndex = 0;
@@ -248,7 +249,8 @@ class SurveyEngineCore {
         }
       }
       if (currentIndex == null) {
-        throw ReRenderException(message: "index not found for $item to insert");
+        Warning(message: "index not found for $item to insert");
+        return;
       }
       if (item['items'] != null) {
         renderedGroup['items'][currentIndex] = reRenderGroup(item);

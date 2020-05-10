@@ -131,10 +131,10 @@ void main() {
     SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
     //print(actual.toJson());
     SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
-    dynamic rendered = surveyEngineCore.getRenderedSurvey();
+    //dynamic rendered = surveyEngineCore.getRenderedSurvey();
+    //print(json.encode(rendered));
 
     ///surveyEngineCore.questionDisplayed('QG0.QG4.Q4');
-    //print(json.encode(rendered));
     surveyEngineCore.setResponse(
         key: 'QG0.QG4.Q4',
         response: ResponseItem.fromMap({
@@ -151,7 +151,7 @@ void main() {
     // //print(json.encode(responses));
     dynamic newRendered = surveyEngineCore.getRenderedSurvey();
     print(json.encode(newRendered));
-    // expect(json.encode(rendered), json.encode(newRendered));
+
     // //expect(actual.toJson(), json.encode(qp));
   });
 }
