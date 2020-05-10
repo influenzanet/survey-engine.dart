@@ -55,7 +55,7 @@ const qp = {
                     ]
                   },
                   {
-                    "key": "RG1.R2",
+                    "key": "RG1.R1",
                     "role": "responseOption",
                     "content": [
                       {
@@ -80,7 +80,7 @@ const qp = {
         {
           "key": "QG0.QG4.Q4b",
           "condition": {
-            "name": "or",
+            "name": "and",
             "data": [
               {
                 "dtype": "exp",
@@ -111,7 +111,7 @@ const qp = {
                         "name": "getResponseItem",
                         "data": [
                           {"str": "QG0.QG4.Q4"},
-                          {"str": "RG1.R2"}
+                          {"str": "RG1.R1"}
                         ]
                       }
                     }
@@ -153,7 +153,7 @@ const qp = {
                 "items": [
                   {"key": "RG1.R1", "role": "userInput"},
                   {
-                    "key": "RG1.R2",
+                    "key": "RG1.R1",
                     "role": "responseOption",
                     "content": [
                       {
@@ -199,7 +199,7 @@ const qp = {
         {
           "key": "QG0.QG4.Q4c",
           "condition": {
-            "name": "or",
+            "name": "and",
             "data": [
               {
                 "dtype": "exp",
@@ -230,7 +230,7 @@ const qp = {
                         "name": "getResponseItem",
                         "data": [
                           {"str": "QG0.QG4.Q4"},
-                          {"str": "RG1.R2"}
+                          {"str": "RG1.R1"}
                         ]
                       }
                     }
@@ -292,7 +292,7 @@ const qp = {
                     ]
                   },
                   {
-                    "key": "RG1.R2",
+                    "key": "RG1.R1",
                     "role": "userInput",
                     "content": [
                       {
