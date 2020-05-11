@@ -10,5 +10,5 @@ export 'package:survey_engine.dart/src/models/item_component/item_component.dart
 export 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 export 'package:survey_engine.dart/src/models/item_component/properties.dart';
 export 'package:survey_engine.dart/src/models/item_component/response_component.dart';
-export 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+export 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 export 'package:survey_engine.dart/src/models/localized_object/part.dart';

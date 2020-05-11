@@ -6,12 +6,13 @@ import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 
 abstract class ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
-  List<LocalizedObject> description;
+  List<LocalizedString> description;
   Expression disabled;
   List<Style> style;
   String key;

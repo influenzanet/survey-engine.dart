@@ -7,7 +7,7 @@ import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
@@ -338,7 +338,7 @@ class SurveyEngineCore {
     return Utils.removeNullParams(propertiesMap);
   }
 
-  List<Map<String, Object>> resolveContent(List<LocalizedObject> content) {
+  List<Map<String, Object>> resolveContent(List<LocalizedString> content) {
     if (content == null) return null;
     List<Map<String, Object>> resolvedContent = [];
     content.forEach((localizedObject) {
@@ -370,7 +370,6 @@ class SurveyEngineCore {
             resolveContent(itemComponent.content);
         resolvedItemComponent['description'] =
             resolveContent(itemComponent.description);
-        // Description needs to be added
         // By default disabled
         resolvedItemComponent['disabled'] = resolveBooleanCondition(
             expression: itemComponent.disabled,

@@ -1,7 +1,7 @@
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -33,8 +33,8 @@ void main() {
           {'str': 'Some input data'},
         ]
       };
-      LocalizedObject localisedObject =
-          LocalizedObject.fromMap(testLocalisedObjectMap);
+      LocalizedString localisedObject =
+          LocalizedString.fromMap(testLocalisedObjectMap);
       DisplayComponent expected = DisplayComponent(role: 'title', content: [
         localisedObject
       ], style: [

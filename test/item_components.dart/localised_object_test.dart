@@ -1,7 +1,7 @@
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -28,9 +28,9 @@ void main() {
           str:
               'Fachkraft (z.B. Manager, Arzt, Lehrer, Krankenschwester, Ingenieur)');
       testExprArgArray = [exprArg];
-      LocalizedObject expected = LocalizedObject.fromMap(testObjectMap);
-      LocalizedObject actual =
-          LocalizedObject(code: 'de', parts: testExprArgArray);
+      LocalizedString expected = LocalizedString.fromMap(testObjectMap);
+      LocalizedString actual =
+          LocalizedString(code: 'de', parts: testExprArgArray);
       expect(actual.toJson(), expected.toJson());
     });
 
@@ -52,7 +52,7 @@ void main() {
           },
         ]
       };
-      LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
+      LocalizedString localizedObject = LocalizedString.fromMap(testObjectMap);
       expect(Utils.getResolvedLocalisedObject(localizedObject), {
         'code': 'de',
         'parts': [
@@ -78,7 +78,7 @@ void main() {
     test(
         'Evaluate parts containing a list of expression strings to list of strings',
         () {
-      LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
+      LocalizedString localizedObject = LocalizedString.fromMap(testObjectMap);
       expect(Utils.getResolvedLocalisedObject(localizedObject), {
         'code': 'de',
         'parts': ['Hello', 'World']

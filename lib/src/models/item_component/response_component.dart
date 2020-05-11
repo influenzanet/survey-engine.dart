@@ -8,12 +8,13 @@ import 'package:survey_engine.dart/src/models/item_component/item_component.dart
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
 import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 
 class ResponseComponent implements ItemComponent {
   String role;
   Expression displayCondition;
   List<LocalizedObject> content;
-  List<LocalizedObject> description;
+  List<LocalizedString> description;
   Expression disabled;
   List<Style> style;
   String key;
@@ -64,12 +65,12 @@ class ResponseComponent implements ItemComponent {
         displayCondition: Expression.fromMap(map['displayCondition']),
         content: (map['content'] == null)
             ? null
-            : List<LocalizedObject>.from(
-                map['content']?.map((x) => LocalizedObject.fromMap(x))),
+            : List<LocalizedString>.from(
+                map['content']?.map((x) => LocalizedString.fromMap(x))),
         description: (map['description'] == null)
             ? null
-            : List<LocalizedObject>.from(
-                map['description']?.map((x) => LocalizedObject.fromMap(x))),
+            : List<LocalizedString>.from(
+                map['description']?.map((x) => LocalizedString.fromMap(x))),
         disabled: Expression.fromMap(map['disabled']),
         style: (map['style'] == null)
             ? null
