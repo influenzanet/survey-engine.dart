@@ -112,7 +112,10 @@ void main() {
             'role': 'input',
             'displayCondition': false,
             'content': [
-              {'code': 'en', 'parts': 'Some input data'},
+              {
+                'code': 'en',
+                'parts': ['Some input data']
+              },
             ],
             'disabled': false,
             'key': '4',
@@ -203,7 +206,7 @@ void main() {
               'content': [
                 {
                   'code': 'en',
-                  'parts': 'Some input data',
+                  'parts': ['Some input data'],
                 }
               ],
               'disabled': false,

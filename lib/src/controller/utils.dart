@@ -135,10 +135,19 @@ class Utils {
   }
 
   static Map<String, Object> getResolvedLocalisedObject(
-      LocalizedObject localizedObject) {
-    String localisedString = '';
+      LocalizedObject localizedObject,
+      {SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
+    List<String> localisedString = [];
+    Utils.resolveParts(localizedObject.parts,
+        context: context,
+        renderedSurvey: renderedSurvey,
+        responses: responses,
+        temporaryItem: temporaryItem);
     localizedObject.parts.forEach((expressionArg) {
-      localisedString = localisedString + (expressionArg.str);
+      localisedString.add(expressionArg.str);
     });
     Map<String, Object> resolvedParts = {
       'code': localizedObject.code,

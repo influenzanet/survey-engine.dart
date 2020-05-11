@@ -9,8 +9,6 @@ class LocalizedObject {
   List<ExpressionArg> parts;
   LocalizedObject({String code, List<ExpressionArg> parts}) {
     this.code = code;
-    // Localised media needs to be an 'str' only so it is resolved if it has any other datatype
-    parts = Utils.resolveParts(parts);
     this.parts = parts;
   }
   // LocalizedMedia needs to be defined

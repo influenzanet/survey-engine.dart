@@ -1,5 +1,4 @@
 import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
 import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
@@ -54,7 +53,12 @@ void main() {
         ]
       };
       LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
-      expect(localizedObject.parts[firstArgument].str, 'true');
+      expect(Utils.getResolvedLocalisedObject(localizedObject), {
+        'code': 'de',
+        'parts': [
+          "true",
+        ]
+      });
     });
   });
 
@@ -71,10 +75,14 @@ void main() {
       };
     });
 
-    test('Evaluate parts containing a list of strings to one string', () {
+    test(
+        'Evaluate parts containing a list of expression strings to list of strings',
+        () {
       LocalizedObject localizedObject = LocalizedObject.fromMap(testObjectMap);
-      expect(Utils.getResolvedLocalisedObject(localizedObject),
-          {'code': 'de', 'parts': 'HelloWorld'});
+      expect(Utils.getResolvedLocalisedObject(localizedObject), {
+        'code': 'de',
+        'parts': ['Hello', 'World']
+      });
     });
   });
 }

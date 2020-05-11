@@ -343,7 +343,12 @@ class SurveyEngineCore {
     List<Map<String, Object>> resolvedContent = [];
     content.forEach((localizedObject) {
       Map<String, Object> resolvedLocalisedObject =
-          Utils.getResolvedLocalisedObject(localizedObject);
+          Utils.getResolvedLocalisedObject(
+        localizedObject,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+      );
       resolvedContent.add(Utils.removeNullParams(resolvedLocalisedObject));
     });
     return resolvedContent;
@@ -586,5 +591,15 @@ class SurveyEngineCore {
         responses: this.responses,
         temporaryItem: temporaryItem,
         nullValue: nullValue);
+  }
+
+  dynamic resolveExpression(
+      {Expression expression, SurveySingleItem temporaryItem}) {
+    ExpressionEvaluation eval = ExpressionEvaluation(
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: temporaryItem);
+    return eval.evalExpression(expression: expression);
   }
 }
