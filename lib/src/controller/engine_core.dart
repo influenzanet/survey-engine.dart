@@ -7,7 +7,7 @@ import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
 import 'package:survey_engine.dart/src/models/item_component/properties.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
@@ -183,18 +183,20 @@ class SurveyEngineCore {
 
   dynamic reRenderGroup(dynamic renderedGroup) {
     if (renderedGroup == null || renderedGroup['items'] == null) {
-      throw ReRenderException(
-          message: "Rendered group $renderedGroup not found");
+      Warning(message: "Rendered group $renderedGroup not found");
+      return null;
     }
     SurveyGroupItem groupDef =
         findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
     if (groupDef == null || groupDef.items == null) {
-      throw ReRenderException(message: "Survey group $groupDef not found");
+      Warning(message: "Survey group $groupDef not found");
+      return null;
     }
 
     int currentIndex = 0;
     while (currentIndex < groupDef.items.length) {
-      dynamic item = getNextItem(groupDef, renderedGroup, groupDef.key, true);
+      dynamic item =
+          getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
       if (item == null) {
         currentIndex++;
         continue;
@@ -218,35 +220,29 @@ class SurveyEngineCore {
 
     renderedGroup['items'].forEach((item) {
       SurveyItem itemDefGroup =
-          findSurveyItem(renderedGroup['key'], rootItem: this.surveyDef);
+          findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
       if (itemDef == null ||
-          (Utils.evaluateBooleanResult(itemDef['condition'],
-                      context: this.context,
-                      renderedSurvey: this.renderedSurvey,
-                      responses: this.responses) !=
+          ((resolveBooleanCondition(expression: itemDef['condition']) !=
                   null) &&
-              (Utils.evaluateBooleanResult(itemDef['condition'],
-                      context: this.context,
-                      renderedSurvey: this.renderedSurvey,
-                      responses: this.responses) ==
-                  false)) {
+              (resolveBooleanCondition(expression: itemDef['condition']) ==
+                  false))) {
         dynamic tempItems =
             itemDef['items'].where((iter) => iter['key'] != item['key']);
         itemDef['items'] = tempItems;
         return;
       }
 
-      //currentIndex = itemDef['items']
-      //.indexWhere((iter) => iter['key'] == item['key'], orElse: () => null);
       currentIndex = null;
-      for (int iter = 0; iter < itemDef['items'].length; iter++) {
-        if (itemDef['items'][iter]['key'] == item['key']) {
+      for (int iter = 0; iter < renderedGroup['items'].length; iter++) {
+        if (renderedGroup['items'][iter]['key'] == item['key']) {
           currentIndex = iter;
+          break;
         }
       }
       if (currentIndex == null) {
-        throw ReRenderException(message: "index not found for $item to insert");
+        Warning(message: "index not found for $item to insert");
+        return;
       }
       if (item['items'] != null) {
         renderedGroup['items'][currentIndex] = reRenderGroup(item);
@@ -324,30 +320,35 @@ class SurveyEngineCore {
 // Item Component resolution functions
   Map<Object, Object> resolveItemComponentProperties(Properties props) {
     if (props == null) return null;
-    ExpressionEvaluation eval = ExpressionEvaluation();
+    ExpressionEvaluation eval = ExpressionEvaluation(
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses);
     Map<Object, Object> propertiesMap = {
-      'min': eval.evaluateArgument(props.min,
-          context: this.context,
-          renderedSurvey: this.renderedSurvey,
-          responses: this.responses),
-      'max': eval.evaluateArgument(props.max,
-          context: this.context,
-          renderedSurvey: this.renderedSurvey,
-          responses: this.responses),
-      'stepSize': eval.evaluateArgument(props.stepSize,
-          context: this.context,
-          renderedSurvey: this.renderedSurvey,
-          responses: this.responses)
+      'min': eval.evaluateArgument(
+        props.min,
+      ),
+      'max': eval.evaluateArgument(
+        props.max,
+      ),
+      'stepSize': eval.evaluateArgument(
+        props.stepSize,
+      )
     };
     return Utils.removeNullParams(propertiesMap);
   }
 
-  List<Map<String, Object>> resolveContent(List<LocalizedObject> content) {
+  List<Map<String, Object>> resolveContent(List<LocalizedString> content) {
     if (content == null) return null;
     List<Map<String, Object>> resolvedContent = [];
     content.forEach((localizedObject) {
       Map<String, Object> resolvedLocalisedObject =
-          Utils.getResolvedLocalisedObject(localizedObject);
+          Utils.getResolvedLocalisedObject(
+        localizedObject,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+      );
       resolvedContent.add(Utils.removeNullParams(resolvedLocalisedObject));
     });
     return resolvedContent;
@@ -361,25 +362,18 @@ class SurveyEngineCore {
     component.items.forEach((itemComponent) {
       if (itemComponent.items == null) {
         dynamic resolvedItemComponent = itemComponent.toMap();
-        resolvedItemComponent['displayCondition'] = Utils.evaluateBooleanResult(
-            itemComponent.displayCondition,
+        resolvedItemComponent['displayCondition'] = resolveBooleanCondition(
+            expression: itemComponent.displayCondition,
             nullValue: true,
-            context: this.context,
-            renderedSurvey: this.renderedSurvey,
-            responses: this.responses,
             temporaryItem: parentItem);
         resolvedItemComponent['content'] =
             resolveContent(itemComponent.content);
         resolvedItemComponent['description'] =
             resolveContent(itemComponent.description);
-        // Description needs to be added
         // By default disabled
-        resolvedItemComponent['disabled'] = Utils.evaluateBooleanResult(
-            itemComponent.disabled,
+        resolvedItemComponent['disabled'] = resolveBooleanCondition(
+            expression: itemComponent.disabled,
             nullValue: false,
-            context: this.context,
-            renderedSurvey: this.renderedSurvey,
-            responses: this.responses,
             temporaryItem: parentItem);
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
@@ -402,15 +396,14 @@ class SurveyEngineCore {
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
-      validationMap['rule'] = Utils.evaluateBooleanResult(validation.rule,
-          context: this.context,
-          renderedSurvey: this.renderedSurvey,
-          responses: this.responses);
+      validationMap['rule'] =
+          resolveBooleanCondition(expression: validation.rule);
       renderedValidations.add(validationMap);
     });
     renderedItem['components'] = resolveItemComponentGroup(
         surveySingleItem.components, surveySingleItem);
     renderedItem['validations'] = renderedValidations;
+    renderedItem['condition'] = null;
     return Utils.removeNullParams(renderedItem);
   }
 
@@ -453,10 +446,8 @@ class SurveyEngineCore {
     unRenderedItems = unRenderedItems.where((item) {
       return ((item['condition'] == null) ||
           (item['condition'] != null &&
-              Utils.evaluateBooleanResult(Expression.fromMap(item['condition']),
-                  context: this.context,
-                  renderedSurvey: this.renderedSurvey,
-                  responses: this.responses)));
+              resolveBooleanCondition(
+                  expression: Expression.fromMap(item['condition']))));
     }).toList();
     return unRenderedItems;
   }
@@ -494,7 +485,8 @@ class SurveyEngineCore {
     if (itemId == null) return null;
     SurveyItemResponse root = rootResponseItem ?? this.responses;
     if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
-      throw NotFoundException(object: itemId);
+      Warning(message: itemId + ": not found");
+      return null;
     }
     if (itemId == root.key) {
       return SurveyItemResponse(root.toMap());
@@ -510,7 +502,9 @@ class SurveyEngineCore {
       SurveyItemResponse foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
-        throw NotFoundException(object: itemId);
+        Warning(message: itemId + ": not found");
+        result = null;
+        return;
       } else
         result = foundItem;
     });
@@ -521,7 +515,8 @@ class SurveyEngineCore {
     if (itemId == null) return null;
     SurveyItem root = rootItem ?? this.surveyDef;
     if (Utils.getRootKey(root.key) != Utils.getRootKey(itemId)) {
-      throw NotFoundException(object: itemId);
+      Warning(message: itemId + ": not found");
+      return null;
     }
     if (itemId == root.key) {
       return SurveyItem(root.toMap());
@@ -537,7 +532,9 @@ class SurveyEngineCore {
       SurveyItem foundItem = result.items
           .firstWhere((item) => item.key == componentId, orElse: () => null);
       if (foundItem == null) {
-        throw NotFoundException(object: itemId);
+        Warning(message: itemId + ": not found");
+        result = null;
+        return;
       } else
         result = foundItem;
     });
@@ -583,5 +580,25 @@ class SurveyEngineCore {
       }
     }
     return iterResponseGroup;
+  }
+
+  bool resolveBooleanCondition(
+      {Expression expression, SurveySingleItem temporaryItem, bool nullValue}) {
+    return Utils.evaluateBooleanResult(expression,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: temporaryItem,
+        nullValue: nullValue);
+  }
+
+  dynamic resolveExpression(
+      {Expression expression, SurveySingleItem temporaryItem}) {
+    ExpressionEvaluation eval = ExpressionEvaluation(
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: temporaryItem);
+    return eval.evalExpression(expression: expression);
   }
 }

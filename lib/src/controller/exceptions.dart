@@ -8,10 +8,6 @@ class InvalidArgumentsException implements Exception {
   String toString() => 'Expected $message in arguments';
 }
 
-class ArgumentCountException implements Exception {
-  String errMsg() => 'The expression has an invalid number of arguments';
-}
-
 class InvalidRoleException {
   String message;
   InvalidRoleException({
@@ -72,16 +68,6 @@ class InvalidTimestampException {
   String toString() => '$message';
 }
 
-class NotFoundException {
-  String object;
-  NotFoundException({
-    this.object,
-  });
-
-  @override
-  String toString() => '$object not found';
-}
-
 class NullObjectException {
   String object;
   NullObjectException({
@@ -92,16 +78,6 @@ class NullObjectException {
   String toString() => '$object must not be null';
 }
 
-class InvalidReturnTypeException {
-  String object;
-  InvalidReturnTypeException({
-    this.object,
-  });
-
-  @override
-  String toString() => '$object is not string or number';
-}
-
 class MapCreationException implements Exception {
   String className;
   Map<String, dynamic> map;
@@ -109,14 +85,4 @@ class MapCreationException implements Exception {
 
   @override
   String toString() => 'Cannot create map of $className with $map as arguments';
-}
-
-class ReRenderException implements Exception {
-  String message;
-  ReRenderException({
-    this.message,
-  });
-
-  @override
-  String toString() => 'Rerender not possible: $message';
 }

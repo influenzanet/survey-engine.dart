@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:test/test.dart';
@@ -117,12 +116,10 @@ void main() {
           Utils.parseExpressionReturnType(item: 1.0, returnType: 'float'), 1.0);
     });
     test(
-        'Test if exception is thrown on providing an invalid return type \'dummy\'',
+        'Test if string is parsed to default on providing an invalid return type \'dummy\'',
         () {
       expect(
-          () =>
-              Utils.parseExpressionReturnType(item: '1.0', returnType: 'dummy'),
-          throwsA(TypeMatcher<InvalidReturnTypeException>()));
+          Utils.parseExpressionReturnType(item: 1.0, returnType: 'dummy'), 1.0);
     });
   });
 }

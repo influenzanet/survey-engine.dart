@@ -203,10 +203,14 @@ const renderedSurveyGroupRoot = {
             "content": [
               {
                 "code": "en",
-                "parts":
-                    "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
+                "parts": [
+                  "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
+                ]
               },
-              {"code": "de", "parts": "XX"}
+              {
+                "code": "de",
+                "parts": ["XX"]
+              }
             ],
             "displayCondition": true,
             "disabled": false
@@ -227,8 +231,14 @@ const renderedSurveyGroupRoot = {
           {
             "role": "title",
             "content": [
-              {"code": "en", "parts": "What is your main activity?"},
-              {"code": "de", "parts": "Was ist Ihre Haupttätigkeit?"}
+              {
+                "code": "en",
+                "parts": ["What is your main activity?"]
+              },
+              {
+                "code": "de",
+                "parts": ["Was ist Ihre Haupttätigkeit?"]
+              }
             ],
             "displayCondition": true,
             "disabled": false
@@ -258,8 +268,14 @@ const renderedSurveyGroupRoot = {
               {
                 "role": "title",
                 "content": [
-                  {"code": "en", "parts": "What is your occupation?"},
-                  {"code": "de", "parts": "XX"}
+                  {
+                    "code": "en",
+                    "parts": ["What is your occupation?"]
+                  },
+                  {
+                    "code": "de",
+                    "parts": ["XX"]
+                  }
                 ],
                 "displayCondition": true,
                 "disabled": false
@@ -321,10 +337,14 @@ const List flatRenderedItems = [
           "content": [
             {
               "code": "en",
-              "parts":
-                  "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
+              "parts": [
+                "What is the first part of your school/college/workplace postal code (where you spend the majority of your working/studying time)?"
+              ]
             },
-            {"code": "de", "parts": "XX"}
+            {
+              "code": "de",
+              "parts": ["XX"]
+            }
           ],
           "displayCondition": true,
           "disabled": false
@@ -345,8 +365,14 @@ const List flatRenderedItems = [
         {
           "role": "title",
           "content": [
-            {"code": "en", "parts": "What is your main activity?"},
-            {"code": "de", "parts": "Was ist Ihre Haupttätigkeit?"}
+            {
+              "code": "en",
+              "parts": ["What is your main activity?"]
+            },
+            {
+              "code": "de",
+              "parts": ["Was ist Ihre Haupttätigkeit?"]
+            }
           ],
           "displayCondition": true,
           "disabled": false
@@ -365,8 +391,14 @@ const List flatRenderedItems = [
         {
           "role": "title",
           "content": [
-            {"code": "en", "parts": "What is your occupation?"},
-            {"code": "de", "parts": "XX"}
+            {
+              "code": "en",
+              "parts": ["What is your occupation?"]
+            },
+            {
+              "code": "de",
+              "parts": ["XX"]
+            }
           ],
           "displayCondition": true,
           "disabled": false

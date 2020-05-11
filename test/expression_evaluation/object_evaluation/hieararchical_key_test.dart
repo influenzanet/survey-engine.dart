@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
@@ -12,7 +11,7 @@ import '../../survey_engine_core/survey_item_constants.dart';
 
 void main() {
   group(
-      'getObjByHierarchicalKey evaluations throws exceptions on invalid arguments:\n',
+      'getObjByHierarchicalKey evaluations defaults to nulls on invalid arguments:\n',
       () {
     ExpressionEvaluation eval;
     Map<String, Object> testExpr;
@@ -24,7 +23,7 @@ void main() {
     });
 
     test(
-        'Check getObjByHierarchicalKey throws exception when first argument is null',
+        'Check getObjByHierarchicalKey defaults to null when first argument is null',
         () {
       testExpr = {
         'name': 'getObjByHierarchicalKey',
@@ -36,11 +35,10 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<InvalidArgumentsException>()));
+      expect(eval.evalExpression(expression: expr), isNull);
     });
     test(
-        'Check getObjByHierarchicalKey throws exception when first argument is not an expression',
+        'Check getObjByHierarchicalKey defaults to null when first argument is not an expression',
         () {
       testExpr = {
         'name': 'getObjByHierarchicalKey',
@@ -52,12 +50,11 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<InvalidArgumentsException>()));
+      expect(eval.evalExpression(expression: expr), isNull);
     });
 
     test(
-        'Check getObjByHierarchicalKey throws exception when second argument is not a string',
+        'Check getObjByHierarchicalKey defaults to null when second argument is not a string',
         () {
       testExpr = {
         'name': 'getObjByHierarchicalKey',
@@ -80,8 +77,7 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<InvalidArgumentsException>()));
+      expect(eval.evalExpression(expression: expr), isNull);
     });
   });
 

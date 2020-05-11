@@ -1,16 +1,24 @@
 import 'dart:math';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
 import 'package:survey_engine.dart/src/models/expression/expression_arg_dtype.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
+
+class Warning {
+  String message;
+  Warning({
+    this.message,
+  }) {
+    print("Warning: $message");
+  }
+}
 
 class SelectionMethods {
   static dynamic pickAnItem({List<dynamic> items, Expression expression}) {
@@ -87,9 +95,9 @@ class Utils {
     if (expression == null) {
       return nullValue ?? true;
     }
-    if (expression?.returnType != 'boolean') {
-      return false;
-    }
+    // if (expression?.returnType != 'boolean') {
+    //   return false;
+    // }
     return eval.evalExpression(
         expression: expression,
         context: context,
@@ -127,10 +135,19 @@ class Utils {
   }
 
   static Map<String, Object> getResolvedLocalisedObject(
-      LocalizedObject localizedObject) {
-    String localisedString = '';
+      LocalizedString localizedObject,
+      {SurveyContext context,
+      dynamic renderedSurvey,
+      SurveyGroupItemResponse responses,
+      SurveySingleItem temporaryItem}) {
+    List<String> localisedString = [];
+    Utils.resolveParts(localizedObject.parts,
+        context: context,
+        renderedSurvey: renderedSurvey,
+        responses: responses,
+        temporaryItem: temporaryItem);
     localizedObject.parts.forEach((expressionArg) {
-      localisedString = localisedString + (expressionArg.str);
+      localisedString.add(expressionArg.str);
     });
     Map<String, Object> resolvedParts = {
       'code': localizedObject.code,
@@ -239,7 +256,8 @@ class Utils {
       case 'string':
         return (item is String) ? item : item.toString();
       default:
-        throw InvalidReturnTypeException(object: item);
+        Warning(message: "$item: Cannot parse return type");
+        return item;
     }
   }
 }

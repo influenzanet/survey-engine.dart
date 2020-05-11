@@ -1,4 +1,3 @@
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
 import 'package:survey_engine.dart/src/models/constants.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
@@ -27,16 +26,25 @@ class ExpressionEvaluation {
     this.temporaryItem = temporaryItem ?? this.temporaryItem;
     var checkValidMap;
     var exprMap = expression.toMap();
-    try {
-      checkValidMap = expressionArguments
-          .firstWhere((iter) => iter['name'] == exprMap['name']);
-    } catch (e) {
-      throw InvalidArgumentsException();
+
+    checkValidMap = expressionArguments.firstWhere(
+        (iter) => iter['name'] == exprMap['name'],
+        orElse: () => null);
+
+    if (checkValidMap == null) {
+      Warning(
+          message: exprMap['name'] +
+              ': is not a valid expression name or is not implemented');
+      return false;
     }
     if (expression.data != null &&
         (!rootReferenceExpressions.contains(checkValidMap['name'])) &&
         (checkValidMap['arguments'] > expression.data.length)) {
-      throw ArgumentCountException();
+      Warning(
+          message: 'The expression' +
+              exprMap['name'] +
+              'has an invalid number of arguments');
+      return false;
     }
     switch (expression.name) {
       case 'lt':
@@ -128,10 +136,10 @@ class ExpressionEvaluation {
     var result = arg.exp != null
         ? evalExpression(
             expression: argument,
-            context: context,
-            renderedSurvey: renderedSurvey,
-            responses: responses,
-            temporaryItem: temporaryItem)
+            context: context ?? this.context,
+            renderedSurvey: renderedSurvey ?? this.renderedSurvey,
+            responses: responses ?? this.responses,
+            temporaryItem: temporaryItem ?? this.temporaryItem)
         : argument;
     return result;
   }
@@ -205,10 +213,10 @@ class ExpressionEvaluation {
       case 'exp':
         return (evalExpression(
             expression: arg.exp,
-            context: context,
-            renderedSurvey: renderedSurvey,
-            responses: responses,
-            temporaryItem: temporaryItem));
+            context: context ?? this.context,
+            renderedSurvey: renderedSurvey ?? this.renderedSurvey,
+            responses: responses ?? this.responses,
+            temporaryItem: temporaryItem ?? this.temporaryItem));
         break;
       default:
         return false;
@@ -244,7 +252,8 @@ class ExpressionEvaluation {
   bool not(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     if (arguments.length > maxUnaryOperands) {
-      throw ArgumentCountException();
+      Warning(message: 'The expression not has an invalid number of arguments');
+      return false;
     }
     return !getLogicalEvaluation(arguments[firstArgument]);
   }
@@ -252,11 +261,19 @@ class ExpressionEvaluation {
   bool isDefined(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     if (arguments.length > maxUnaryOperands) {
-      throw ArgumentCountException();
+      Warning(
+          message:
+              'The expression isDefined has an invalid number of arguments');
+      return false;
     }
     var argument = getData(arguments[firstArgument]);
     var result = arguments[firstArgument].exp != null
-        ? evalExpression(expression: argument)
+        ? evalExpression(
+            expression: argument,
+            context: this.context,
+            renderedSurvey: this.renderedSurvey,
+            responses: this.responses,
+            temporaryItem: this.temporaryItem)
         : argument;
     return (result != null);
   }
@@ -285,37 +302,44 @@ class ExpressionEvaluation {
   dynamic getAttribute(Expression expression) {
     List<ExpressionArg> arguments = expression.data;
     if (arguments[secondArgument].str == null) {
-      throw InvalidArgumentsException(
-          message: 'getAttribute expected second argument to be a string');
+      Warning(message: 'getAttribute expected second argument to be a string');
     }
 
     var reference = getData(arguments[firstArgument]);
     var root;
     if (!(reference is Expression)) {
       if (this.temporaryItem == null) {
-        throw InvalidArgumentsException(
+        Warning(
             message:
                 'getAttribute expected first argument is not a valid expression or temporary object to be set');
+        return null;
       }
       if (reference == 'this') {
         root = this.temporaryItem;
       }
     } else {
-      root = evalExpression(expression: reference);
+      root = evalExpression(
+          expression: reference,
+          context: this.context,
+          renderedSurvey: this.renderedSurvey,
+          responses: this.responses,
+          temporaryItem: this.temporaryItem);
     }
     if (root == null) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getAttribute expected first argument received wrong type of reference object');
+      return null;
     }
     try {
       if (!(root is Map)) {
         root = root?.toMap();
       }
     } catch (e) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getAttribute expected first argument received wrong type of reference object');
+      return null;
     }
     var attribute = root[expression.data[secondArgument].str];
     if (expression.returnType != null) {
@@ -331,19 +355,26 @@ class ExpressionEvaluation {
     var arg2 = getData(arguments[secondArgument]);
 
     if (arg1 == null || !(arg1 is Expression)) {
-      throw InvalidArgumentsException(
+      Warning(
           message: 'getArrayItem: First argument needs to be an expression');
+      return null;
     }
     if (!(arg2 is num)) {
-      throw InvalidArgumentsException(
-          message: 'getArrayItem: Second argument needs to be a number');
+      Warning(message: 'getArrayItem: Second argument needs to be a number');
+      return null;
     }
 
-    var array = evalExpression(expression: arg1);
+    var array = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     if (!(array is List) || (array is List && array.length <= arg2)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getArrayItem: First argument Expression on evaluation needs to return a list');
+      return null;
     }
 
     var item = array[arg2];
@@ -360,20 +391,28 @@ class ExpressionEvaluation {
     var arg2 = getData(arguments[secondArgument]);
 
     if (arg1 == null || !(arg1 is Expression)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getArrayItemByKey: First argument needs to be an expression');
+      return null;
     }
     if (!(arg2 is String)) {
-      throw InvalidArgumentsException(
+      Warning(
           message: 'getArrayItemByKey: Second argument needs to be a string');
+      return null;
     }
 
-    var array = evalExpression(expression: arg1);
+    var array = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     if (!(array is List)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getArrayItemByKey: First argument Expression on evaluation needs to return a list');
+      return null;
     }
     var item;
     if (array[firstArgument] is Map) {
@@ -384,8 +423,8 @@ class ExpressionEvaluation {
         item = array.firstWhere((iterItem) => iterItem.key == arg2,
             orElse: () => null);
       } catch (e) {
-        throw InvalidArgumentsException(
-            message: 'getArrayItemByKey: Object does not have key');
+        Warning(message: 'getArrayItemByKey: Object does not have key');
+        return null;
       }
     }
     if (item == null) {
@@ -406,25 +445,33 @@ class ExpressionEvaluation {
     var key = arg2;
 
     if (arg1 == null || !(arg1 is Expression)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getObjByHierarchicalKey: First argument needs to be an expression');
+      return null;
     }
     if (!(arg2 is String)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getObjByHierarchicalKey: Second argument needs to be a string');
+      return null;
     }
 
-    var root = evalExpression(expression: arg1);
+    var root = evalExpression(
+        expression: arg1,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
     try {
       if (!(root is Map)) {
         root = root?.toMap();
       }
     } catch (e) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getObjByHierarchicalKey expected first argument received wrong type of reference object');
+      return null;
     }
     if (root == null ||
         ((root['items'] == null || root['items'].length == 0) &&
@@ -433,8 +480,8 @@ class ExpressionEvaluation {
     }
 
     if (Utils.getRootKey(root['key']) != Utils.getRootKey(key)) {
-      throw InvalidArgumentsException(
-          message: 'getObjByHierarchicalKey: Cannot find object for' + key);
+      Warning(message: 'getObjByHierarchicalKey: Cannot find object for' + key);
+      return null;
     }
     String componentId = root['key'];
     var result = root;
@@ -447,8 +494,10 @@ class ExpressionEvaluation {
       var foundItem = result['items']
           .firstWhere((item) => item['key'] == componentId, orElse: () => null);
       if (foundItem == null) {
-        throw InvalidArgumentsException(
+        Warning(
             message: 'getObjByHierarchicalKey: Cannot find object for' + key);
+        result = null;
+        return;
       } else
         result = foundItem;
     });
@@ -488,7 +537,13 @@ class ExpressionEvaluation {
       ]
     };
     Expression result = Expression.fromMap(exprMap);
-    return evalExpression(expression: result);
+    dynamic evaluate = evalExpression(
+        expression: result,
+        context: this.context,
+        renderedSurvey: this.renderedSurvey,
+        responses: this.responses,
+        temporaryItem: this.temporaryItem);
+    return evaluate;
   }
 
   bool getSurveyItemValidation(Expression expression) {
@@ -512,9 +567,10 @@ class ExpressionEvaluation {
       root = getObjByHierarchicalKey(Expression.fromMap(surveyExpression));
     }
     if (!(parentReference is String)) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getSurveyItemValidation: First argument needs to be a string');
+      return null;
     }
 
     try {
@@ -522,9 +578,10 @@ class ExpressionEvaluation {
         root = root?.toMap();
       }
     } catch (e) {
-      throw InvalidArgumentsException(
+      Warning(
           message:
               'getSurveyItemValidation expected first argument received wrong type of reference object');
+      return null;
     }
     bool result;
     if (root['validations'] == null) {

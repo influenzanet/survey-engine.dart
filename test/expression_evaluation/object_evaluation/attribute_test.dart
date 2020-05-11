@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
@@ -73,8 +72,7 @@ void main() {
       print('Expression:\n' + json.encode(testExpr));
 
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<InvalidArgumentsException>()));
+      expect(eval.evalExpression(expression: expr), isNull);
     });
 
     test(

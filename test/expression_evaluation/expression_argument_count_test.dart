@@ -1,4 +1,3 @@
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/models/expression/expression.dart';
 import 'package:test/test.dart';
@@ -12,9 +11,7 @@ void main() {
       eval = ExpressionEvaluation();
     });
 
-    test(
-        'Single argument provided for binary operator gt catches invalid exception',
-        () {
+    test('Single argument provided for binary operator throws false', () {
       testExpr = {
         'name': 'gt',
         'returnType': 'boolean',
@@ -23,12 +20,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test(
-        'Single argument provided for binary operator lt catches invalid exception',
-        () {
+    test('Single argument provided for binary operator lt defaultsFalse', () {
       testExpr = {
         'name': 'lt',
         'returnType': 'boolean',
@@ -37,12 +31,10 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
 
-    test(
-        'Single argument provided for binary operator lte catches invalid exception',
+    test('Single argument provided for binary operator lte defaults to false',
         () {
       testExpr = {
         'name': 'lte',
@@ -52,11 +44,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test(
-        'Single argument provided for binary operator gte catches invalid exception',
+    test('Single argument provided for binary operator gte defaults to false',
         () {
       testExpr = {
         'name': 'gte',
@@ -66,12 +56,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test(
-        'Single argument provided for binary operator and catches invalid exception',
-        () {
+    test('Single argument provided for binary operator defaults to False', () {
       testExpr = {
         'name': 'and',
         'returnType': 'boolean',
@@ -80,11 +67,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test(
-        'Single argument provided for binary operator or catches invalid exception',
+    test('Single argument provided for binary operator or defaults to False',
         () {
       testExpr = {
         'name': 'or',
@@ -94,10 +79,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test('Two arguments for unary operator not catches invalid exception', () {
+    test('Two arguments for unary operator not defaults to False', () {
       testExpr = {
         'name': 'not',
         'returnType': 'boolean',
@@ -107,12 +91,10 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
 
-    test('Two arguments for unary operator isDefined catches invalid exception',
-        () {
+    test('Two arguments for unary operator isDefined defaults to False', () {
       testExpr = {
         'name': 'isDefined',
         'returnType': 'boolean',
@@ -122,10 +104,9 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<ArgumentCountException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
-    test('Invalid operation', () {
+    test('Invalid operation prints out a warning and defaults to false', () {
       testExpr = {
         'name': 'dummy',
         'returnType': 'boolean',
@@ -135,8 +116,7 @@ void main() {
         ]
       };
       expr = Expression.fromMap(testExpr);
-      expect(() => eval.evalExpression(expression: expr),
-          throwsA(TypeMatcher<InvalidArgumentsException>()));
+      expect(eval.evalExpression(expression: expr), isFalse);
     });
   });
 }
