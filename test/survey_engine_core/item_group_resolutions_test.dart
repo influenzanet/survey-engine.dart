@@ -128,7 +128,8 @@ void main() {
         "displayCondition": true,
         "disabled": false
       };
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
     });
   });
   group('Resolve SurveySingleItem elements:\n', () {

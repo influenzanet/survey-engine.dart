@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
@@ -42,7 +43,8 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       dynamic expected = eval.evalExpression(expression: expr);
-      expect(json.encode(expected), json.encode(renderedSurveyGroupRoot));
+      expect(json.encode(HashMap.from(expected)),
+          json.encode(HashMap.from(renderedSurveyGroupRoot)));
     });
     test('Check getResponses', () {
       testExpr = {
@@ -50,7 +52,8 @@ void main() {
       };
       expr = Expression.fromMap(testExpr);
       SurveyGroupItemResponse expected = eval.evalExpression(expression: expr);
-      expect(expected.toJson(), json.encode(testSurveyGroupItemResponseOne));
+      expect(expected.toJson(),
+          json.encode(HashMap.from(testSurveyGroupItemResponseOne)));
     });
   });
 }

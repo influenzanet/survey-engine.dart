@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
@@ -17,7 +18,7 @@ void main() {
       };
       ResponseMeta actual = ResponseMeta();
       print('Expected = $expected \n Actual = $actual');
-      expect(actual.toJson(), json.encode(expected));
+      expect(actual.toJson(), json.encode(HashMap.from(expected)));
     });
     test('Test metaObject creation returns a valid map :\n', () {
       // TO DO: Write test for a valid timestamp after string conversion clarification

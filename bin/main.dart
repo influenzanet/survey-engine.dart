@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
@@ -59,7 +60,7 @@ class GroupItem implements Item {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(HashMap.from(toMap()));
 
   static GroupItem fromJson(String source) => fromMap(json.decode(source));
 
@@ -84,7 +85,7 @@ class SingleItem implements Item {
     return SingleItem(key: map['key']);
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(HashMap.from(toMap()));
 
   static SingleItem fromJson(String source) => fromMap(json.decode(source));
 

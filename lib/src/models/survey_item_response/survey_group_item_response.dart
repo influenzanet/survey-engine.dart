@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
@@ -45,7 +46,7 @@ class SurveyGroupItemResponse implements SurveyItemResponse {
     }
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(HashMap.from(toMap()));
 
   static SurveyGroupItemResponse fromJson(String source) =>
       fromMap(json.decode(source));

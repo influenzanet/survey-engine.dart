@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/api/api.dart';
@@ -14,7 +15,8 @@ void main() {
       dynamic expected = renderedSurveyGroupRoot;
 
       dynamic actual = surveyEngineCore.getRenderedSurvey();
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
     });
 
     test('Test if a root response tree is flattened', () {

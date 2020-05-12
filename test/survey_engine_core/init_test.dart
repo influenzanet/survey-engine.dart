@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/engine_core.dart';
@@ -21,7 +22,8 @@ void main() {
       SurveyGroupItemResponse actual =
           surveyEngineCore.initSurveyGroupItemResponse(
               SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
-      expect(actual.toJson(), json.encode(testSurveyGroupItemResponseRoot));
+      expect(actual.toJson(),
+          json.encode(HashMap.from(testSurveyGroupItemResponseRoot)));
       // Rendered sets different timestamp at different intervals so only a root level check is
       // expect(actual.toMap().keys, testSurveyGroupItemResponseRoot.keys);
       // expect(actual.toMap()['meta']['rendered'], isNotNull);
@@ -217,7 +219,8 @@ void main() {
       dynamic expected = surveyEngineCore.initRenderedGroupItem(
           SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic actual = renderedSurveyGroupRoot;
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
     });
   });
 }

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
@@ -108,8 +109,8 @@ void main() {
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
       dynamic expected = eval.evalExpression(expression: expr);
-      expect(json.encode(expected),
-          json.encode(testSurveySingleItemResponseThree));
+      expect(json.encode(HashMap.from(expected)),
+          json.encode(HashMap.from(testSurveySingleItemResponseThree)));
     });
 
     test('Check getObjByHierarchicalKey returns appropriate response ', () {
@@ -126,8 +127,8 @@ void main() {
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
       dynamic expected = eval.evalExpression(expression: expr);
-      expect(
-          json.encode(expected), json.encode(testSurveySingleItemResponseTwo));
+      expect(json.encode(HashMap.from(expected)),
+          json.encode(HashMap.from(testSurveySingleItemResponseTwo)));
     });
   });
 
@@ -183,7 +184,8 @@ void main() {
       print('Expression:\n' + json.encode(testExpr));
       dynamic expected = {'key': 'RG1.R1', 'value': 'testvalue'};
       dynamic actual = eval.evalExpression(expression: expr);
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
       testExpr = {
         'name': 'getResponseItem',
         'data': [
@@ -199,7 +201,8 @@ void main() {
         ],
       };
       actual = eval.evalExpression(expression: expr);
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
     });
   });
 

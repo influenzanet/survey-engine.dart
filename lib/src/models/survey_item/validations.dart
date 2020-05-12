@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
@@ -43,7 +44,7 @@ class Validations {
     }
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(HashMap.from(toMap()));
 
   static Validations fromJson(String source) => fromMap(json.decode(source));
 

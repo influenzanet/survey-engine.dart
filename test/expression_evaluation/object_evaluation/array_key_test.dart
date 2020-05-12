@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
@@ -114,8 +115,8 @@ void main() {
       expr = Expression.fromMap(testExpr);
       print('Expression:\n' + json.encode(testExpr));
       dynamic expected = eval.evalExpression(expression: expr);
-      expect(json.encode(expected),
-          json.encode(testSurveySingleItemResponseThree));
+      expect(json.encode(HashMap.from(expected)),
+          json.encode(HashMap.from(testSurveySingleItemResponseThree)));
     });
 
     test(
