@@ -130,8 +130,9 @@ void main() {
   test('Testing rerender\n', () {
     SurveyGroupItem actual = SurveyGroupItem.fromMap(qp);
     //print(actual.toJson());
-    SurveyEngineCore surveyEngineCore = SurveyEngineCore(surveyDef: actual);
-    //dynamic rendered = surveyEngineCore.getRenderedSurvey();
+    SurveyEngineCore surveyEngineCore =
+        SurveyEngineCore(surveyDef: actual, weedRemoval: true);
+    dynamic rendered = surveyEngineCore.getRenderedSurvey();
     //print(json.encode(rendered));
 
     ///surveyEngineCore.questionDisplayed('QG0.QG4.Q4');

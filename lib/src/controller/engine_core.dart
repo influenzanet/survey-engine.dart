@@ -25,11 +25,9 @@ class SurveyEngineCore implements Engine {
   SurveyContext context;
   dynamic renderedSurvey;
   ExpressionEvaluation evalEngine;
-  SurveyEngineCore({
-    this.surveyDef,
-    this.context,
-    this.evalEngine,
-  }) {
+  bool weedRemoval;
+  SurveyEngineCore(
+      {this.surveyDef, this.context, this.evalEngine, this.weedRemoval}) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
     if (this.surveyDef == null) {
@@ -223,11 +221,10 @@ class SurveyEngineCore implements Engine {
       SurveyItem itemDefGroup =
           findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
+      itemDef['condition'] =
+          resolveBooleanCondition(expression: itemDef['condition']);
       if (itemDef == null ||
-          ((resolveBooleanCondition(expression: itemDef['condition']) !=
-                  null) &&
-              (resolveBooleanCondition(expression: itemDef['condition']) ==
-                  false))) {
+          ((itemDef['condition'] != null) && (itemDef['condition'] == false))) {
         dynamic tempItems =
             itemDef['items'].where((iter) => iter['key'] != item['key']);
         itemDef['items'] = tempItems;
@@ -360,6 +357,33 @@ class SurveyEngineCore implements Engine {
     if (component == null) return null;
     var resolvedGroup = component.toMap();
     resolvedGroup['items'] = [];
+    // Resolve Group
+
+    resolvedGroup['displayCondition'] = resolveBooleanCondition(
+        expression: component.displayCondition,
+        nullValue: true,
+        temporaryItem: parentItem);
+    resolvedGroup['content'] = resolveContent(component.content);
+    resolvedGroup['description'] = resolveContent(component.description);
+    // By default disabled
+    resolvedGroup['disabled'] = resolveBooleanCondition(
+        expression: component.disabled,
+        nullValue: false,
+        temporaryItem: parentItem);
+    // Weed removal is only used for testing /comparing JSON from survey-engine.ts
+    // By default undefined vars in survey-engine.ts are not taken in the output however survey engine.dart renders with default
+    // values. This block will be removed after full stack is developed.
+    if (this.weedRemoval == true) {
+      if (resolvedGroup['disabled'] == false) {
+        resolvedGroup['disabled'] = null;
+      }
+      if (resolvedGroup['displayCondition'] == true) {
+        resolvedGroup['displayCondition'] = null;
+      }
+    }
+
+    // Resolve items
+
     component.items.forEach((itemComponent) {
       if (itemComponent.items == null) {
         dynamic resolvedItemComponent = itemComponent.toMap();
@@ -376,6 +400,17 @@ class SurveyEngineCore implements Engine {
             expression: itemComponent.disabled,
             nullValue: false,
             temporaryItem: parentItem);
+        // Weed removal is only used for testing /comparing JSON from survey-engine.ts
+        // By default undefined vars in survey-engine.ts are not taken in the output however survey engine.dart renders with default
+        // values. This block will be removed after full stack is developed.
+        if (this.weedRemoval == true) {
+          if (resolvedItemComponent['disabled'] == false) {
+            resolvedItemComponent['disabled'] = null;
+          }
+          if (resolvedItemComponent['displayCondition'] == true) {
+            resolvedItemComponent['displayCondition'] = null;
+          }
+        }
         resolvedItemComponent['properties'] =
             resolveItemComponentProperties(itemComponent.properties);
         resolvedGroup['items']

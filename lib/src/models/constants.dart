@@ -52,7 +52,7 @@ const responseComponentRoles = [
   'input',
   'multilineTextInput',
   'numberInput',
-  'dateinput',
+  'dateInput',
   'userInput',
   'responseOption'
 ];

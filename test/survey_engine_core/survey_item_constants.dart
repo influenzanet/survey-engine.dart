@@ -216,7 +216,9 @@ const renderedSurveyGroupRoot = {
             "disabled": false
           }
         ],
-        "order": {"name": "sequential"}
+        "order": {"name": "sequential"},
+        "displayCondition": true,
+        "disabled": false
       },
       "validations": [
         {"rule": true, "type": "soft", "key": "v1"}
@@ -244,7 +246,9 @@ const renderedSurveyGroupRoot = {
             "disabled": false
           }
         ],
-        "order": {"name": "sequential"}
+        "order": {"name": "sequential"},
+        "displayCondition": true,
+        "disabled": false
       },
       "validations": [],
     },
@@ -281,7 +285,9 @@ const renderedSurveyGroupRoot = {
                 "disabled": false
               }
             ],
-            "order": {"name": "sequential"}
+            "order": {"name": "sequential"},
+            "displayCondition": true,
+            "disabled": false
           },
           "validations": [
             {"rule": true, "type": "soft", "key": "v1"}
@@ -350,7 +356,9 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential"}
+      "order": {"name": "sequential"},
+      "displayCondition": true,
+      "disabled": false
     },
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}
@@ -378,7 +386,9 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential"}
+      "order": {"name": "sequential"},
+      "displayCondition": true,
+      "disabled": false
     },
     "validations": [],
   },
@@ -404,7 +414,9 @@ const List flatRenderedItems = [
           "disabled": false
         }
       ],
-      "order": {"name": "sequential"}
+      "order": {"name": "sequential"},
+      "displayCondition": true,
+      "disabled": false
     },
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}

@@ -123,7 +123,9 @@ void main() {
             'properties': {'min': -5}
           },
         ],
-        'order': {'name': 'sequential'}
+        'order': {'name': 'sequential'},
+        "displayCondition": true,
+        "disabled": false
       };
       expect(json.encode(actual), json.encode(expected));
     });
@@ -215,7 +217,9 @@ void main() {
               'properties': {'min': -5}
             },
           ],
-          'order': {'name': 'sequential'}
+          'order': {'name': 'sequential'},
+          "displayCondition": true,
+          "disabled": false
         },
         'validations': [
           {'rule': true, 'type': 'soft', 'key': 'v1'},

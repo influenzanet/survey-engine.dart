@@ -35,7 +35,7 @@ void main() {
         'input',
         'multilineTextInput',
         'numberInput',
-        'dateinput'
+        'dateInput'
       ];
       Iterable<Map<String, Object>> testResponseComponentList =
           rolesTest.map((role) => {
