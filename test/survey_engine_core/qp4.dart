@@ -1012,9 +1012,6 @@ const qp = {
                 "items": [
                   {
                     "role": "text",
-                    "style": [
-                      {"key": "abc", "value": "abc"}
-                    ],
                     "content": [
                       {
                         "code": "en",

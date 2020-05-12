@@ -27,7 +27,10 @@ class SurveyEngineCore implements Engine {
   ExpressionEvaluation evalEngine;
   bool weedRemoval;
   SurveyEngineCore(
-      {this.surveyDef, this.context, this.evalEngine, this.weedRemoval}) {
+      {this.surveyDef,
+      this.context,
+      this.evalEngine,
+      this.weedRemoval = false}) {
     this.evalEngine = ExpressionEvaluation(context: this.context);
     this.responses = initSurveyGroupItemResponse(this.surveyDef);
     if (this.surveyDef == null) {
@@ -407,6 +410,9 @@ class SurveyEngineCore implements Engine {
           if (resolvedItemComponent['disabled'] == false) {
             resolvedItemComponent['disabled'] = null;
           }
+          if (resolvedItemComponent['dtype'] == 'string') {
+            resolvedItemComponent['dtype'] = null;
+          }
           if (resolvedItemComponent['displayCondition'] == true) {
             resolvedItemComponent['displayCondition'] = null;
           }
@@ -428,7 +434,10 @@ class SurveyEngineCore implements Engine {
     if (surveySingleItem == null) {
       return null;
     }
-    Map<String, Object> renderedItem = surveySingleItem.toMap();
+    dynamic renderedItem = surveySingleItem.toMap();
+    renderedItem['condition'] = resolveBooleanCondition(
+        expression: Expression.fromMap(renderedItem['condition']),
+        nullValue: true);
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
@@ -439,7 +448,12 @@ class SurveyEngineCore implements Engine {
     renderedItem['components'] = resolveItemComponentGroup(
         surveySingleItem.components, surveySingleItem);
     renderedItem['validations'] = renderedValidations;
-    renderedItem['condition'] = null;
+    if (this.weedRemoval == true) {
+      if (renderedItem['condition'] == true) {
+        renderedItem['condition'] = null;
+      }
+    }
+
     return Utils.removeNullParams(renderedItem);
   }
 

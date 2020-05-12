@@ -222,7 +222,8 @@ const renderedSurveyGroupRoot = {
       },
       "validations": [
         {"rule": true, "type": "soft", "key": "v1"}
-      ]
+      ],
+      "condition": true,
     },
     {
       "key": "G0.S2",
@@ -251,6 +252,7 @@ const renderedSurveyGroupRoot = {
         "disabled": false
       },
       "validations": [],
+      "condition": true,
     },
     {
       "key": "G0.G1",
@@ -292,6 +294,7 @@ const renderedSurveyGroupRoot = {
           "validations": [
             {"rule": true, "type": "soft", "key": "v1"}
           ],
+          "condition": true,
         }
       ],
     }
@@ -362,7 +365,8 @@ const List flatRenderedItems = [
     },
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}
-    ]
+    ],
+    "condition": true
   },
   {
     "key": "G0.S2",
@@ -391,6 +395,7 @@ const List flatRenderedItems = [
       "disabled": false
     },
     "validations": [],
+    "condition": true
   },
   {
     "key": "G0.G1.S3",
@@ -421,5 +426,6 @@ const List flatRenderedItems = [
     "validations": [
       {"rule": true, "type": "soft", "key": "v1"}
     ],
+    "condition": true
   }
 ];

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:survey_engine.dart/src/controller/engine_core.dart';
@@ -134,6 +135,7 @@ void main() {
     Map<String, Object> testSurveySingleItem;
     setUp(() {
       testSurveySingleItem = {
+        'key': 'v1',
         'type': 'basic.static.title',
         'validations': [
           {
@@ -198,6 +200,8 @@ void main() {
       dynamic actual =
           surveyEngineCore.renderSurveySingleItem(surveySingleItem);
       dynamic expected = {
+        'key': 'v1',
+        'condition': true,
         'type': 'basic.static.title',
         'components': {
           'role': 'root',
@@ -225,7 +229,8 @@ void main() {
           {'rule': true, 'type': 'soft', 'key': 'v1'},
         ],
       };
-      expect(json.encode(actual), json.encode(expected));
+      expect(json.encode(HashMap.from(actual)),
+          json.encode(HashMap.from(expected)));
     });
   });
 }
