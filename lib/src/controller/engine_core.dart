@@ -87,7 +87,7 @@ class SurveyEngineCore implements Engine {
         timeStampType: 'responded',
         newResponseItem: response);
     // Code to re-render tree WIP
-    // this.renderedSurvey = reRenderGroup(this.renderedSurvey);
+    this.renderedSurvey = reRenderGroup(this.renderedSurvey);
   }
 
   dynamic questionDisplayed(String key) {

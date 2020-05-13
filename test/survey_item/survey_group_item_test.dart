@@ -137,14 +137,17 @@ void main() {
 
     ///surveyEngineCore.questionDisplayed('QG0.QG4.Q4');
     surveyEngineCore.setResponse(
-        key: 'QG0.QG4.Q4',
+        key: '0.4.4',
         response: ResponseItem.fromMap({
-          'key': 'RG1',
+          'key': '1',
           'items': [
             {
-              'key': 'RG1.R1',
-              'value': "14",
-              'dtype': 'number',
+              'key': '1.1',
+              'items': [
+                {
+                  'key': '1.1.1',
+                }
+              ]
             }
           ],
         }));
