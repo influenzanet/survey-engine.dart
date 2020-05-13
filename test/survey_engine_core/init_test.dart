@@ -216,11 +216,10 @@ void main() {
     test('Test if Group root G0 is rendered succesfully', () {
       SurveyEngineCore surveyEngineCore = SurveyEngineCore(
           surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
-      dynamic expected = surveyEngineCore.initRenderedGroupItem(
+      dynamic actual = surveyEngineCore.initRenderedGroupItem(
           SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
-      dynamic actual = renderedSurveyGroupRoot;
-      expect(json.encode(HashMap.from(actual)),
-          json.encode(HashMap.from(expected)));
+      dynamic expected = renderedSurveyGroupRoot;
+      expect(json.encode((actual)), json.encode((expected)));
     });
   });
 }

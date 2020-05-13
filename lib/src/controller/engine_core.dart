@@ -125,6 +125,7 @@ class SurveyEngineCore implements Engine {
         key: questionGroup.key,
         items: [],
         meta: ResponseMeta(version: questionGroup.version));
+
     updateResponseItem(
         changeKey: questionGroup.key,
         responseGroup: this.responses,
@@ -152,6 +153,9 @@ class SurveyEngineCore implements Engine {
   dynamic initRenderedGroupItem(SurveyGroupItem questionGroup) {
     if (questionGroup == null) return null;
     var renderedGroup = questionGroup.toMap();
+    renderedGroup['condition'] = resolveBooleanCondition(
+        expression: Expression.fromMap(renderedGroup['condition']),
+        nullValue: true);
     updateResponseItem(
         responseGroup: this.responses,
         changeKey: questionGroup.key,
@@ -180,6 +184,11 @@ class SurveyEngineCore implements Engine {
             .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
       }
       i++;
+    }
+    if (this.weedRemoval == true) {
+      if (renderedGroup['condition'] == true) {
+        renderedGroup['condition'] = null;
+      }
     }
     return renderedGroup;
   }

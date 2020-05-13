@@ -256,13 +256,7 @@ const renderedSurveyGroupRoot = {
     },
     {
       "key": "G0.G1",
-      'condition': {
-        'name': 'not',
-        'returnType': 'boolean',
-        'data': [
-          {'dtype': 'str', 'str': ''}
-        ]
-      },
+      "condition": true,
       "version": 1,
       "items": [
         {
@@ -299,6 +293,7 @@ const renderedSurveyGroupRoot = {
       ],
     }
   ],
+  "condition": true,
 };
 const List flatResponseItems = [
   {
