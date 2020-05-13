@@ -202,7 +202,6 @@ void main() {
           surveyEngineCore.renderSurveySingleItem(surveySingleItem);
       dynamic expected = {
         'key': 'v1',
-        'condition': true,
         'type': 'basic.static.title',
         'components': {
           'role': 'root',

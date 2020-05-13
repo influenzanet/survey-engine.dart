@@ -98,7 +98,39 @@ class SurveyEngineCore implements Engine {
   }
 
   dynamic getRenderedSurvey() {
+    if (this.weedRemoval == true) {
+      updateConditionsToNull(this.renderedSurvey);
+      return this.renderedSurvey;
+    }
+    updateConditions(this.renderedSurvey);
     return this.renderedSurvey;
+  }
+
+  void updateConditionsToNull(dynamic renderedGroup) {
+    if (renderedGroup == null) {
+      return;
+    }
+    renderedGroup['condition'] = null;
+    renderedGroup['items'].forEach((item) {
+      item['condition'] = null;
+      if (item['items'] != null) {
+        updateConditions(item);
+      }
+      Utils.removeNullParams(renderedGroup);
+    });
+  }
+
+  void updateConditions(dynamic renderedGroup) {
+    if (renderedGroup == null) {
+      return;
+    }
+    renderedGroup['condition'] = true;
+    renderedGroup['items'].forEach((item) {
+      item['condition'] = true;
+      if (item['items'] != null) {
+        updateConditions(item);
+      }
+    });
   }
 
   dynamic getResponses() {
@@ -153,9 +185,9 @@ class SurveyEngineCore implements Engine {
   dynamic initRenderedGroupItem(SurveyGroupItem questionGroup) {
     if (questionGroup == null) return null;
     var renderedGroup = questionGroup.toMap();
-    renderedGroup['condition'] = resolveBooleanCondition(
-        expression: Expression.fromMap(renderedGroup['condition']),
-        nullValue: true);
+    // renderedGroup['condition'] = resolveBooleanCondition(
+    //     expression: Expression.fromMap(renderedGroup['condition']),
+    //     nullValue: true);
     updateResponseItem(
         responseGroup: this.responses,
         changeKey: questionGroup.key,
@@ -234,10 +266,13 @@ class SurveyEngineCore implements Engine {
       SurveyItem itemDefGroup =
           findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
-      itemDef['condition'] =
-          resolveBooleanCondition(expression: itemDef['condition']);
+      // itemDef['condition'] =
+      //     resolveBooleanCondition(expression: itemDef['condition']);
       if (itemDef == null ||
-          ((itemDef['condition'] != null) && (itemDef['condition'] == false))) {
+          ((resolveBooleanCondition(expression: itemDef['condition']) !=
+                  null) &&
+              (resolveBooleanCondition(expression: itemDef['condition']) ==
+                  false))) {
         dynamic tempItems =
             itemDef['items'].where((iter) => iter['key'] != item['key']);
         itemDef['items'] = tempItems;
@@ -445,9 +480,9 @@ class SurveyEngineCore implements Engine {
       return null;
     }
     dynamic renderedItem = surveySingleItem.toMap();
-    renderedItem['condition'] = resolveBooleanCondition(
-        expression: Expression.fromMap(renderedItem['condition']),
-        nullValue: true);
+    // renderedItem['condition'] = resolveBooleanCondition(
+    //     expression: Expression.fromMap(renderedItem['condition']),
+    //     nullValue: true);
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
