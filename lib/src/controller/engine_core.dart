@@ -99,22 +99,22 @@ class SurveyEngineCore implements Engine {
 
   dynamic getRenderedSurvey() {
     if (this.weedRemoval == true) {
-      updateConditionsToNull(this.renderedSurvey);
+      removeConditionParameter(this.renderedSurvey);
       return this.renderedSurvey;
     }
     updateConditions(this.renderedSurvey);
     return this.renderedSurvey;
   }
 
-  void updateConditionsToNull(dynamic renderedGroup) {
+  void removeConditionParameter(dynamic renderedGroup) {
     if (renderedGroup == null) {
       return;
     }
-    renderedGroup['condition'] = null;
+    renderedGroup.remove('condition');
     renderedGroup['items'].forEach((item) {
-      item['condition'] = null;
+      item.remove('condition');
       if (item['items'] != null) {
-        updateConditions(item);
+        removeConditionParameter(item);
       }
       Utils.removeNullParams(renderedGroup);
     });
@@ -237,30 +237,49 @@ class SurveyEngineCore implements Engine {
       return null;
     }
 
+// Adding items to the front
     int currentIndex = 0;
-    while (currentIndex < groupDef.items.length) {
-      dynamic item =
-          getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
-      if (item == null) {
-        currentIndex++;
-        continue;
-      }
-      if (item['items'] == null) {
+    dynamic nextItem =
+        getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
+    while (nextItem != null) {
+      if (nextItem['items'] == null) {
         dynamic rendered =
-            renderSurveySingleItem(SurveySingleItem.fromMap(item));
-        renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
-        // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
-        // function to insert at a position use this in rerendering
+            renderSurveySingleItem(SurveySingleItem.fromMap(nextItem));
+        renderedGroup['items'].insert(currentIndex, rendered);
         updateResponseItem(
             responseGroup: this.responses,
-            changeKey: item['key'],
+            changeKey: nextItem['key'],
             timeStampType: 'rendered');
       } else {
         renderedGroup['items']
-            .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
+            .add(initRenderedGroupItem(SurveyGroupItem.fromMap(nextItem)));
       }
       currentIndex++;
+      nextItem = getNextItem(groupDef, renderedGroup, nextItem['key'], true);
     }
+    // while (currentIndex < groupDef.items.length) {
+    //   dynamic item =
+    //       getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
+    //   if (item == null) {
+    //     currentIndex++;
+    //     continue;
+    //   }
+    //   if (item['items'] == null) {
+    //     dynamic rendered =
+    //         renderSurveySingleItem(SurveySingleItem.fromMap(item));
+    //     renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+    //     // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+    //     // function to insert at a position use this in rerendering
+    //     updateResponseItem(
+    //         responseGroup: this.responses,
+    //         changeKey: item['key'],
+    //         timeStampType: 'rendered');
+    //   } else {
+    //     renderedGroup['items']
+    //         .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
+    //   }
+    //   currentIndex++;
+    // }
 
     renderedGroup['items'].forEach((item) {
       SurveyItem itemDefGroup =
@@ -295,23 +314,24 @@ class SurveyEngineCore implements Engine {
       } else {
         renderedGroup['items'][currentIndex] =
             renderSurveySingleItem(SurveySingleItem.fromMap(itemDef));
+        print("RERENDER SURVEY ITEM:" + itemDef['key']);
       }
 
       dynamic nextItem =
           getNextItem(groupDef, renderedGroup, item['key'], true);
       while (nextItem != null) {
+        currentIndex++;
         if (nextItem['items'] == null) {
           dynamic rendered =
               renderSurveySingleItem(SurveySingleItem.fromMap(nextItem));
-          renderedGroup['items']
-              .insert(renderedGroup['items'].length, rendered);
+          renderedGroup['items'].insert(currentIndex, rendered);
           updateResponseItem(
               responseGroup: this.responses,
               changeKey: nextItem['key'],
               timeStampType: 'rendered');
         } else {
-          renderedGroup['items']
-              .add(initRenderedGroupItem(SurveyGroupItem.fromMap(nextItem)));
+          renderedGroup['items'].insert(currentIndex,
+              initRenderedGroupItem(SurveyGroupItem.fromMap(nextItem)));
         }
         nextItem = getNextItem(groupDef, renderedGroup, nextItem.key, true);
       }
@@ -319,13 +339,12 @@ class SurveyEngineCore implements Engine {
 
     dynamic lastItem =
         renderedGroup['items'][renderedGroup['items'].length - 1];
-    dynamic nextItem =
-        getNextItem(groupDef, renderedGroup, lastItem['key'], false);
+    nextItem = getNextItem(groupDef, renderedGroup, lastItem['key'], false);
     while (nextItem != null) {
       if (nextItem['items'] == null) {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(nextItem));
-        renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
+        renderedGroup['items'].add(rendered);
         updateResponseItem(
             responseGroup: this.responses,
             changeKey: nextItem['key'],
@@ -493,12 +512,6 @@ class SurveyEngineCore implements Engine {
     renderedItem['components'] = resolveItemComponentGroup(
         surveySingleItem.components, surveySingleItem);
     renderedItem['validations'] = renderedValidations;
-    if (this.weedRemoval == true) {
-      if (renderedItem['condition'] == true) {
-        renderedItem['condition'] = null;
-      }
-    }
-
     return Utils.removeNullParams(renderedItem);
   }
 

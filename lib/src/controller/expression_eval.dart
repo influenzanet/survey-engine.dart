@@ -553,6 +553,7 @@ class ExpressionEvaluation {
     var root;
     if (parentReference == 'this') {
       root = this.temporaryItem;
+      print("validating item:" + this.temporaryItem.key);
     } else {
       var surveyExpression = {
         'name': 'getObjByHierarchicalKey',
@@ -591,7 +592,11 @@ class ExpressionEvaluation {
         .firstWhere((iter) => iter['key'] == surveyItemKey, orElse: () => null);
     result = (rule == null)
         ? true
-        : Utils.evaluateBooleanResult(Expression.fromMap(rule['rule']));
+        : Utils.evaluateBooleanResult(Expression.fromMap(rule['rule']),
+            context: this.context,
+            renderedSurvey: this.renderedSurvey,
+            responses: this.responses,
+            temporaryItem: this.temporaryItem);
     return result;
   }
 }

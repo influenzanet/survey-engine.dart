@@ -222,7 +222,7 @@ void main() {
         'validations': [
           {
             'key': 'v1',
-            'type': 'hard',
+            'type': 'soft',
             'rule': {
               'name': 'not',
               'returnType': 'boolean',
@@ -233,7 +233,7 @@ void main() {
           },
           {
             'key': 'v2',
-            'type': 'hard',
+            'type': 'soft',
             'rule': {
               'name': 'not',
               'returnType': 'boolean',
