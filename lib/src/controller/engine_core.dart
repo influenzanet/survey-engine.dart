@@ -206,8 +206,7 @@ class SurveyEngineCore implements Engine {
         dynamic rendered =
             renderSurveySingleItem(SurveySingleItem.fromMap(item));
         renderedGroup['items'].add(rendered);
-        // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
-        // function to insert at a position use this in rerendering
+
         updateResponseItem(
             responseGroup: this.responses,
             changeKey: item['key'],
@@ -289,13 +288,15 @@ class SurveyEngineCore implements Engine {
       // itemDef['condition'] =
       //     resolveBooleanCondition(expression: itemDef['condition']);
       if (itemDef == null ||
-          ((resolveBooleanCondition(expression: itemDef['condition']) !=
+          ((resolveBooleanCondition(
+                      expression: Expression.fromMap(itemDef['condition'])) !=
                   null) &&
-              (resolveBooleanCondition(expression: itemDef['condition']) ==
+              (resolveBooleanCondition(
+                      expression: Expression.fromMap(itemDef['condition'])) ==
                   false))) {
         dynamic tempItems =
-            itemDef['items'].where((iter) => iter['key'] != item['key']);
-        itemDef['items'] = tempItems;
+            renderedGroup['items'].where((iter) => iter['key'] != item['key']);
+        renderedGroup['items'] = tempItems.toList();
         return;
       }
 
