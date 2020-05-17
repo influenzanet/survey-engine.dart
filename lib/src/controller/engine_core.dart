@@ -91,6 +91,7 @@ class SurveyEngineCore implements Engine {
   }
 
   dynamic questionDisplayed(String key) {
+    print("Question displayed=\n" + key);
     updateResponseItem(
         changeKey: key,
         responseGroup: this.responses,

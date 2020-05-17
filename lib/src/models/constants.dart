@@ -32,6 +32,7 @@ const List<String> rootReferenceExpressions = [
 
 const int firstArgument = 0,
     secondArgument = 1,
+    thirdArgument = 2,
     firstExpression = 0,
     secondExpression = 1,
     stringEqualityValue = 0,
