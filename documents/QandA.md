@@ -99,9 +99,31 @@ Independent functions
 ## Expression evaluation
 1. *temporaryItem*: Continuing the question on *getAttribute*. Is the item resolved with all conditions and display conditions completely? i.e. is temporaryItem a SurveyGroupItem or a rendered SurveyGroupItem that is not yet pushed to the tree?
    + Answer: it is the rendered one
-## Engine.ts
+## Engine.ts Discussion
 1. **setResponse**: What exactly does _onlyDirectFollower_ signify in addRenderedItem. What exactly is _lastKey_?
++ Answer: The _onlyDirectFollower_ makes sure to render all items where the conditions become _true_ after a _setResponse_ till the rendered _lastKey_ item. 
+2. **reRender**: A brief explanation on the loop logics in the function
+   + Answer: 
+     - The first loop makes sure that the items that were not displayed due to a "False" condition and which were above in the order of the survey items array are rechecked till the point where the rendered survey item array is reached
+      - The second loop makes sure that the rendered survey removes items where the condition was displayed
+      - The third loop makes sure  that the items that were not displayed due to a "False" condition and which were below in the order of the survey items array are rechecked till the point where the rendered survey item array is reached.
+3. Can _responseItem_ have value/dtype in case of Array
+   + Answer: Yes
+4. How can _renderedGroup.key_ be empty?
+    + Answer: Due to a dummy _return;_ statement
+5. Exact relation between ResponseItem & SurveyItem
+      + Answer: SurveyGroupItemResponse:SurveyGroupItem::SurveySingleItemResponse:SurveySingleItem. The _ResponseItem_ inside the _SurveyGroupResponse_ is a valid response for every group and will be sent over once the survey is complete 
+6. Should the content/parts be resolved at the beginning of the logic or during engine evaluation?
+   + Answer: No an example is based on a response for an age input a description example called "You are _input_ years old". So the resolving content and description should remain the _engine_ logic
+7. Should _parts_ be kept as a _String_?
+   + Answer: No the _parts_ should remain an _Array_ of _Strings_
 
+## General
+1. Will using logic from _survey-engine.ts_ be a problem of plagariarism?
+   + Answer: No as the thesis involves translation and it will be simpler
+2. Thesis registration?
+   + Answer: Done and the deadline is October 2
+ 
 
 
 
