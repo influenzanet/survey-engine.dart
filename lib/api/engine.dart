@@ -30,4 +30,5 @@ abstract class Engine {
   dynamic questionDisplayed(String key);
   dynamic getRenderedSurvey();
   dynamic getResponses();
+  dynamic flattenSurveyItemtree();
 }

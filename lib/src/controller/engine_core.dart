@@ -107,6 +107,10 @@ class SurveyEngineCore implements Engine {
     return this.renderedSurvey;
   }
 
+  dynamic flattenSurveyItemtree() {
+    return Utils.getFlattenedRenderedSurvey(this.renderedSurvey);
+  }
+
   void removeConditionParameter(dynamic renderedGroup) {
     if (renderedGroup == null) {
       return;
