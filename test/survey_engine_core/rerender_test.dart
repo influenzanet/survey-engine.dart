@@ -86,6 +86,12 @@ void main() {
       out.write(json.encode(newRendered));
       out.close();
       print(json.encode(newRendered));
+
+      out = new File(
+              'lib/src/test_json/web_client_output/flatRenderedSurvey.json')
+          .openWrite();
+      out.write(json.encode(surveyEngineCore.flattenSurveyItemtree()));
+      out.close();
     });
   });
 }
