@@ -5,12 +5,12 @@ import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart
 import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
 
-abstract class Engine {
+abstract class SurveyEngineCoreApi {
   SurveyGroupItem surveyDef;
   SurveyGroupItemResponse responses;
   SurveyContext context;
   ExpressionEvaluation evalEngine;
-  factory Engine(
+  factory SurveyEngineCoreApi(
       {SurveyGroupItem surveyDef,
       SurveyGroupItemResponse responses,
       SurveyContext context,

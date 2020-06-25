@@ -10,8 +10,8 @@ void main() {
   group('Test getter functions to be exposed to frontend:\n', () {
     setUp(() {});
     test('Test if survey G0 is rendered succesfully (getRenderedSurvey)', () {
-      Engine surveyEngineCore =
-          Engine(surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
+      SurveyEngineCoreApi surveyEngineCore = SurveyEngineCoreApi(
+          surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic expected = renderedSurveyGroupRoot;
 
       dynamic actual = surveyEngineCore.getRenderedSurvey();
@@ -20,8 +20,8 @@ void main() {
     });
 
     test('Test if a root response tree is flattened', () {
-      Engine surveyEngineCore =
-          Engine(surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
+      SurveyEngineCoreApi surveyEngineCore = SurveyEngineCoreApi(
+          surveyDef: SurveyGroupItem.fromMap(testSurveyGroupItemRoot));
       dynamic actual = surveyEngineCore.getResponses();
       dynamic expected = flatResponseItems;
       // Since timestamps are punched in responses,

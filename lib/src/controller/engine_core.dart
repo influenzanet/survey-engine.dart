@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/api/engine.dart';
+import 'package:survey_engine.dart/api/engine_core_api.dart';
 import 'package:survey_engine.dart/src/controller/exceptions.dart';
 import 'package:survey_engine.dart/src/controller/expression_eval.dart';
 import 'package:survey_engine.dart/src/controller/utils.dart';
@@ -20,7 +20,7 @@ import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_item_response.dart';
 import 'package:survey_engine.dart/src/models/survey_item_response/survey_single_item_response.dart';
 
-class SurveyEngineCore implements Engine {
+class SurveyEngineCore implements SurveyEngineCoreApi {
   SurveyGroupItem surveyDef;
   SurveyGroupItemResponse responses;
   SurveyContext context;
