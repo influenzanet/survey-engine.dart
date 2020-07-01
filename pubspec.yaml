@@ -1,8 +1,11 @@
 name: survey_engine.dart
-description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: Karthik Hanasoge SUresh <kali.karthik@gmail.com>
+version: 0.1.0
+description: >-
+  The current package is a project of Influenzanet. The package provides a reusable survey parsing library for Influenzanet surveys. 
+  It can be integrated easily to develop flutter applications.
+homepage: https://influenzanet.github.io/
+documentation: https://github.com/influenzanet/survey-engine.dart/wiki
+issue_tracker: https://github.com/influenzanet/survey-engine.dart/issues
 
 environment:
   sdk: '>=2.5.0 <3.0.0'

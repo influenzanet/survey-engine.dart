@@ -10,12 +10,12 @@ build/
 # Directory created by dartdoc
 doc/api/
 .vscode/launch.json
-CHANGELOG.md
 analysis_options.yaml
 test/.test_coverage.dart
 coverage/lcov.info
 coverage_badge.svg
 .vscode/settings.json
 
-# Directory used for comparison and other checks
+# Directory used for development purposes
 test_json/
+documents/
