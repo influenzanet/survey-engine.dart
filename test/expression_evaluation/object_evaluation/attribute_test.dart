@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/expression_eval.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
+import 'package:influenzanet_survey_engine/src/controller/expression_eval.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_context.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_single_item.dart';
 import 'package:test/test.dart';
 
 import '../../survey_engine_core/survey_item_constants.dart';

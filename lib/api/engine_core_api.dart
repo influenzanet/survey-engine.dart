@@ -1,9 +1,9 @@
-import 'package:survey_engine.dart/src/controller/engine_core.dart';
-import 'package:survey_engine.dart/src/controller/expression_eval.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_context.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/response_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item_response/survey_group_item_response.dart';
+import 'package:influenzanet_survey_engine/src/controller/engine_core.dart';
+import 'package:influenzanet_survey_engine/src/controller/expression_eval.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_context.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_group_item.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item_response/response_item.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item_response/survey_group_item_response.dart';
 
 abstract class SurveyEngineCoreApi {
   SurveyGroupItem surveyDef;

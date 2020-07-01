@@ -1,7 +1,7 @@
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
-import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/response_component.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/style_component.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_string.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,10 +1,10 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/expression/expression_arg.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/controller/utils.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression_arg.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_object.dart';
 
 class LocalizedString implements LocalizedObject {
   String code;

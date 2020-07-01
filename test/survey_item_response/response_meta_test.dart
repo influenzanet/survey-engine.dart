@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/models/survey_item_response/response_meta.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item_response/response_meta.dart';
 import 'package:test/test.dart';
 
 void main() {

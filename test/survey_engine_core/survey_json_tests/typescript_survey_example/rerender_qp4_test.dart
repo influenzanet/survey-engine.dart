@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:survey_engine.dart/api/api.dart';
-import 'package:survey_engine.dart/src/controller/engine_core.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_group_item.dart';
+import 'package:influenzanet_survey_engine/api/api.dart';
+import 'package:influenzanet_survey_engine/src/controller/engine_core.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_group_item.dart';
 import 'package:test/test.dart';
 
 import 'qp4.dart';

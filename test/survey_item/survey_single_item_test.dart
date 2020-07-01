@@ -1,6 +1,6 @@
-import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_single_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item/validations.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/item_group_component.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_single_item.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/validations.dart';
 import 'package:test/test.dart';
 
 void main() {

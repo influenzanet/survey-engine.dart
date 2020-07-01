@@ -1,4 +1,4 @@
 library api;
 
-export 'package:survey_engine.dart/api/engine_core_api.dart';
-export 'package:survey_engine.dart/src/models/models.dart';
+export 'package:influenzanet_survey_engine/api/engine_core_api.dart';
+export 'package:influenzanet_survey_engine/src/models/models.dart';

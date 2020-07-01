@@ -1,12 +1,12 @@
-import 'package:survey_engine.dart/src/models/constants.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
-import 'package:survey_engine.dart/src/models/item_component/display_component.dart';
-import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
-import 'package:survey_engine.dart/src/models/item_component/properties.dart';
-import 'package:survey_engine.dart/src/models/item_component/response_component.dart';
-import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
+import 'package:influenzanet_survey_engine/src/models/constants.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/display_component.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/item_group_component.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/properties.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/response_component.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/style_component.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_object.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_string.dart';
 
 abstract class ItemComponent {
   String role;

@@ -1,5 +1,5 @@
-import 'package:survey_engine.dart/src/controller/expression_eval.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/controller/expression_eval.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
 import 'package:test/test.dart';
 
 // Need to think of a better way to test all kinds of mixed expressions

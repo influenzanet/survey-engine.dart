@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
 
 const testSurveySingleItemOne = {'key': 'G0.S1'};
 const testSurveySingleItemOneGrpTwo = {'key': 'G0.G1.S1'};

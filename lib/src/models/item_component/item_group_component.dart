@@ -1,14 +1,14 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
-import 'package:survey_engine.dart/src/models/item_component/item_component.dart';
-import 'package:survey_engine.dart/src/models/item_component/properties.dart';
-import 'package:survey_engine.dart/src/models/item_component/style_component.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_object.dart';
-import 'package:survey_engine.dart/src/models/localized_object/localized_string.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/controller/utils.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/item_component.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/properties.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/style_component.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_object.dart';
+import 'package:influenzanet_survey_engine/src/models/localized_object/localized_string.dart';
 
 class ItemGroupComponent implements ItemComponent {
   String role;

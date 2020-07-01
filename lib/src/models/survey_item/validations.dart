@@ -1,10 +1,10 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/constants.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/controller/utils.dart';
+import 'package:influenzanet_survey_engine/src/models/constants.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
 
 class Validations {
   Expression rule;

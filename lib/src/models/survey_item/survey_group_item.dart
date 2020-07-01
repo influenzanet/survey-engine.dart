@@ -1,12 +1,12 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:survey_engine.dart/src/controller/exceptions.dart';
-import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
-import 'package:survey_engine.dart/src/models/item_component/item_group_component.dart';
-import 'package:survey_engine.dart/src/models/survey_item/survey_item.dart';
-import 'package:survey_engine.dart/src/models/survey_item/validations.dart';
+import 'package:influenzanet_survey_engine/src/controller/exceptions.dart';
+import 'package:influenzanet_survey_engine/src/controller/utils.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/models/item_component/item_group_component.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/survey_item.dart';
+import 'package:influenzanet_survey_engine/src/models/survey_item/validations.dart';
 
 class SurveyGroupItem implements SurveyItem {
   String key;

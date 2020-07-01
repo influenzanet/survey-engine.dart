@@ -1,5 +1,5 @@
-import 'package:survey_engine.dart/src/controller/utils.dart';
-import 'package:survey_engine.dart/src/models/expression/expression.dart';
+import 'package:influenzanet_survey_engine/src/controller/utils.dart';
+import 'package:influenzanet_survey_engine/src/models/expression/expression.dart';
 import 'package:test/test.dart';
 
 void main() {
