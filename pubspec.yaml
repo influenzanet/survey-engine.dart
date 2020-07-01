@@ -1,5 +1,5 @@
 name: influenzanet_survey_engine
-version: 0.1.0
+version: 0.1.1
 description: >-
   The current package is a project of Influenzanet. The package provides a reusable survey parsing library for Influenzanet surveys. 
   It can be integrated easily to develop flutter applications.
