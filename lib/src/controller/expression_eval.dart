@@ -101,7 +101,6 @@ class ExpressionEvaluation {
       case 'getSurveyItemValidation':
         return getSurveyItemValidation(expression);
         break;
-      // Needs to change after returnType of Expression is confirmed
       case 'sequential':
         return items;
         break;
@@ -228,7 +227,6 @@ class ExpressionEvaluation {
     bool result = false;
     for (final arg in arguments) {
       result = getLogicalEvaluation(arg);
-      // `or` evaluates to true even if single expression returns true
       if (result == true) {
         break;
       }
@@ -241,7 +239,6 @@ class ExpressionEvaluation {
     bool result = true;
     for (final arg in arguments) {
       result = getLogicalEvaluation(arg);
-      // `and` evaluates to false even if single expression returns false
       if (result == false) {
         break;
       }
