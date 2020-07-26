@@ -37,7 +37,7 @@ void main() {
       SurveyContext expected = eval.evalExpression(expression: expr);
       expect(expected.mode, 'mobile');
     });
-    test('Check getRenderedSurvey', () {
+    test('Check getRenderedItems', () {
       testExpr = {
         'name': 'getRenderedItems',
       };

@@ -86,7 +86,6 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
         responseGroup: this.responses,
         timeStampType: 'responded',
         newResponseItem: response);
-    // Code to re-render tree WIP
     this.renderedSurvey = reRenderGroup(this.renderedSurvey);
   }
 
@@ -190,9 +189,7 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
   dynamic initRenderedGroupItem(SurveyGroupItem questionGroup) {
     if (questionGroup == null) return null;
     var renderedGroup = questionGroup.toMap();
-    // renderedGroup['condition'] = resolveBooleanCondition(
-    //     expression: Expression.fromMap(renderedGroup['condition']),
-    //     nullValue: true);
+
     updateResponseItem(
         responseGroup: this.responses,
         changeKey: questionGroup.key,
@@ -261,36 +258,12 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
       currentIndex++;
       nextItem = getNextItem(groupDef, renderedGroup, nextItem['key'], true);
     }
-    // while (currentIndex < groupDef.items.length) {
-    //   dynamic item =
-    //       getNextItem(groupDef, renderedGroup, renderedGroup['key'], true);
-    //   if (item == null) {
-    //     currentIndex++;
-    //     continue;
-    //   }
-    //   if (item['items'] == null) {
-    //     dynamic rendered =
-    //         renderSurveySingleItem(SurveySingleItem.fromMap(item));
-    //     renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
-    //     // renderedGroup['items'].insert(renderedGroup['items'].length, rendered);
-    //     // function to insert at a position use this in rerendering
-    //     updateResponseItem(
-    //         responseGroup: this.responses,
-    //         changeKey: item['key'],
-    //         timeStampType: 'rendered');
-    //   } else {
-    //     renderedGroup['items']
-    //         .add(initRenderedGroupItem(SurveyGroupItem.fromMap(item)));
-    //   }
-    //   currentIndex++;
-    // }
+
 
     renderedGroup['items'].forEach((item) {
       SurveyItem itemDefGroup =
           findSurveyItem(item['key'], rootItem: this.surveyDef);
       dynamic itemDef = itemDefGroup?.toMap();
-      // itemDef['condition'] =
-      //     resolveBooleanCondition(expression: itemDef['condition']);
       if (itemDef == null ||
           ((resolveBooleanCondition(
                       expression: Expression.fromMap(itemDef['condition'])) !=
@@ -438,7 +411,6 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
         temporaryItem: parentItem);
     resolvedGroup['content'] = resolveContent(component.content);
     resolvedGroup['description'] = resolveContent(component.description);
-    // By default disabled
     resolvedGroup['disabled'] = resolveBooleanCondition(
         expression: component.disabled,
         nullValue: false,
@@ -456,7 +428,6 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
     }
 
     // Resolve items
-
     component.items.forEach((itemComponent) {
       if (itemComponent.items == null) {
         dynamic resolvedItemComponent = itemComponent.toMap();
@@ -468,7 +439,6 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
             resolveContent(itemComponent.content);
         resolvedItemComponent['description'] =
             resolveContent(itemComponent.description);
-        // By default disabled
         resolvedItemComponent['disabled'] = resolveBooleanCondition(
             expression: itemComponent.disabled,
             nullValue: false,
@@ -505,9 +475,7 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
       return null;
     }
     dynamic renderedItem = surveySingleItem.toMap();
-    // renderedItem['condition'] = resolveBooleanCondition(
-    //     expression: Expression.fromMap(renderedItem['condition']),
-    //     nullValue: true);
+
     List<Map<String, Object>> renderedValidations = [];
     surveySingleItem.validations?.forEach((validation) {
       Map<String, Object> validationMap = validation.toMap();
@@ -571,7 +539,6 @@ class SurveyEngineCore implements SurveyEngineCoreApi {
     var availableItems =
         getUnrenderedItems(surveyGroupItem, renderedParentGroup);
 
-    // Needs clarification
     if ((lastKey == null || lastKey.isEmpty) && onlyDirectFollower) {
       return null;
     }
