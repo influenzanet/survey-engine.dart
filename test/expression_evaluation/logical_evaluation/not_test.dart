@@ -58,4 +58,34 @@ void main() {
       expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
+
+  group('NOT comparisons for invalid cases default to False:\n', () {
+    Expression expr;
+    ExpressionEvaluation eval;
+    Map<String, Object> testExpr;
+    setUp(() {
+      eval = ExpressionEvaluation();
+    });
+
+    test('Check isFalse for empty operands', () {
+      testExpr = {'name': 'not', 'returnType': 'boolean', 'data': []};
+      print(testExpr);
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+
+    test('Check isFalse for more than one operand', () {
+      testExpr = {
+        'name': 'not',
+        'returnType': 'boolean',
+        'data': [
+          {'dtype': 'str', 'str': 'ab'},
+          {'dtype': 'str', 'str': 'ab'},
+        ]
+      };
+      print(testExpr);
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+  });
 }

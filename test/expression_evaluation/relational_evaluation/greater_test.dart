@@ -86,4 +86,38 @@ void main() {
       expect(eval.evalExpression(expression: expr), isTrue);
     });
   });
+
+
+  group('GTE comparisons for invalid cases default to False:\n', () {
+    Expression expr;
+    ExpressionEvaluation eval;
+    Map<String, Object> testExpr;
+    setUp(() {
+      eval = ExpressionEvaluation();
+    });
+
+       
+    test('Check isFalse for empty operands', () {
+      testExpr = {
+        'name': 'gte',
+        'returnType': 'boolean',
+        'data': [
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+
+      test('Check isFalse for single operand', () {
+      testExpr = {
+        'name': 'gte',
+        'returnType': 'boolean',
+        'data': [
+          {'dtype': 'str', 'str': 'ab'}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+  });
 }

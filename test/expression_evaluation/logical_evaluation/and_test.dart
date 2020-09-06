@@ -23,6 +23,7 @@ void main() {
       expr = Expression.fromMap(testExpr);
       expect(eval.evalExpression(expression: expr), isTrue);
     });
+
     test('Check isTrue for nums (1&&2)', () {
       testExpr = {
         'name': 'and',
@@ -67,6 +68,40 @@ void main() {
         'data': [
           {'dtype': 'str', 'str': 'ab'},
           {'dtype': 'str', 'str': ''}
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+  });
+
+  
+  group('AND comparisons for invalid cases default to False:\n', () {
+    Expression expr;
+    ExpressionEvaluation eval;
+    Map<String, Object> testExpr;
+    setUp(() {
+      eval = ExpressionEvaluation();
+    });
+
+       
+    test('Check isFalse for empty operands', () {
+      testExpr = {
+        'name': 'and',
+        'returnType': 'boolean',
+        'data': [
+        ]
+      };
+      expr = Expression.fromMap(testExpr);
+      expect(eval.evalExpression(expression: expr), isFalse);
+    });
+
+      test('Check isFalse for single operand', () {
+      testExpr = {
+        'name': 'and',
+        'returnType': 'boolean',
+        'data': [
+          {'dtype': 'str', 'str': 'ab'}
         ]
       };
       expr = Expression.fromMap(testExpr);

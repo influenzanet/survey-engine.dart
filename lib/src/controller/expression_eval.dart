@@ -41,9 +41,9 @@ class ExpressionEvaluation {
         (!rootReferenceExpressions.contains(checkValidMap['name'])) &&
         (checkValidMap['arguments'] > expression.data.length)) {
       Warning(
-          message: 'The expression' +
+          message: 'The expression \'' +
               exprMap['name'] +
-              'has an invalid number of arguments');
+              '\' has an invalid number of arguments');
       return false;
     }
     switch (expression.name) {
